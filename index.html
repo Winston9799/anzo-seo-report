@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANZO Capital — SEO Report · April 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --red: #B22333;
+    --red-light: #FAE8EA;
+    --amber: #B26D23;
+    --amber-light: #F5E9D8;
+    --green: #1E6E3E;
+    --green-light: #E8F5EE;
+    --alt-row: #F4F4F4;
+    --border: #DEDEDE;
+    --text: #1A1A1A;
+    --text-muted: #666;
+    --bg: #FAFAFA;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+  /* NAV */
+  nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 32px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 4px; }
+  .nav-brand { font-weight: 700; font-size: 15px; color: var(--red); padding: 14px 0; margin-right: 20px; white-space: nowrap; }
+  .nav-brand span { color: var(--text); font-weight: 400; font-size: 13px; }
+  nav a { color: var(--text-muted); text-decoration: none; padding: 14px 10px; font-size: 13px; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  nav a:hover { color: var(--red); border-bottom-color: var(--red); }
+
+  /* PAGE */
+  .page { max-width: 1160px; margin: 0 auto; padding: 28px 24px 60px; }
+
+  /* SECTION HEADER */
+  .section-header { display: flex; align-items: baseline; gap: 10px; margin: 36px 0 16px; }
+  .section-num { font-size: 11px; font-weight: 700; color: var(--red); background: var(--red-light); padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px; }
+  .section-title { font-size: 20px; font-weight: 700; }
+  .section-sub { color: var(--text-muted); font-size: 13px; }
+  hr.section-rule { border: none; border-top: 1px solid var(--border); margin-bottom: 20px; }
+
+  /* CARDS GRID */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; border-top: 3px solid var(--red); }
+  .card-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 6px; }
+  .card-value { font-size: 28px; font-weight: 700; color: var(--red); line-height: 1.1; }
+  .card-delta { font-size: 12px; margin-top: 5px; font-weight: 600; }
+  .delta-up { color: var(--green); }
+  .delta-down { color: var(--red); }
+  .delta-neutral { color: var(--text-muted); }
+  .card-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* DUAL CARD */
+  .dual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .dual-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+  .dual-card.branded { border-top: 3px solid var(--red); }
+  .dual-card.nonbranded { border-top: 3px solid var(--amber); }
+  .dual-card h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+  .dual-card.branded h3 { color: var(--red); }
+  .dual-card.nonbranded h3 { color: var(--amber); }
+  .dual-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .dual-row:last-child { border-bottom: none; }
+  .dual-val { font-weight: 600; }
+
+  /* WIN/CONCERN BOXES */
+  .wc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .wc-box { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+  .wc-box.wins { border-top: 3px solid var(--green); }
+  .wc-box.concerns { border-top: 3px solid var(--red); }
+  .wc-box h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+  .wc-box.wins h3 { color: var(--green); }
+  .wc-box.concerns h3 { color: var(--red); }
+  .wc-box ul { padding-left: 16px; }
+  .wc-box li { font-size: 13px; margin-bottom: 6px; line-height: 1.5; }
+
+  /* TABLES */
+  .table-wrap { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--white); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: var(--red); color: #fff; padding: 9px 12px; text-align: left; font-weight: 600; font-size: 12px; white-space: nowrap; }
+  thead th.right { text-align: right; }
+  tbody tr:nth-child(even) { background: var(--alt-row); }
+  tbody tr:hover { background: #EEF; }
+  tbody td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.right { text-align: right; }
+  td.mono { font-family: monospace; font-size: 12px; }
+  td.url { max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .td-up { color: var(--green); font-weight: 600; }
+  .td-down { color: var(--red); font-weight: 600; }
+  .td-neutral { color: var(--text-muted); }
+
+  /* TABS */
+  .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 16px; }
+  .tab-btn { padding: 8px 18px; background: none; border: none; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.15s; }
+  .tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* CWV */
+  .cwv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
+  .cwv-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+  .cwv-metric { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 6px; }
+  .cwv-value { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  .cwv-value.poor { color: #C0392B; }
+  .cwv-value.needs { color: var(--amber); }
+  .cwv-value.good { color: var(--green); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; }
+  .badge-poor { background: #FDECEC; color: #C0392B; }
+  .badge-needs { background: var(--amber-light); color: var(--amber); }
+  .badge-good { background: var(--green-light); color: var(--green); }
+  .dist-bar { height: 10px; border-radius: 5px; display: flex; overflow: hidden; margin-top: 8px; }
+  .dist-good { background: #27AE60; }
+  .dist-needs { background: #F39C12; }
+  .dist-poor { background: #C0392B; }
+  .dist-legend { display: flex; gap: 10px; margin-top: 6px; font-size: 11px; color: var(--text-muted); }
+  .dist-legend span::before { content: '●'; margin-right: 3px; }
+  .dist-legend .lg { color: #27AE60; }
+  .dist-legend .ln { color: #F39C12; }
+  .dist-legend .lp { color: #C0392B; }
+
+  /* PRIORITY ROWS */
+  tr.p1 td:first-child { border-left: 3px solid #C0392B; }
+  tr.p2 td:first-child { border-left: 3px solid var(--amber); }
+  tr.p3 td:first-child { border-left: 3px solid #2980B9; }
+
+  /* PILL BADGES */
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+  .pill-urgent { background: #FDECEC; color: #C0392B; }
+  .pill-high { background: #FAE8EA; color: var(--red); }
+  .pill-medium { background: var(--amber-light); color: var(--amber); }
+  .pill-low { background: var(--green-light); color: var(--green); }
+
+  /* CHARTS */
+  .chart-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-top: 14px; }
+  .chart-title { font-size: 13px; font-weight: 600; margin-bottom: 14px; color: var(--text-muted); }
+  canvas { max-height: 260px; }
+
+  /* LAYOUT HELPERS */
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .row-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-top: 14px; }
+  .mt14 { margin-top: 14px; }
+  .mt20 { margin-top: 20px; }
+  .period { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+
+  /* REPORT HEADER */
+  .report-header { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 24px 28px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .rh-title { font-size: 24px; font-weight: 800; color: var(--text); }
+  .rh-title span { color: var(--red); }
+  .rh-meta { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+  .rh-badge { display: inline-block; padding: 3px 10px; background: var(--red-light); color: var(--red); border-radius: 6px; font-size: 12px; font-weight: 700; margin-top: 8px; }
+  .rh-logo { font-size: 36px; font-weight: 900; color: var(--red); letter-spacing: -2px; }
+  .rh-logo span { color: var(--amber); }
+
+  @media (max-width: 900px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .cwv-grid { grid-template-columns: repeat(2, 1fr); }
+    .row-2, .row-3, .dual-grid, .wc-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">ANZO Capital <span>SEO Report</span></div>
+  <a href="#exec">Executive Summary</a>
+  <a href="#performance">Search Performance</a>
+  <a href="#cwv">Core Web Vitals</a>
+  <a href="#coverage">Coverage</a>
+  <a href="#opportunities">Content Opportunities</a>
+  <a href="#actions">Recommended Actions</a>
+</nav>
+
+<div class="page">
+
+  <!-- REPORT HEADER -->
+  <div class="report-header">
+    <div>
+      <div class="rh-title"><span>ANZO Capital</span> — Monthly SEO Report</div>
+      <div class="rh-meta">Reporting period: April 1 – April 30, 2026 · Compared to March 1 – March 31, 2026</div>
+      <div class="rh-meta">Source: Google Search Console · Data exported May 5, 2026</div>
+      <div class="rh-badge">Web Search · All Pages</div>
+    </div>
+    <div class="rh-logo">ANZO<span>.</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       01  EXECUTIVE SUMMARY
+  ══════════════════════════════════════════════════════════════ -->
+  <div id="exec" class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">Executive Summary</span>
+    <span class="section-sub">April 2026 vs March 2026</span>
+  </div>
+  <hr class="section-rule">
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="card">
+      <div class="card-label">Total Clicks</div>
+      <div class="card-value">1,980</div>
+      <div class="card-delta delta-up">▲ +140 (+7.6%)</div>
+      <div class="card-sub">vs 1,840 in Mar 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Total Impressions</div>
+      <div class="card-value">166K</div>
+      <div class="card-delta delta-up">▲ +12K (+7.8%)</div>
+      <div class="card-sub">vs 154K in Mar 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Average CTR</div>
+      <div class="card-value">1.2%</div>
+      <div class="card-delta delta-neutral">― Flat (0.0pp)</div>
+      <div class="card-sub">vs 1.2% in Mar 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Average Position</div>
+      <div class="card-value">8.2</div>
+      <div class="card-delta delta-down">▼ −1.1 positions worse</div>
+      <div class="card-sub">vs 7.1 in Mar 2026</div>
+    </div>
+  </div>
+
+  <!-- BRANDED vs NON-BRANDED -->
+  <div class="dual-grid">
+    <div class="dual-card branded">
+      <h3>Branded Traffic</h3>
+      <div class="dual-row"><span>Clicks (Apr)</span><span class="dual-val">1,192</span></div>
+      <div class="dual-row"><span>Clicks (Mar)</span><span class="dual-val">1,165</span></div>
+      <div class="dual-row"><span>MoM Change</span><span class="dual-val delta-up">▲ +27 (+2.3%)</span></div>
+      <div class="dual-row"><span>Impressions</span><span class="dual-val">4,172</span></div>
+      <div class="dual-row"><span>CTR</span><span class="dual-val">28.6%</span></div>
+      <div class="dual-row"><span>Share of clicks</span><span class="dual-val">60.2%</span></div>
+    </div>
+    <div class="dual-card nonbranded">
+      <h3>Non-Branded Traffic</h3>
+      <div class="dual-row"><span>Clicks (Apr)</span><span class="dual-val">788</span></div>
+      <div class="dual-row"><span>Clicks (Mar)</span><span class="dual-val">675</span></div>
+      <div class="dual-row"><span>MoM Change</span><span class="dual-val delta-up">▲ +113 (+16.7%)</span></div>
+      <div class="dual-row"><span>Impressions</span><span class="dual-val">161,828</span></div>
+      <div class="dual-row"><span>CTR</span><span class="dual-val">0.49%</span></div>
+      <div class="dual-row"><span>Share of clicks</span><span class="dual-val">39.8%</span></div>
+    </div>
+  </div>
+
+  <!-- WINS & CONCERNS -->
+  <div class="wc-grid">
+    <div class="wc-box wins">
+      <h3>✓ Wins This Month</h3>
+      <ul>
+        <li><strong>Not-indexed pages fell 65%</strong> — from ~6,840 (Feb) to 2,417 by end of April. Massive crawl budget recovery.</li>
+        <li><strong>5xx server errors down 87%</strong> — from 638 to 83 issues. Backend stability greatly improved.</li>
+        <li><strong>FAQ rich results surged</strong> — from 1–2 valid results in Feb to 30 by late April.</li>
+        <li><strong>Breadcrumb rich results grew</strong> — now 31 valid URLs with zero invalid, up from 1 in February.</li>
+        <li><strong>ai.anzocapital.com breakout</strong> — 199 clicks in April vs only 35 in March (+469%).</li>
+        <li><strong>No-deposit bonus content gaining traction</strong> — blog page up from 4 to 56 clicks (+1,300%).</li>
+        <li><strong>Non-branded clicks grew 16.7% MoM</strong> — content strategy is starting to deliver.</li>
+      </ul>
+    </div>
+    <div class="wc-box concerns">
+      <h3>⚠ Concerns to Address</h3>
+      <ul>
+        <li><strong>Average position worsened</strong> — from 7.1 to 8.2 despite more impressions; dilution from new lower-ranking content.</li>
+        <li><strong>Mobile LCP is critical</strong> — 261 URLs with Poor LCP (&gt;4s); zero good-LCP URLs detected.</li>
+        <li><strong>Mobile INP needs improvement</strong> — 261 URLs flagged (&gt;200ms); interaction responsiveness lagging.</li>
+        <li><strong>778 duplicate canonical issues</strong> — largest coverage problem, though down from 932 last month.</li>
+        <li><strong>1,323 pages crawled but not indexed</strong> — Google is visiting but not trusting these pages.</li>
+        <li><strong>Non-branded CTR only 0.49%</strong> — 161K+ impressions converting poorly; titles &amp; meta need optimisation.</li>
+        <li><strong>my.anzocapital.com clicks fell 45%</strong> — login portal losing visibility; position held steady, something changed.</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       02  SEARCH PERFORMANCE
+  ══════════════════════════════════════════════════════════════ -->
+  <div id="performance" class="section-header" style="margin-top:44px">
+    <span class="section-num">02</span>
+    <span class="section-title">Search Performance</span>
+    <span class="section-sub">Google Search Console · Web · Apr vs Mar 2026</span>
+  </div>
+  <hr class="section-rule">
+
+  <!-- METRICS TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th class="right">Apr 2026</th>
+          <th class="right">Mar 2026</th>
+          <th class="right">Change</th>
+          <th class="right">% Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Total Clicks</td><td class="right">1,980</td><td class="right">1,840</td><td class="right td-up">+140</td><td class="right td-up">+7.6%</td></tr>
+        <tr><td>Total Impressions</td><td class="right">166,115</td><td class="right">153,746</td><td class="right td-up">+12,369</td><td class="right td-up">+8.0%</td></tr>
+        <tr><td>Average CTR</td><td class="right">1.20%</td><td class="right">1.20%</td><td class="right td-neutral">0.0 pp</td><td class="right td-neutral">Flat</td></tr>
+        <tr><td>Average Position</td><td class="right">8.2</td><td class="right">7.1</td><td class="right td-down">+1.1 pos</td><td class="right td-down">−15.5% (worse)</td></tr>
+        <tr><td>Branded Clicks</td><td class="right">1,192</td><td class="right">1,165</td><td class="right td-up">+27</td><td class="right td-up">+2.3%</td></tr>
+        <tr><td>Non-Branded Clicks</td><td class="right">788</td><td class="right">675</td><td class="right td-up">+113</td><td class="right td-up">+16.7%</td></tr>
+        <tr><td>Mobile Clicks</td><td class="right">1,243</td><td class="right">1,080</td><td class="right td-up">+163</td><td class="right td-up">+15.1%</td></tr>
+        <tr><td>Desktop Clicks</td><td class="right">708</td><td class="right">745</td><td class="right td-down">−37</td><td class="right td-down">−5.0%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- KEYWORD MOVERS -->
+  <div class="section-header" style="margin-top:24px">
+    <span style="font-size:15px;font-weight:700">Top Keyword Movers</span>
+    <span class="section-sub">Largest click changes Apr vs Mar</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Query</th>
+          <th class="right">Apr Clicks</th>
+          <th class="right">Mar Clicks</th>
+          <th class="right">Δ Clicks</th>
+          <th class="right">Apr Impr</th>
+          <th class="right">Apr CTR</th>
+          <th class="right">Apr Pos</th>
+          <th class="right">Mar Pos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>anzo capital limited</td><td class="right">153</td><td class="right">82</td><td class="right td-up">+71</td><td class="right">221</td><td class="right">69.2%</td><td class="right">1.0</td><td class="right">1.0</td></tr>
+        <tr><td>no deposit bonus</td><td class="right">15</td><td class="right">2</td><td class="right td-up">+13</td><td class="right">575</td><td class="right">2.6%</td><td class="right">23.9</td><td class="right">28.6</td></tr>
+        <tr><td>anzo capital</td><td class="right">418</td><td class="right">397</td><td class="right td-up">+21</td><td class="right">764</td><td class="right">54.7%</td><td class="right">1.5</td><td class="right">3.2</td></tr>
+        <tr><td>set price alert on mt5 mobile</td><td class="right">9</td><td class="right">1</td><td class="right td-up">+8</td><td class="right">146</td><td class="right">6.2%</td><td class="right">3.0</td><td class="right">1.2</td></tr>
+        <tr><td>withdrawable no deposit bonus</td><td class="right">9</td><td class="right">0</td><td class="right td-up">+9 (new)</td><td class="right">297</td><td class="right">3.0%</td><td class="right">7.3</td><td class="right">—</td></tr>
+        <tr><td>anzo capital login</td><td class="right">283</td><td class="right">291</td><td class="right td-down">−8</td><td class="right">321</td><td class="right">88.2%</td><td class="right">1.0</td><td class="right">1.0</td></tr>
+        <tr><td>anzo</td><td class="right">218</td><td class="right">237</td><td class="right td-down">−19</td><td class="right">2,312</td><td class="right">9.4%</td><td class="right">4.7</td><td class="right">4.4</td></tr>
+        <tr><td>anzo capital global</td><td class="right">10</td><td class="right">23</td><td class="right td-down">−13</td><td class="right">77</td><td class="right">13.0%</td><td class="right">1.3</td><td class="right">1.3</td></tr>
+        <tr><td>anzo trading</td><td class="right">6</td><td class="right">8</td><td class="right td-down">−2</td><td class="right">17</td><td class="right">35.3%</td><td class="right">1.0</td><td class="right">1.0</td></tr>
+        <tr><td>昂首资本</td><td class="right">35</td><td class="right">45</td><td class="right td-down">−10</td><td class="right">59</td><td class="right">59.3%</td><td class="right">1.0</td><td class="right">1.2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TOP PAGES -->
+  <div class="section-header" style="margin-top:24px">
+    <span style="font-size:15px;font-weight:700">Top Pages by Clicks</span>
+    <span class="section-sub">April 2026</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th class="right">Apr Clicks</th>
+          <th class="right">Δ Clicks</th>
+          <th class="right">Apr Impr</th>
+          <th class="right">CTR</th>
+          <th class="right">Position</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="url" title="https://www.anzocapital.com/">/</td><td class="right">827</td><td class="right td-up">+117</td><td class="right">5,718</td><td class="right">14.5%</td><td class="right">3.9</td></tr>
+        <tr><td class="url" title="https://my.anzocapital.com/">my.anzocapital.com/</td><td class="right">218</td><td class="right td-down">−177</td><td class="right">1,341</td><td class="right">16.3%</td><td class="right">2.5</td></tr>
+        <tr><td class="url" title="https://ai.anzocapital.com/">ai.anzocapital.com/</td><td class="right">199</td><td class="right td-up">+164</td><td class="right">1,243</td><td class="right">16.0%</td><td class="right">2.3</td></tr>
+        <tr><td class="url" title="how-to-set-price-alerts-on-mt5-mobile">/en/blog/how-to-set-price-alerts-on-mt5-mobile</td><td class="right">133</td><td class="right td-up">+102</td><td class="right">10,817</td><td class="right">1.2%</td><td class="right">4.9</td></tr>
+        <tr><td class="url" title="/zh-Hant">/zh-Hant</td><td class="right">105</td><td class="right td-down">−36</td><td class="right">363</td><td class="right">28.9%</td><td class="right">1.9</td></tr>
+        <tr><td class="url" title="/zh-Hans">/zh-Hans</td><td class="right">89</td><td class="right td-up">+12</td><td class="right">305</td><td class="right">29.2%</td><td class="right">2.2</td></tr>
+        <tr><td class="url" title="/en/blog/no-deposit-bonus">/en/blog/no-deposit-bonus</td><td class="right">56</td><td class="right td-up">+52</td><td class="right">8,346</td><td class="right">0.7%</td><td class="right">6.2</td></tr>
+        <tr><td class="url" title="/en/blog/how-ofw-remittances">/en/blog/how-ofw-remittances-impact-usd-php-forex</td><td class="right">26</td><td class="right td-down">−14</td><td class="right">6,593</td><td class="right">0.4%</td><td class="right">5.0</td></tr>
+        <tr><td class="url" title="/en/blog/mt4-mt5-alerts-automation-guide">/en/blog/mt4-mt5-alerts-automation-guide</td><td class="right">22</td><td class="right td-down">−15</td><td class="right">3,321</td><td class="right">0.7%</td><td class="right">5.9</td></tr>
+        <tr><td class="url" title="/en/blog/forex-trading-in-vietnam">/en/blog/forex-trading-in-vietnam-beginners-guide</td><td class="right">17</td><td class="right td-up">+5</td><td class="right">4,976</td><td class="right">0.3%</td><td class="right">4.7</td></tr>
+        <tr><td class="url" title="/en/blog/no-deposit-bonus page">/en/blog/deposit-bonus-vs-no-deposit-bonus</td><td class="right">12</td><td class="right td-down">−13</td><td class="right">10,345</td><td class="right">0.1%</td><td class="right">6.7</td></tr>
+        <tr><td class="url" title="trading hours holiday">/en/notifications/trading-hours-april-holiday-2026</td><td class="right">11</td><td class="right td-up">+9</td><td class="right">15,885</td><td class="right">0.1%</td><td class="right">7.2</td></tr>
+        <tr><td class="url" title="/en/blog/bonus-vs-rebate">/en/blog/bonus-vs-rebate-vs-cashback</td><td class="right">13</td><td class="right td-up">+11</td><td class="right">1,980</td><td class="right">0.7%</td><td class="right">8.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GEOGRAPHY + DEVICE -->
+  <div class="row-2">
+    <div>
+      <div class="section-header" style="margin-top:24px">
+        <span style="font-size:15px;font-weight:700">Top Countries</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th class="right">Apr Clicks</th>
+              <th class="right">Δ</th>
+              <th class="right">CTR</th>
+              <th class="right">Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>🇳🇬 Nigeria</td><td class="right">636</td><td class="right td-down">−18</td><td class="right">16.5%</td><td class="right">4.5</td></tr>
+            <tr><td>🇰🇪 Kenya</td><td class="right">145</td><td class="right td-up">+109</td><td class="right">14.1%</td><td class="right">4.8</td></tr>
+            <tr><td>🇵🇭 Philippines</td><td class="right">144</td><td class="right td-up">+54</td><td class="right">3.8%</td><td class="right">6.3</td></tr>
+            <tr><td>🇹🇼 Taiwan</td><td class="right">140</td><td class="right td-down">−54</td><td class="right">11.5%</td><td class="right">9.6</td></tr>
+            <tr><td>🇲🇾 Malaysia</td><td class="right">102</td><td class="right td-up">+3</td><td class="right">4.2%</td><td class="right">8.0</td></tr>
+            <tr><td>🇭🇰 Hong Kong</td><td class="right">92</td><td class="right td-up">+19</td><td class="right">7.0%</td><td class="right">6.6</td></tr>
+            <tr><td>🇺🇸 United States</td><td class="right">56</td><td class="right td-down">−11</td><td class="right">0.1%</td><td class="right">6.4</td></tr>
+            <tr><td>🇮🇳 India</td><td class="right">55</td><td class="right td-up">+8</td><td class="right">0.9%</td><td class="right">6.3</td></tr>
+            <tr><td>🇸🇬 Singapore</td><td class="right">54</td><td class="right td-down">−19</td><td class="right">2.4%</td><td class="right">6.3</td></tr>
+            <tr><td>🇮🇩 Indonesia</td><td class="right">44</td><td class="right td-down">−18</td><td class="right">2.2%</td><td class="right">7.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="section-header" style="margin-top:24px">
+        <span style="font-size:15px;font-weight:700">Device Split</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Device</th>
+              <th class="right">Apr Clicks</th>
+              <th class="right">Δ</th>
+              <th class="right">CTR</th>
+              <th class="right">Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>📱 Mobile</td><td class="right">1,243</td><td class="right td-up">+163</td><td class="right">4.0%</td><td class="right">10.0</td></tr>
+            <tr><td>🖥 Desktop</td><td class="right">708</td><td class="right td-down">−37</td><td class="right">0.5%</td><td class="right">7.8</td></tr>
+            <tr><td>📟 Tablet</td><td class="right">24</td><td class="right td-up">+12</td><td class="right">5.0%</td><td class="right">6.7</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="chart-wrap" style="margin-top:14px">
+        <div class="chart-title">Device Share of Clicks · April 2026</div>
+        <canvas id="deviceChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       03  CORE WEB VITALS
+  ══════════════════════════════════════════════════════════════ -->
+  <div id="cwv" class="section-header" style="margin-top:44px">
+    <span class="section-num">03</span>
+    <span class="section-title">Core Web Vitals</span>
+    <span class="section-sub">PageSpeed Insights field data · May 5, 2026</span>
+  </div>
+  <hr class="section-rule">
+
+  <div class="tabs" id="cwvTabs">
+    <button class="tab-btn active" onclick="switchTab('mobile')">📱 Mobile</button>
+    <button class="tab-btn" onclick="switchTab('desktop')">🖥 Desktop</button>
+  </div>
+
+  <!-- MOBILE TAB -->
+  <div id="cwv-mobile" class="tab-pane active">
+    <div class="cwv-grid">
+      <div class="cwv-card">
+        <div class="cwv-metric">LCP — Largest Contentful Paint</div>
+        <div class="cwv-value poor">&gt; 4.0 s</div>
+        <span class="badge badge-poor">POOR</span>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">261 URLs affected</div>
+        <div class="dist-bar" style="margin-top:10px">
+          <div class="dist-good" style="width:0%"></div>
+          <div class="dist-needs" style="width:0%"></div>
+          <div class="dist-poor" style="width:100%"></div>
+        </div>
+        <div class="dist-legend">
+          <span class="lp">Poor 100%</span>
+          <span class="ln">Needs 0%</span>
+          <span class="lg">Good 0%</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">Target: &lt; 2.5s · All 261 URLs in Poor range</div>
+      </div>
+      <div class="cwv-card">
+        <div class="cwv-metric">INP — Interaction to Next Paint</div>
+        <div class="cwv-value needs">200 – 500 ms</div>
+        <span class="badge badge-needs">NEEDS IMPROVEMENT</span>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">261 URLs affected</div>
+        <div class="dist-bar" style="margin-top:10px">
+          <div class="dist-good" style="width:0%"></div>
+          <div class="dist-needs" style="width:100%"></div>
+          <div class="dist-poor" style="width:0%"></div>
+        </div>
+        <div class="dist-legend">
+          <span class="lp">Poor 0%</span>
+          <span class="ln">Needs 100%</span>
+          <span class="lg">Good 0%</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">Target: &lt; 200ms · All 261 URLs need improvement</div>
+      </div>
+      <div class="cwv-card">
+        <div class="cwv-metric">CLS — Cumulative Layout Shift</div>
+        <div class="cwv-value poor">&gt; 0.25</div>
+        <span class="badge badge-poor">POOR</span>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">8 URLs in Poor range</div>
+        <div class="dist-bar" style="margin-top:10px">
+          <div class="dist-good" style="width:94%"></div>
+          <div class="dist-needs" style="width:0%"></div>
+          <div class="dist-poor" style="width:6%"></div>
+        </div>
+        <div class="dist-legend">
+          <span class="lp">Poor 3%</span>
+          <span class="ln">Needs 0%</span>
+          <span class="lg">Good 97%</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">Target: &lt; 0.1 · Mostly good, 8 pages need fix</div>
+      </div>
+    </div>
+
+    <!-- DIAGNOSTIC ROWS (FCP/TTFB) -->
+    <div class="table-wrap mt14">
+      <table>
+        <thead>
+          <tr><th>Diagnostic Metric</th><th>Status</th><th>Affected URLs</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>FCP — First Contentful Paint</td>
+            <td><span class="badge badge-poor">Likely Poor</span></td>
+            <td>~261</td>
+            <td>Correlated with high LCP; render-blocking resources suspected</td>
+          </tr>
+          <tr>
+            <td>TTFB — Time to First Byte</td>
+            <td><span class="badge badge-needs">Unknown / Review</span></td>
+            <td>—</td>
+            <td>Server error rate drop (87%) may have improved TTFB; lab test recommended</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DESKTOP TAB -->
+  <div id="cwv-desktop" class="tab-pane">
+    <div class="cwv-grid">
+      <div class="cwv-card">
+        <div class="cwv-metric">LCP — Largest Contentful Paint</div>
+        <div class="cwv-value needs">2.5 – 4.0 s</div>
+        <span class="badge badge-needs">NEEDS IMPROVEMENT</span>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">253 URLs in Needs Improvement + 8 Poor</div>
+        <div class="dist-bar" style="margin-top:10px">
+          <div class="dist-good" style="width:0%"></div>
+          <div class="dist-needs" style="width:97%"></div>
+          <div class="dist-poor" style="width:3%"></div>
+        </div>
+        <div class="dist-legend">
+          <span class="lp">Poor 3%</span>
+          <span class="ln">Needs 97%</span>
+          <span class="lg">Good 0%</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">Target: &lt; 2.5s · 261 total URLs needing attention</div>
+      </div>
+      <div class="cwv-card">
+        <div class="cwv-metric">INP — Interaction to Next Paint</div>
+        <div class="cwv-value good">No issues</div>
+        <span class="badge badge-good">GOOD</span>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">No desktop INP flags</div>
+        <div class="dist-bar" style="margin-top:10px">
+          <div class="dist-good" style="width:100%"></div>
+        </div>
+        <div class="dist-legend">
+          <span class="lg">Good 100%</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">Desktop interactions are responsive</div>
+      </div>
+      <div class="cwv-card">
+        <div class="cwv-metric">CLS — Cumulative Layout Shift</div>
+        <div class="cwv-value needs">0.1 – 0.25</div>
+        <span class="badge badge-needs">NEEDS IMPROVEMENT</span>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted)">8 URLs flagged</div>
+        <div class="dist-bar" style="margin-top:10px">
+          <div class="dist-good" style="width:97%"></div>
+          <div class="dist-needs" style="width:3%"></div>
+        </div>
+        <div class="dist-legend">
+          <span class="ln">Needs 3%</span>
+          <span class="lg">Good 97%</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">Target: &lt; 0.1 · Small set of pages with layout shift</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE vs DESKTOP COMPARISON -->
+  <div class="table-wrap mt20">
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Mobile Status</th>
+          <th class="right">Mobile URLs</th>
+          <th>Desktop Status</th>
+          <th class="right">Desktop URLs</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>LCP</strong></td>
+          <td><span class="badge badge-poor">POOR (&gt;4s)</span></td>
+          <td class="right">261</td>
+          <td><span class="badge badge-needs">NEEDS (&gt;2.5s)</span></td>
+          <td class="right">261</td>
+          <td><span class="pill pill-urgent">Urgent</span></td>
+        </tr>
+        <tr>
+          <td><strong>INP</strong></td>
+          <td><span class="badge badge-needs">NEEDS (&gt;200ms)</span></td>
+          <td class="right">261</td>
+          <td><span class="badge badge-good">GOOD</span></td>
+          <td class="right">0</td>
+          <td><span class="pill pill-high">High (Mobile)</span></td>
+        </tr>
+        <tr>
+          <td><strong>CLS</strong></td>
+          <td><span class="badge badge-poor">POOR (&gt;0.25)</span></td>
+          <td class="right">8</td>
+          <td><span class="badge badge-needs">NEEDS (&gt;0.1)</span></td>
+          <td class="right">8</td>
+          <td><span class="pill pill-medium">Medium</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- P1/P2/P3 FIX PRIORITIES -->
+  <div class="table-wrap mt14">
+    <table>
+      <thead>
+        <tr><th>Priority</th><th>Issue</th><th>Impact</th><th>Fix</th></tr>
+      </thead>
+      <tbody>
+        <tr class="p1">
+          <td><span class="pill pill-urgent">P1 — Urgent</span></td>
+          <td>Mobile LCP &gt; 4s (261 URLs)</td>
+          <td>CWV fail = ranking penalty on mobile. 63% of clicks are mobile.</td>
+          <td>Optimise LCP element (hero images). Add preload hints, use next-gen formats (WebP/AVIF), lazy-load below fold.</td>
+        </tr>
+        <tr class="p1">
+          <td><span class="pill pill-urgent">P1 — Urgent</span></td>
+          <td>Mobile INP &gt; 200ms (261 URLs)</td>
+          <td>Interaction delay on mobile hurts UX and CWV score.</td>
+          <td>Defer non-critical JS, reduce main-thread blocking, audit third-party scripts (chat widgets, analytics).</td>
+        </tr>
+        <tr class="p2">
+          <td><span class="pill pill-high">P2 — High</span></td>
+          <td>Desktop LCP 2.5–4s (261 URLs)</td>
+          <td>All desktop URLs in "Needs Improvement" band; no good-LCP URLs.</td>
+          <td>Apply same LCP optimisations as mobile; desktop CDN cache headers, reduce TTFB via edge caching.</td>
+        </tr>
+        <tr class="p3">
+          <td><span class="pill pill-medium">P3 — Medium</span></td>
+          <td>CLS &gt; 0.1–0.25 (8 URLs, both devices)</td>
+          <td>Layout shift reduces trust; small set of pages.</td>
+          <td>Set explicit width/height on images &amp; embeds, avoid DOM insertions above fold after load, audit font fallbacks.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       04  COVERAGE
+  ══════════════════════════════════════════════════════════════ -->
+  <div id="coverage" class="section-header" style="margin-top:44px">
+    <span class="section-num">04</span>
+    <span class="section-title">Coverage</span>
+    <span class="section-sub">Indexing status · Not-indexed trend · Rich results</span>
+  </div>
+  <hr class="section-rule">
+
+  <!-- ISSUES MoM TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Reason</th>
+          <th>Source</th>
+          <th class="right">Apr 2026</th>
+          <th class="right">Mid-Apr 2026</th>
+          <th class="right">Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Duplicate without user-selected canonical</td><td>Website</td><td class="right">778</td><td class="right">932</td><td class="right td-up">−154 (−16.5%)</td></tr>
+        <tr><td>Crawled — currently not indexed</td><td>Google systems</td><td class="right">1,323</td><td class="right">1,432</td><td class="right td-up">−109 (−7.6%)</td></tr>
+        <tr><td>Excluded by 'noindex' tag</td><td>Website</td><td class="right">148</td><td class="right">181</td><td class="right td-up">−33 (−18.2%)</td></tr>
+        <tr><td>Server error (5xx)</td><td>Website</td><td class="right">83</td><td class="right">638</td><td class="right td-up">−555 (−87.0%)</td></tr>
+        <tr><td>Page with redirect</td><td>Website</td><td class="right">56</td><td class="right">61</td><td class="right td-up">−5 (−8.2%)</td></tr>
+        <tr><td>Soft 404</td><td>Website</td><td class="right">8</td><td class="right">9</td><td class="right td-up">−1 (−11.1%)</td></tr>
+        <tr><td>Alternate page with proper canonical tag</td><td>Website</td><td class="right">8</td><td class="right">16</td><td class="right td-up">−8 (−50.0%)</td></tr>
+        <tr><td>Not found (404)</td><td>Website</td><td class="right">4</td><td class="right">3</td><td class="right td-down">+1 (+33.3%)</td></tr>
+        <tr><td>Blocked due to access forbidden (403)</td><td>Website</td><td class="right">1</td><td class="right">1</td><td class="right td-neutral">— (0%)</td></tr>
+        <tr><td>Duplicate, Google chose different canonical</td><td>Google systems</td><td class="right">2</td><td class="right">2</td><td class="right td-neutral">— (0%)</td></tr>
+        <tr><td>Discovered — currently not indexed</td><td>Google systems</td><td class="right">6</td><td class="right">7</td><td class="right td-up">−1 (−14.3%)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NOT-INDEXED TREND CHART -->
+  <div class="chart-wrap mt14">
+    <div class="chart-title">Not-Indexed Page Trend · Feb 11 – Apr 22, 2026</div>
+    <canvas id="coverageChart"></canvas>
+  </div>
+
+  <!-- RICH RESULTS TABLE -->
+  <div class="section-header" style="margin-top:24px">
+    <span style="font-size:15px;font-weight:700">Rich Results Status</span>
+    <span class="section-sub">FAQ &amp; Breadcrumbs · May 5, 2026</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Rich Result Type</th>
+          <th class="right">Valid (Apr 30)</th>
+          <th class="right">Valid (Feb 4)</th>
+          <th class="right">Growth</th>
+          <th>Critical Issues</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>FAQ Schema</strong></td>
+          <td class="right">30</td>
+          <td class="right">1</td>
+          <td class="right td-up">+2,900%</td>
+          <td>None</td>
+          <td><span class="badge badge-good">HEALTHY</span></td>
+        </tr>
+        <tr>
+          <td><strong>Breadcrumbs</strong></td>
+          <td class="right">31</td>
+          <td class="right">1</td>
+          <td class="right td-up">+3,000%</td>
+          <td>None</td>
+          <td><span class="badge badge-good">HEALTHY</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RICH RESULTS TREND CHART -->
+  <div class="chart-wrap mt14">
+    <div class="chart-title">Rich Results Growth · FAQ &amp; Breadcrumbs · Feb – May 2026</div>
+    <canvas id="richResultsChart"></canvas>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       05  CONTENT OPPORTUNITIES
+  ══════════════════════════════════════════════════════════════ -->
+  <div id="opportunities" class="section-header" style="margin-top:44px">
+    <span class="section-num">05</span>
+    <span class="section-title">Content Opportunities</span>
+    <span class="section-sub">High impression / low CTR pages — quick wins from title &amp; meta optimisation</span>
+  </div>
+  <hr class="section-rule">
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th class="right">Impressions</th>
+          <th class="right">Clicks</th>
+          <th class="right">CTR</th>
+          <th class="right">Position</th>
+          <th>Opportunity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="url" title="trading-hours-april-holiday-2026">/en/notifications/trading-hours-april-holiday-2026</td>
+          <td class="right">15,885</td>
+          <td class="right">11</td>
+          <td class="right td-down">0.07%</td>
+          <td class="right">7.2</td>
+          <td>Date-locked title. Create evergreen "Trading Hours Guide" page + redirect notifications there.</td>
+        </tr>
+        <tr>
+          <td class="url" title="metatrader-4">/en/metatrader-4</td>
+          <td class="right">14,671</td>
+          <td class="right">2</td>
+          <td class="right td-down">0.01%</td>
+          <td class="right">21.7</td>
+          <td>Position 21 — improve on-page content &amp; internal links to move into top 10; rewrite title tag.</td>
+        </tr>
+        <tr>
+          <td class="url" title="deposit-bonus-vs-no-deposit-bonus">/en/blog/deposit-bonus-vs-no-deposit-bonus</td>
+          <td class="right">10,345</td>
+          <td class="right">12</td>
+          <td class="right td-down">0.12%</td>
+          <td class="right">6.7</td>
+          <td>High volume bonus query. Add comparison table, CTA, FAQ schema. Target position 1–3.</td>
+        </tr>
+        <tr>
+          <td class="url" title="how-to-set-price-alerts-on-mt5-mobile">/en/blog/how-to-set-price-alerts-on-mt5-mobile</td>
+          <td class="right">10,817</td>
+          <td class="right">133</td>
+          <td class="right td-down">1.23%</td>
+          <td class="right">4.9</td>
+          <td>Position 5 — optimise title for higher CTR; add How-To schema, video embed to capture featured snippet.</td>
+        </tr>
+        <tr>
+          <td class="url" title="no-deposit-bonus">/en/blog/no-deposit-bonus</td>
+          <td class="right">8,346</td>
+          <td class="right">56</td>
+          <td class="right td-down">0.67%</td>
+          <td class="right">6.2</td>
+          <td>Strong growth MoM. Improve title tag with unique offer hook; add internal links from homepage.</td>
+        </tr>
+        <tr>
+          <td class="url" title="best-time-to-trade-gold-silver">/en/blog/best-time-to-trade-gold-silver</td>
+          <td class="right">6,444</td>
+          <td class="right">7</td>
+          <td class="right td-down">0.11%</td>
+          <td class="right">5.0</td>
+          <td>Evergreen high-volume query. Needs more comprehensive content; add chart embed &amp; FAQ schema.</td>
+        </tr>
+        <tr>
+          <td class="url" title="how-ofw-remittances-impact-usd-php-forex">/en/blog/how-ofw-remittances-impact-usd-php-forex</td>
+          <td class="right">6,593</td>
+          <td class="right">26</td>
+          <td class="right td-down">0.39%</td>
+          <td class="right">5.0</td>
+          <td>PH market relevance. Refresh content with 2026 data; add structured author bio to build E-E-A-T.</td>
+        </tr>
+        <tr>
+          <td class="url" title="trading-hours-us-dst">/en/notifications/trading-hours-us-dst-march-2026</td>
+          <td class="right">5,835</td>
+          <td class="right">1</td>
+          <td class="right td-down">0.02%</td>
+          <td class="right">7.2</td>
+          <td>Stale date-locked URL still ranking. 301 redirect to evergreen trading hours page.</td>
+        </tr>
+        <tr>
+          <td class="url" title="forex-trading-in-vietnam">/en/blog/forex-trading-in-vietnam-beginners-guide</td>
+          <td class="right">4,976</td>
+          <td class="right">17</td>
+          <td class="right td-down">0.34%</td>
+          <td class="right">4.7</td>
+          <td>Localisation opportunity. Translate to Vietnamese (/vi/); target Vietnamese search queries.</td>
+        </tr>
+        <tr>
+          <td class="url" title="how-to-avoid-false-trading-alerts">/en/blog/how-to-avoid-false-trading-alerts</td>
+          <td class="right">4,489</td>
+          <td class="right">1</td>
+          <td class="right td-down">0.02%</td>
+          <td class="right">4.2</td>
+          <td>Position 4 with near-zero CTR. Meta description and title need compelling rewrite; add FAQ schema.</td>
+        </tr>
+        <tr>
+          <td class="url" title="xauusd-vs-xagusd">/en/blog/xauusd-vs-xagusd</td>
+          <td class="right">4,985</td>
+          <td class="right">5</td>
+          <td class="right td-down">0.10%</td>
+          <td class="right">5.6</td>
+          <td>Commodities trader query. Expand content with live spread data, comparison table, CTA.</td>
+        </tr>
+        <tr>
+          <td class="url" title="mt4-mt5-alerts-automation-guide">/en/blog/mt4-mt5-alerts-automation-guide</td>
+          <td class="right">3,321</td>
+          <td class="right">22</td>
+          <td class="right td-down">0.66%</td>
+          <td class="right">5.9</td>
+          <td>Position 6, high volume. Consolidate with price-alerts page via internal linking; target top 3.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       06  RECOMMENDED ACTIONS
+  ══════════════════════════════════════════════════════════════ -->
+  <div id="actions" class="section-header" style="margin-top:44px">
+    <span class="section-num">06</span>
+    <span class="section-title">Recommended Actions</span>
+    <span class="section-sub">Prioritised by impact &amp; effort · May 2026</span>
+  </div>
+  <hr class="section-rule">
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Priority</th>
+          <th>Action</th>
+          <th>Effort</th>
+          <th>Expected Impact</th>
+          <th>Owner</th>
+          <th>Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="p1">
+          <td><span class="pill pill-urgent">Urgent</span></td>
+          <td><strong>Fix Mobile LCP</strong> — Optimise hero/banner images (WebP, preload), defer non-critical CSS/JS, enable browser caching. Target &lt;2.5s on all 261 flagged URLs.</td>
+          <td>High</td>
+          <td>CWV pass → ranking boost on mobile. 63% of clicks are mobile.</td>
+          <td>Dev/Perf</td>
+          <td>May 19</td>
+        </tr>
+        <tr class="p1">
+          <td><span class="pill pill-urgent">Urgent</span></td>
+          <td><strong>Fix Mobile INP</strong> — Audit &amp; defer heavy JavaScript (chat, analytics embeds), reduce main-thread tasks, code-split large bundles.</td>
+          <td>High</td>
+          <td>INP pass required for CWV green status on mobile.</td>
+          <td>Dev</td>
+          <td>May 19</td>
+        </tr>
+        <tr class="p1">
+          <td><span class="pill pill-high">High</span></td>
+          <td><strong>Resolve Duplicate Canonical Issues</strong> — 778 pages lack canonical tags; set self-referencing canonicals on all content pages. Audit hreflang vs canonical conflicts on /zh-Hant, /zh-Hans, /fr pages.</td>
+          <td>Medium</td>
+          <td>Reduce canonical duplication; help Google index correct page variants.</td>
+          <td>Dev/SEO</td>
+          <td>May 26</td>
+        </tr>
+        <tr class="p1">
+          <td><span class="pill pill-high">High</span></td>
+          <td><strong>Address 1,323 "Crawled Not Indexed" Pages</strong> — Audit these URLs. Add noindex to true thin/duplicate pages; improve content quality &amp; internal linking for pages worth indexing.</td>
+          <td>High</td>
+          <td>Increase indexed page count; reclaim crawl budget for valuable content.</td>
+          <td>SEO</td>
+          <td>Jun 2</td>
+        </tr>
+        <tr class="p2">
+          <td><span class="pill pill-high">High</span></td>
+          <td><strong>Optimise High-Impression / Low-CTR Pages</strong> — Rewrite title tags and meta descriptions for top 5 opportunity pages (esp. MT4, deposit-bonus, trading-hours pages).</td>
+          <td>Low</td>
+          <td>+0.5pp CTR on 50K+ impressions = ~250 additional clicks/month.</td>
+          <td>SEO/Content</td>
+          <td>May 16</td>
+        </tr>
+        <tr class="p2">
+          <td><span class="pill pill-high">High</span></td>
+          <td><strong>Create Evergreen Trading Hours Page</strong> — Consolidate all date-locked notification pages (/trading-hours-april-*, /trading-hours-us-dst-*) into one evergreen /en/trading-hours page with 301 redirects.</td>
+          <td>Medium</td>
+          <td>Capture 20K+ monthly impressions in a single, indexable, cumulative-authority page.</td>
+          <td>Dev/Content</td>
+          <td>May 23</td>
+        </tr>
+        <tr class="p2">
+          <td><span class="pill pill-medium">Medium</span></td>
+          <td><strong>Expand Non-Branded Content</strong> — Deepen blog coverage of "no deposit bonus", "MT5 price alerts", "gold trading times" — all showing strong impression growth. Add FAQ schema to each.</td>
+          <td>Medium</td>
+          <td>Grow non-branded click share beyond 39.8%; reduce dependency on branded queries.</td>
+          <td>Content</td>
+          <td>Jun 9</td>
+        </tr>
+        <tr class="p2">
+          <td><span class="pill pill-medium">Medium</span></td>
+          <td><strong>Fix Desktop LCP</strong> — Same image/caching optimisations as mobile. Enable CDN edge caching to reduce TTFB for key markets (Nigeria, Kenya, Philippines).</td>
+          <td>Medium</td>
+          <td>Push desktop LCP into "Good" range; improved ranking signals for desktop queries.</td>
+          <td>Dev/Infra</td>
+          <td>Jun 2</td>
+        </tr>
+        <tr class="p3">
+          <td><span class="pill pill-medium">Medium</span></td>
+          <td><strong>Fix CLS on 8 Pages</strong> — Add width/height attributes to images &amp; iframes; review fonts for layout shift on load. Affects both mobile and desktop.</td>
+          <td>Low</td>
+          <td>Remove last CWV failure type; stabilise visual experience.</td>
+          <td>Dev</td>
+          <td>Jun 9</td>
+        </tr>
+        <tr class="p3">
+          <td><span class="pill pill-medium">Medium</span></td>
+          <td><strong>Investigate my.anzocapital.com Drop</strong> — Portal clicks fell from 395 → 218 (−45%) while position held. Check for UI/redirect changes that may be suppressing clicks.</td>
+          <td>Low</td>
+          <td>Recover ~177 clicks/month to login portal; impacts user acquisition funnel.</td>
+          <td>Dev/SEO</td>
+          <td>May 16</td>
+        </tr>
+        <tr class="p3">
+          <td><span class="pill pill-low">Low</span></td>
+          <td><strong>Localise Vietnam Content</strong> — Translate forex-trading-in-vietnam guide to /vi/; research Vietnamese forex search queries. 4,976 impressions with 0.34% CTR.</td>
+          <td>Medium</td>
+          <td>Tap underserved Vietnamese-language search traffic in a regulated forex growth market.</td>
+          <td>Content</td>
+          <td>Jun 30</td>
+        </tr>
+        <tr class="p3">
+          <td><span class="pill pill-low">Low</span></td>
+          <td><strong>Reduce 83 Remaining 5xx Errors</strong> — Server errors are down 87% — finish the cleanup. Review error logs; ensure API routes and server-rendered pages are stable.</td>
+          <td>Low</td>
+          <td>Full elimination of 5xx prevents Googlebot soft-crawl-blocking on affected URLs.</td>
+          <td>Dev</td>
+          <td>May 26</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:40px;padding:16px;background:var(--white);border:1px solid var(--border);border-radius:10px;font-size:12px;color:var(--text-muted);text-align:center">
+    Report generated May 5, 2026 · Data source: Google Search Console · ANZO Capital SEO Report
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ─── TAB SWITCHER ─────────────────────────────────────────────────────────────
+function switchTab(device) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('cwv-' + device).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ─── CHART DEFAULTS ───────────────────────────────────────────────────────────
+Chart.defaults.font.family = "system-ui, -apple-system, 'Inter', sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#666';
+
+// ─── DEVICE PIE CHART ────────────────────────────────────────────────────────
+new Chart(document.getElementById('deviceChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Mobile', 'Desktop', 'Tablet'],
+    datasets: [{
+      data: [1243, 708, 24],
+      backgroundColor: ['#B22333', '#B26D23', '#1E6E3E'],
+      borderWidth: 2,
+      borderColor: '#fff'
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true } },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
+            return ` ${ctx.label}: ${ctx.raw.toLocaleString()} (${(ctx.raw/total*100).toFixed(1)}%)`;
+          }
+        }
+      }
+    },
+    cutout: '60%'
+  }
+});
+
+// ─── COVERAGE NOT-INDEXED TREND ───────────────────────────────────────────────
+const coverageData = [
+  {date:"Feb 11",v:6633},{date:"Feb 18",v:6398},{date:"Feb 25",v:5985},
+  {date:"Mar 4",v:5862},{date:"Mar 11",v:5620},{date:"Mar 18",v:5300},
+  {date:"Mar 25",v:4825},{date:"Apr 1",v:4414},{date:"Apr 8",v:3560},
+  {date:"Apr 15",v:2977},{date:"Apr 22",v:2552}
+];
+new Chart(document.getElementById('coverageChart'), {
+  type: 'bar',
+  data: {
+    labels: coverageData.map(d=>d.date),
+    datasets: [{
+      label: 'Not Indexed Pages',
+      data: coverageData.map(d=>d.v),
+      backgroundColor: coverageData.map((_,i) => {
+        const pct = i / (coverageData.length-1);
+        const r = Math.round(178 - pct*100);
+        const g = Math.round(35 + pct*75);
+        const b = Math.round(51 + pct*10);
+        return `rgba(${r},${g},${b},0.85)`;
+      }),
+      borderRadius: 4
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} not-indexed pages` } }
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        min: 2000,
+        ticks: { callback: v => v.toLocaleString() },
+        grid: { color: '#EEEEEE' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ─── RICH RESULTS TREND ──────────────────────────────────────────────────────
+const rrLabels = ["Feb 4","Feb 11","Feb 18","Feb 25","Mar 4","Mar 11","Mar 18","Mar 25","Apr 1","Apr 8","Apr 15","Apr 22","Apr 29"];
+const faqData   = [1,2,2,2,5,5,5,5,4,16,26,26,25];
+const bcData    = [1,2,2,2,5,5,5,5,4,16,27,27,26];
+new Chart(document.getElementById('richResultsChart'), {
+  type: 'line',
+  data: {
+    labels: rrLabels,
+    datasets: [
+      {
+        label: 'FAQ Valid',
+        data: faqData,
+        borderColor: '#B22333',
+        backgroundColor: 'rgba(178,35,51,0.08)',
+        tension: 0.3,
+        fill: true,
+        pointRadius: 3,
+        pointHoverRadius: 5
+      },
+      {
+        label: 'Breadcrumbs Valid',
+        data: bcData,
+        borderColor: '#B26D23',
+        backgroundColor: 'rgba(178,109,35,0.08)',
+        tension: 0.3,
+        fill: true,
+        pointRadius: 3,
+        pointHoverRadius: 5
+      }
+    ]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true } }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: { color: '#EEEEEE' },
+        ticks: { stepSize: 5 }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
