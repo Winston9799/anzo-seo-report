@@ -493,7 +493,7 @@ function renderPerformance(d) {
       <td>${q.query}</td>
       <td class="r">${fmt(q.clicks)}</td>
       <td class="r">${fmt(q.clicksPrev??'—')}</td>
-      <td class="r <span class="${cls}">${ddStr}</span></td>
+      <td class="r"><span class="${cls}">${ddStr}</span></td>
       <td class="r">${fmt(q.impressions)}</td>
       <td class="r">${pct(q.ctr)}</td>
       <td class="r">${pos(q.position)}</td>
@@ -507,7 +507,7 @@ function renderPerformance(d) {
     return `<tr>
       <td class="url-cell" title="${p.page}">${p.displayPage||p.page}</td>
       <td class="r">${fmt(p.clicks)}</td>
-      <td class="r <span class="${cls}">${(dd>0?'+':'')+dd}</span></td>
+      <td class="r"><span class="${cls}">${(dd>0?'+':'')+dd}</span></td>
       <td class="r">${fmt(p.impressions)}</td>
       <td class="r">${pct(p.ctr)}</td>
       <td class="r">${pos(p.position)}</td>
