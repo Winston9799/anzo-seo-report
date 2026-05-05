@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "id": "2026-04-monthly",
+    "type": "monthly",
+    "period": "April 2026",
+    "dateStart": "2026-04-01",
+    "dateEnd": "2026-04-30",
+    "comparePeriod": "March 2026",
+    "property": "anzocapital.com",
+    "generatedAt": "2026-05-05",
+    "searchType": "Web"
+  },
+  "kpis": {
+    "clicks":      { "current": 1980,   "previous": 1840 },
+    "impressions": { "current": 166115, "previous": 153746 },
+    "ctr":         { "current": 1.20,   "previous": 1.20 },
+    "position":    { "current": 8.2,    "previous": 7.1 }
+  },
+  "branded": {
+    "clicks":       { "current": 1192, "previous": 1165 },
+    "impressions":  { "current": 4172, "previous": 4632 },
+    "ctr":          28.6,
+    "shareOfClicks": 60.2
+  },
+  "nonBranded": {
+    "clicks":       { "current": 788,    "previous": 675 },
+    "impressions":  { "current": 161828, "previous": 149114 },
+    "ctr":          0.49,
+    "shareOfClicks": 39.8
+  },
+  "wins": [
+    "Not-indexed pages fell 65% — from ~6,840 (Feb) to 2,417 by end of April. Massive crawl budget recovery.",
+    "5xx server errors down 87% — from 638 to 83 issues. Backend stability greatly improved.",
+    "FAQ rich results surged — from 1–2 valid results in Feb to 30 by late April.",
+    "Breadcrumb rich results grew — now 31 valid URLs with zero invalid, up from 1 in February.",
+    "ai.anzocapital.com breakout — 199 clicks in April vs only 35 in March (+469%).",
+    "No-deposit bonus content gaining traction — blog page up from 4 to 56 clicks (+1,300%).",
+    "Non-branded clicks grew 16.7% MoM — content strategy is starting to deliver."
+  ],
+  "concerns": [
+    "Average position worsened — from 7.1 to 8.2 despite more impressions; dilution from new lower-ranking content.",
+    "Mobile LCP is critical — 261 URLs with Poor LCP (>4s); zero good-LCP URLs detected.",
+    "Mobile INP needs improvement — 261 URLs flagged (>200ms); interaction responsiveness lagging.",
+    "778 duplicate canonical issues — largest coverage problem, though down from 932 last month.",
+    "1,323 pages crawled but not indexed — Google is visiting but not trusting these pages.",
+    "Non-branded CTR only 0.49% — 161K+ impressions converting poorly; titles & meta need optimisation.",
+    "my.anzocapital.com clicks fell 45% — login portal losing visibility; position held steady."
+  ],
+  "queries": [
+    { "query": "anzo capital limited",              "clicks": 153, "clicksPrev": 82,  "impressions": 221,  "ctr": 69.23, "position": 1.00, "positionPrev": 1.00 },
+    { "query": "no deposit bonus",                  "clicks": 15,  "clicksPrev": 2,   "impressions": 575,  "ctr": 2.61,  "position": 23.87,"positionPrev": 28.59 },
+    { "query": "anzo capital",                      "clicks": 418, "clicksPrev": 397, "impressions": 764,  "ctr": 54.71, "position": 1.48, "positionPrev": 3.18 },
+    { "query": "withdrawable no deposit bonus",     "clicks": 9,   "clicksPrev": 0,   "impressions": 297,  "ctr": 3.03,  "position": 7.27, "positionPrev": null },
+    { "query": "set price alert on mt5 mobile",     "clicks": 9,   "clicksPrev": 1,   "impressions": 146,  "ctr": 6.16,  "position": 2.97, "positionPrev": 1.24 },
+    { "query": "anzo capital login",                "clicks": 283, "clicksPrev": 291, "impressions": 321,  "ctr": 88.16, "position": 1.00, "positionPrev": 1.00 },
+    { "query": "anzo",                              "clicks": 218, "clicksPrev": 237, "impressions": 2312, "ctr": 9.43,  "position": 4.72, "positionPrev": 4.41 },
+    { "query": "anzo capital global",               "clicks": 10,  "clicksPrev": 23,  "impressions": 77,   "ctr": 12.99, "position": 1.31, "positionPrev": 1.26 },
+    { "query": "anzo trading",                      "clicks": 6,   "clicksPrev": 8,   "impressions": 17,   "ctr": 35.29, "position": 1.00, "positionPrev": 1.00 },
+    { "query": "昂首资本",                           "clicks": 35,  "clicksPrev": 45,  "impressions": 59,   "ctr": 59.32, "position": 1.00, "positionPrev": 1.17 }
+  ],
+  "pages": [
+    { "page": "/",                                                       "displayPage": "/",                                          "clicks": 827, "clicksPrev": 710, "impressions": 5718,  "ctr": 14.46, "position": 3.89 },
+    { "page": "https://my.anzocapital.com/",                             "displayPage": "my:/",                                       "clicks": 218, "clicksPrev": 395, "impressions": 1341,  "ctr": 16.26, "position": 2.50 },
+    { "page": "https://ai.anzocapital.com/",                             "displayPage": "ai:/",                                       "clicks": 199, "clicksPrev": 35,  "impressions": 1243,  "ctr": 16.01, "position": 2.30 },
+    { "page": "/en/blog/how-to-set-price-alerts-on-mt5-mobile",          "displayPage": "/en/blog/how-to-set-price-alerts-on-mt5-mobile","clicks": 133, "clicksPrev": 31,  "impressions": 10817, "ctr": 1.23,  "position": 4.87 },
+    { "page": "/zh-Hant",                                                "displayPage": "/zh-Hant",                                   "clicks": 105, "clicksPrev": 141, "impressions": 363,   "ctr": 28.93, "position": 1.91 },
+    { "page": "/zh-Hans",                                                "displayPage": "/zh-Hans",                                   "clicks": 89,  "clicksPrev": 77,  "impressions": 305,   "ctr": 29.18, "position": 2.15 },
+    { "page": "/en/blog/no-deposit-bonus",                               "displayPage": "/en/blog/no-deposit-bonus",                  "clicks": 56,  "clicksPrev": 4,   "impressions": 8346,  "ctr": 0.67,  "position": 6.22 },
+    { "page": "/en/blog/how-ofw-remittances-impact-usd-php-forex",       "displayPage": "/en/blog/how-ofw-remittances-…",             "clicks": 26,  "clicksPrev": 40,  "impressions": 6593,  "ctr": 0.39,  "position": 4.97 },
+    { "page": "/en/blog/mt4-mt5-alerts-automation-guide",                "displayPage": "/en/blog/mt4-mt5-alerts-…",                  "clicks": 22,  "clicksPrev": 37,  "impressions": 3321,  "ctr": 0.66,  "position": 5.94 },
+    { "page": "/en/blog/forex-trading-in-vietnam-beginners-guide",       "displayPage": "/en/blog/forex-trading-in-vietnam-…",        "clicks": 17,  "clicksPrev": 12,  "impressions": 4976,  "ctr": 0.34,  "position": 4.72 },
+    { "page": "/en/blog/bonus-vs-rebate-vs-cashback",                    "displayPage": "/en/blog/bonus-vs-rebate-vs-cashback",        "clicks": 13,  "clicksPrev": 2,   "impressions": 1980,  "ctr": 0.66,  "position": 8.12 },
+    { "page": "/en/blog/deposit-bonus-vs-no-deposit-bonus",              "displayPage": "/en/blog/deposit-bonus-vs-no-deposit-bonus",  "clicks": 12,  "clicksPrev": 25,  "impressions": 10345, "ctr": 0.12,  "position": 6.67 },
+    { "page": "/en/notifications/trading-hours-april-holiday-2026",      "displayPage": "/en/notifications/trading-hours-april-…",    "clicks": 11,  "clicksPrev": 2,   "impressions": 15885, "ctr": 0.07,  "position": 7.18 }
+  ],
+  "countries": [
+    { "country": "Nigeria",        "flag": "🇳🇬", "clicks": 636, "clicksPrev": 654, "ctr": 16.48, "position": 4.49 },
+    { "country": "Kenya",          "flag": "🇰🇪", "clicks": 145, "clicksPrev": 36,  "ctr": 14.12, "position": 4.82 },
+    { "country": "Philippines",    "flag": "🇵🇭", "clicks": 144, "clicksPrev": 90,  "ctr": 3.79,  "position": 6.32 },
+    { "country": "Taiwan",         "flag": "🇹🇼", "clicks": 140, "clicksPrev": 194, "ctr": 11.45, "position": 9.59 },
+    { "country": "Malaysia",       "flag": "🇲🇾", "clicks": 102, "clicksPrev": 99,  "ctr": 4.24,  "position": 7.97 },
+    { "country": "Hong Kong",      "flag": "🇭🇰", "clicks": 92,  "clicksPrev": 73,  "ctr": 7.01,  "position": 6.57 },
+    { "country": "United States",  "flag": "🇺🇸", "clicks": 56,  "clicksPrev": 67,  "ctr": 0.09,  "position": 6.39 },
+    { "country": "India",          "flag": "🇮🇳", "clicks": 55,  "clicksPrev": 47,  "ctr": 0.91,  "position": 6.33 },
+    { "country": "Singapore",      "flag": "🇸🇬", "clicks": 54,  "clicksPrev": 73,  "ctr": 2.37,  "position": 6.32 },
+    { "country": "Indonesia",      "flag": "🇮🇩", "clicks": 44,  "clicksPrev": 62,  "ctr": 2.15,  "position": 7.54 }
+  ],
+  "devices": [
+    { "device": "Mobile",  "icon": "📱", "clicks": 1243, "clicksPrev": 1080, "impressions": 31155,  "ctr": 3.99, "position": 10.03 },
+    { "device": "Desktop", "icon": "🖥", "clicks": 708,  "clicksPrev": 745,  "impressions": 134484, "ctr": 0.53, "position": 7.79 },
+    { "device": "Tablet",  "icon": "📟", "clicks": 24,   "clicksPrev": 12,   "impressions": 476,    "ctr": 5.04, "position": 6.71 }
+  ],
+  "cwv": {
+    "mobile": {
+      "lcp": { "status": "poor",  "label": ">4.0s",      "urls": 261, "good": 0,  "needs": 0,   "poor": 100, "target": "<2.5s" },
+      "inp": { "status": "needs", "label": "200–500ms",  "urls": 261, "good": 0,  "needs": 100, "poor": 0,   "target": "<200ms" },
+      "cls": { "status": "poor",  "label": ">0.25",      "urls": 8,   "good": 97, "needs": 0,   "poor": 3,   "target": "<0.1" }
+    },
+    "desktop": {
+      "lcp": { "status": "needs", "label": "2.5–4.0s",   "urls": 261, "good": 0,  "needs": 97,  "poor": 3,   "target": "<2.5s" },
+      "inp": { "status": "good",  "label": "No issues",  "urls": 0,   "good": 100,"needs": 0,   "poor": 0,   "target": "<200ms" },
+      "cls": { "status": "needs", "label": "0.1–0.25",   "urls": 8,   "good": 97, "needs": 3,   "poor": 0,   "target": "<0.1" }
+    }
+  },
+  "coverage": {
+    "issues": [
+      { "reason": "Duplicate without user-selected canonical", "source": "Website",       "current": 778,  "previous": 932  },
+      { "reason": "Crawled — currently not indexed",           "source": "Google systems","current": 1323, "previous": 1432 },
+      { "reason": "Excluded by 'noindex' tag",                 "source": "Website",       "current": 148,  "previous": 181  },
+      { "reason": "Server error (5xx)",                        "source": "Website",       "current": 83,   "previous": 638  },
+      { "reason": "Page with redirect",                        "source": "Website",       "current": 56,   "previous": 61   },
+      { "reason": "Soft 404",                                  "source": "Website",       "current": 8,    "previous": 9    },
+      { "reason": "Alternate page with proper canonical tag",  "source": "Website",       "current": 8,    "previous": 16   },
+      { "reason": "Not found (404)",                           "source": "Website",       "current": 4,    "previous": 3    },
+      { "reason": "Blocked due to access forbidden (403)",     "source": "Website",       "current": 1,    "previous": 1    },
+      { "reason": "Duplicate, Google chose different canonical","source": "Google systems","current": 2,   "previous": 2    },
+      { "reason": "Discovered — currently not indexed",        "source": "Google systems","current": 6,    "previous": 7    }
+    ],
+    "notIndexedTrend": [
+      { "date": "Feb 11", "value": 6633 },
+      { "date": "Feb 18", "value": 6398 },
+      { "date": "Feb 25", "value": 5985 },
+      { "date": "Mar 4",  "value": 5862 },
+      { "date": "Mar 11", "value": 5620 },
+      { "date": "Mar 18", "value": 5300 },
+      { "date": "Mar 25", "value": 4825 },
+      { "date": "Apr 1",  "value": 4414 },
+      { "date": "Apr 8",  "value": 3560 },
+      { "date": "Apr 15", "value": 2977 },
+      { "date": "Apr 22", "value": 2552 }
+    ],
+    "richResults": [
+      { "type": "FAQ Schema",   "validCurrent": 30, "validPrevious": 1, "issues": "None", "status": "good" },
+      { "type": "Breadcrumbs",  "validCurrent": 31, "validPrevious": 1, "issues": "None", "status": "good" }
+    ],
+    "richResultsTrend": {
+      "labels":      ["Feb 4","Feb 11","Feb 18","Feb 25","Mar 4","Mar 11","Mar 18","Mar 25","Apr 1","Apr 8","Apr 15","Apr 22","Apr 29"],
+      "faq":         [1,2,2,2,5,5,5,5,4,16,26,26,25],
+      "breadcrumbs": [1,2,2,2,5,5,5,5,4,16,27,27,26]
+    }
+  },
+  "opportunities": [
+    { "page": "/en/notifications/trading-hours-april-holiday-2026", "impressions": 15885, "clicks": 11, "ctr": 0.07, "position": 7.18, "opportunity": "Date-locked title. Create evergreen trading hours page + redirect notifications there." },
+    { "page": "/en/metatrader-4",                                   "impressions": 14671, "clicks": 2,  "ctr": 0.01, "position": 21.7, "opportunity": "Position 21 — improve on-page content & internal links to move into top 10; rewrite title tag." },
+    { "page": "/en/blog/deposit-bonus-vs-no-deposit-bonus",         "impressions": 10345, "clicks": 12, "ctr": 0.12, "position": 6.67, "opportunity": "High volume bonus query. Add comparison table, CTA, FAQ schema. Target position 1–3." },
+    { "page": "/en/blog/how-to-set-price-alerts-on-mt5-mobile",     "impressions": 10817, "clicks": 133,"ctr": 1.23, "position": 4.87, "opportunity": "Position 5 — optimise title for higher CTR; add How-To schema, video embed to capture featured snippet." },
+    { "page": "/en/blog/no-deposit-bonus",                          "impressions": 8346,  "clicks": 56, "ctr": 0.67, "position": 6.22, "opportunity": "Strong growth MoM. Improve title tag with unique offer hook; add internal links from homepage." },
+    { "page": "/en/blog/best-time-to-trade-gold-silver",            "impressions": 6444,  "clicks": 7,  "ctr": 0.11, "position": 4.96, "opportunity": "Evergreen high-volume query. Needs more comprehensive content; add chart embed & FAQ schema." },
+    { "page": "/en/blog/how-ofw-remittances-impact-usd-php-forex",  "impressions": 6593,  "clicks": 26, "ctr": 0.39, "position": 4.97, "opportunity": "PH market relevance. Refresh content with 2026 data; add structured author bio to build E-E-A-T." },
+    { "page": "/en/notifications/trading-hours-us-dst-march-2026",  "impressions": 5835,  "clicks": 1,  "ctr": 0.02, "position": 7.15, "opportunity": "Stale date-locked URL still ranking. 301 redirect to evergreen trading hours page." },
+    { "page": "/en/blog/forex-trading-in-vietnam-beginners-guide",  "impressions": 4976,  "clicks": 17, "ctr": 0.34, "position": 4.72, "opportunity": "Localisation opportunity. Translate to Vietnamese (/vi/); target Vietnamese search queries." },
+    { "page": "/en/blog/how-to-avoid-false-trading-alerts",         "impressions": 4489,  "clicks": 1,  "ctr": 0.02, "position": 4.18, "opportunity": "Position 4 with near-zero CTR. Meta description and title need compelling rewrite; add FAQ schema." },
+    { "page": "/en/blog/xauusd-vs-xagusd",                          "impressions": 4985,  "clicks": 5,  "ctr": 0.10, "position": 5.59, "opportunity": "Commodities trader query. Expand content with live spread data, comparison table, CTA." },
+    { "page": "/en/blog/mt4-mt5-alerts-automation-guide",           "impressions": 3321,  "clicks": 22, "ctr": 0.66, "position": 5.94, "opportunity": "Position 6, high volume. Consolidate with price-alerts page via internal linking; target top 3." }
+  ],
+  "actions": [
+    { "priority": "urgent", "action": "Fix Mobile LCP",                        "detail": "Optimise hero/banner images (WebP, preload), defer non-critical CSS/JS, enable browser caching. Target <2.5s on all 261 flagged URLs.", "effort": "High",   "impact": "CWV pass → ranking boost on mobile. 63% of clicks are mobile.",                                    "owner": "Dev/Perf",    "deadline": "May 19" },
+    { "priority": "urgent", "action": "Fix Mobile INP",                        "detail": "Audit & defer heavy JavaScript (chat, analytics embeds), reduce main-thread tasks, code-split large bundles.",                            "effort": "High",   "impact": "INP pass required for CWV green status on mobile.",                                              "owner": "Dev",         "deadline": "May 19" },
+    { "priority": "high",   "action": "Resolve Duplicate Canonical Issues",    "detail": "778 pages lack canonical tags; set self-referencing canonicals on all content pages. Audit hreflang vs canonical conflicts.",              "effort": "Medium", "impact": "Reduce canonical duplication; help Google index correct page variants.",                           "owner": "Dev/SEO",     "deadline": "May 26" },
+    { "priority": "high",   "action": "Address 1,323 Crawled-Not-Indexed",     "detail": "Add noindex to true thin/duplicate pages; improve content quality & internal linking for pages worth indexing.",                          "effort": "High",   "impact": "Increase indexed page count; reclaim crawl budget for valuable content.",                         "owner": "SEO",         "deadline": "Jun 2"  },
+    { "priority": "high",   "action": "Optimise High-Impression Low-CTR Pages","detail": "Rewrite title tags and meta descriptions for top 5 opportunity pages (MT4, deposit-bonus, trading-hours).",                              "effort": "Low",    "impact": "+0.5pp CTR on 50K+ impressions = ~250 additional clicks/month.",                                "owner": "SEO/Content", "deadline": "May 16" },
+    { "priority": "high",   "action": "Create Evergreen Trading Hours Page",   "detail": "Consolidate all date-locked notification pages into one evergreen /en/trading-hours page with 301 redirects.",                           "effort": "Medium", "impact": "Capture 20K+ monthly impressions in a single cumulative-authority page.",                         "owner": "Dev/Content", "deadline": "May 23" },
+    { "priority": "medium", "action": "Expand Non-Branded Content",            "detail": "Deepen blog coverage of 'no deposit bonus', 'MT5 price alerts', 'gold trading times'. Add FAQ schema to each.",                          "effort": "Medium", "impact": "Grow non-branded click share beyond 39.8%; reduce dependency on branded queries.",              "owner": "Content",     "deadline": "Jun 9"  },
+    { "priority": "medium", "action": "Fix Desktop LCP",                       "detail": "Same image/caching optimisations as mobile. Enable CDN edge caching for key markets (NG, KE, PH).",                                       "effort": "Medium", "impact": "Push desktop LCP into 'Good' range; improved ranking signals for desktop queries.",            "owner": "Dev/Infra",   "deadline": "Jun 2"  },
+    { "priority": "medium", "action": "Fix CLS on 8 Pages",                    "detail": "Add width/height to images & iframes; review fonts for layout shift on load. Affects both mobile and desktop.",                          "effort": "Low",    "impact": "Remove last CWV failure type; stabilise visual experience.",                                     "owner": "Dev",         "deadline": "Jun 9"  },
+    { "priority": "medium", "action": "Investigate my.anzocapital.com Drop",   "detail": "Portal clicks fell 395→218 (−45%) while position held. Check for UI/redirect changes suppressing clicks.",                              "effort": "Low",    "impact": "Recover ~177 clicks/month to login portal; impacts user acquisition funnel.",                    "owner": "Dev/SEO",     "deadline": "May 16" },
+    { "priority": "low",    "action": "Localise Vietnam Content",              "detail": "Translate forex-trading-in-vietnam guide to /vi/; research Vietnamese forex search queries.",                                             "effort": "Medium", "impact": "Tap underserved Vietnamese-language search traffic in a regulated forex growth market.",          "owner": "Content",     "deadline": "Jun 30" },
+    { "priority": "low",    "action": "Eliminate Remaining 5xx Errors",        "detail": "83 server errors remain — down 87% but not zero. Review error logs; ensure API routes and SSR pages are stable.",                        "effort": "Low",    "impact": "Full elimination prevents Googlebot soft-crawl-blocking on affected URLs.",                      "owner": "Dev",         "deadline": "May 26" }
+  ]
+}
