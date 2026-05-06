@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANZO Capital — SEO Reports</title>
+<title>Anzo Capital — SEO Reports</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
@@ -17,7 +17,7 @@
   --filter-h:52px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:116px}
 body{font-family:system-ui,-apple-system,'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.65}
 
 /* ── NAV ── */
@@ -73,9 +73,9 @@ nav a.nav-link:hover{color:var(--red);border-bottom-color:var(--red)}
 .sec{margin-top:36px}
 .sec-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .sec-num{font-size:12px;font-weight:800;color:var(--red);background:var(--red-light);padding:3px 9px;border-radius:5px;letter-spacing:.5px;flex-shrink:0}
-.sec-title{font-size:22px;font-weight:800;line-height:1.2}
+.sec-title{font-size:26px;font-weight:800;line-height:1.2}
 .sec-sub{color:var(--muted);font-size:13px;margin-left:2px}
-.sub-hd{font-size:17px;font-weight:700;margin:20px 0 10px;color:var(--text)}
+.sub-hd{font-size:20px;font-weight:700;margin:20px 0 10px;color:var(--text)}
 .sub-sub{font-size:13px;color:var(--muted);margin-bottom:10px;margin-top:-6px}
 
 /* ── KPI CARDS ── */
@@ -91,7 +91,7 @@ nav a.nav-link:hover{color:var(--red);border-bottom-color:var(--red)}
 .dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .dual-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px}
 .dual-card.branded{border-top:3px solid var(--red)} .dual-card.nonbranded{border-top:3px solid var(--amber)}
-.dual-card h3{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.dual-card h3{font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .dual-card.branded h3{color:var(--red)} .dual-card.nonbranded h3{color:var(--amber)}
 .dual-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:14px}
 .dual-row:last-child{border-bottom:none} .dual-val{font-weight:700}
@@ -100,7 +100,7 @@ nav a.nav-link:hover{color:var(--red);border-bottom-color:var(--red)}
 .trend-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .trend-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .trend-card-header{padding:12px 16px 10px;border-bottom:1px solid var(--border)}
-.trend-card-header h4{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.trend-card-header h4{font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
 .trend-card-header.branded-hdr h4{color:var(--red)}
 .trend-card-header.nonbranded-hdr h4{color:var(--amber)}
 .trend-card-header p{font-size:12px;color:var(--muted);margin-top:2px}
@@ -113,7 +113,7 @@ nav a.nav-link:hover{color:var(--red);border-bottom-color:var(--red)}
 .wc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .wc-box{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px}
 .wc-box.wins{border-top:3px solid var(--green)} .wc-box.concerns{border-top:3px solid var(--red)}
-.wc-box h3{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.wc-box h3{font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .wc-box.wins h3{color:var(--green)} .wc-box.concerns h3{color:var(--red)}
 .wc-box ul{padding-left:17px} .wc-box li{font-size:14px;margin-bottom:6px;line-height:1.55}
 
@@ -162,7 +162,9 @@ tr.p3 td:first-child{border-left:3px solid #2980B9}
 /* ── CHARTS ── */
 .chart-wrap{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:14px}
 .chart-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px}
-canvas{max-height:260px}
+canvas{max-height:260px;max-width:100%}
+.row-2>*{min-width:0}
+.trend-grid>*{min-width:0}
 
 /* ── LAYOUT ── */
 .row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
@@ -180,12 +182,13 @@ canvas{max-height:260px}
   .rh-logo{display:none}
 }
 @media(max-width:640px){
-  :root{--nav-h:48px;--filter-h:auto}
+  :root{--nav-h:48px;--filter-h:auto;scroll-padding-top:104px}
   body{font-size:14px}
   .kpi-grid{grid-template-columns:1fr 1fr;gap:10px}
   .card-value{font-size:26px}
   .dual-grid,.wc-grid{grid-template-columns:1fr}
-  .sec-title{font-size:19px}
+  .sec-title{font-size:22px}
+  .sub-hd{font-size:17px}
   .rh-title{font-size:20px}
   .filter-bar{padding:8px 14px;gap:8px;top:var(--nav-h)}
   .filter-divider{display:none}
@@ -208,7 +211,7 @@ canvas{max-height:260px}
 
 <!-- ─── NAV ─────────────────────────────────────────────────────── -->
 <nav>
-  <div class="nav-brand">ANZO <span>SEO Reports</span></div>
+  <div class="nav-brand">SEO Reports</div>
   <div class="nav-links">
     <a href="#exec"          class="nav-link">Summary</a>
     <a href="#performance"   class="nav-link">Performance</a>
@@ -387,6 +390,14 @@ function trendTag(cur, prev) {
 
 function typeClass(t){ return {monthly:'bp-type-monthly',weekly:'bp-type-weekly',quarterly:'bp-type-quarterly',yearly:'bp-type-yearly'}[t]||''; }
 
+function boldWC(s) {
+  const idx = s.indexOf(' — ');
+  if (idx > -1) return `<strong>${s.slice(0,idx)}</strong>${s.slice(idx)}`;
+  const idx2 = s.indexOf(': ');
+  if (idx2 > -1) return `<strong>${s.slice(0,idx2)}</strong>${s.slice(idx2)}`;
+  return s;
+}
+
 // ─── RENDER ───────────────────────────────────────────────────────
 function renderReport(d) {
   const page = document.getElementById('report-page');
@@ -426,7 +437,7 @@ function renderHeader(d) {
   <div class="report-header">
     <div>
       <div class="rh-label">SEO Performance Report</div>
-      <div class="rh-title"><span>ANZO Capital</span> — ${m.period}</div>
+      <div class="rh-title"><span>Anzo Capital</span> — ${m.period}</div>
       <div class="rh-meta">${m.dateStart} → ${m.dateEnd} · Compared to: ${m.comparePeriod}</div>
       <div class="rh-badge">
         <span class="badge-pill ${typeClass(m.type)}">${TYPE_LABELS[m.type]||m.type}</span>
@@ -555,11 +566,11 @@ function renderExec(d) {
     <div class="wc-grid">
       <div class="wc-box wins">
         <h3>✓ Wins This Period</h3>
-        <ul>${d.wins.map(w=>`<li>${w}</li>`).join('')}</ul>
+        <ul>${d.wins.map(w=>`<li>${boldWC(w)}</li>`).join('')}</ul>
       </div>
       <div class="wc-box concerns">
         <h3>⚠ Concerns to Address</h3>
-        <ul>${d.concerns.map(c=>`<li>${c}</li>`).join('')}</ul>
+        <ul>${d.concerns.map(c=>`<li>${boldWC(c)}</li>`).join('')}</ul>
       </div>
     </div>
   </div>`;
@@ -826,12 +837,12 @@ function renderCoverage(d) {
 // ─── 05 OPPORTUNITIES ─────────────────────────────────────────────
 function renderOpportunities(d) {
   const rows = d.opportunities.map(o=>`<tr>
-    <td class="url-cell" title="${o.page}">${o.page}</td>
+    <td style="font-size:12px;font-family:monospace;word-break:break-all;line-height:1.45;min-width:180px">${o.page}</td>
     <td class="r">${fmt(o.impressions)}</td>
     <td class="r">${fmt(o.clicks)}</td>
     <td class="r td-dn">${pct(o.ctr)}</td>
     <td class="r">${pos(o.position)}</td>
-    <td style="font-size:13px">${o.opportunity}</td>
+    <td style="font-size:13px;min-width:160px">${o.opportunity}</td>
   </tr>`).join('');
 
   return `
@@ -858,7 +869,6 @@ function renderActions(d) {
     <td>${a.effort}</td>
     <td style="font-size:13px">${a.impact}</td>
     <td>${a.owner}</td>
-    <td style="white-space:nowrap">${a.deadline}</td>
   </tr>`).join('');
 
   return `
@@ -870,7 +880,7 @@ function renderActions(d) {
     </div>
     <div class="tbl-scroll">
       <table>
-        <thead><tr><th>Priority</th><th>Action</th><th>Effort</th><th>Expected Impact</th><th>Owner</th><th>Deadline</th></tr></thead>
+        <thead><tr><th>Priority</th><th>Action</th><th>Effort</th><th>Expected Impact</th><th>Owner</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
@@ -912,7 +922,7 @@ function buildBrandedTrendChart(d) {
       ]
     },
     options:{
-      plugins:{legend:{position:'bottom',labels:{padding:16,usePointStyle:true}}},
+      plugins:{legend:{position:'bottom',align:'center',labels:{padding:20,boxWidth:14,boxHeight:14}}},
       scales:{
         y:{beginAtZero:true,grid:{color:'#EEE'},ticks:{callback:v=>v.toLocaleString()}},
         x:{grid:{display:false}}
