@@ -83,7 +83,9 @@
     { "country": "United States",  "flag": "🇺🇸", "clicks": 56,  "clicksPrev": 67,  "ctr": 0.09,  "position": 6.39 },
     { "country": "India",          "flag": "🇮🇳", "clicks": 55,  "clicksPrev": 47,  "ctr": 0.91,  "position": 6.33 },
     { "country": "Singapore",      "flag": "🇸🇬", "clicks": 54,  "clicksPrev": 73,  "ctr": 2.37,  "position": 6.32 },
-    { "country": "Indonesia",      "flag": "🇮🇩", "clicks": 44,  "clicksPrev": 62,  "ctr": 2.15,  "position": 7.54 }
+    { "country": "Indonesia",      "flag": "🇮🇩", "clicks": 44,  "clicksPrev": 62,  "ctr": 2.15,  "position": 7.54 },
+    { "country": "Vietnam",        "flag": "🇻🇳", "clicks": 76,  "clicksPrev": 0,   "ctr": 1.12,  "position": 6.80 },
+    { "country": "Thailand",       "flag": "🇹🇭", "clicks": 44,  "clicksPrev": 0,   "ctr": 1.81,  "position": 7.91 }
   ],
   "devices": [
     { "device": "Mobile",  "icon": "📱", "clicks": 1243, "clicksPrev": 1080, "impressions": 31155,  "ctr": 3.99, "position": 10.03 },
