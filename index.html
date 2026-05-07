@@ -1096,100 +1096,130 @@ function buildRegionGlobe(d, canvasId, targetSet, clat, clon) {
   const dataMap={};
   d.countries.forEach(c=>{ dataMap[(c.country||'').toLowerCase()]=c; });
 
-  // Merge target countries that have 0 traffic (still show them)
   const allKeys = new Set([...Object.keys(dataMap)]);
   targetSet.forEach(k=>allKeys.add(k));
 
   const tot=d.countries.reduce((s,c)=>s+(c.clicks||0),0)||1;
   const maxC=Math.max(...d.countries.map(c=>c.clicks||0),1);
 
-  // Sort: draw lower-traffic first so big bubbles appear on top
-  const sorted=[...allKeys].map(k=>({key:k,clicks:(dataMap[k]?.clicks||0)}))
-    .sort((a,b)=>a.clicks-b.clicks);
-
-  sorted.forEach(({key,clicks})=>{
+  // ── PASS 1: collect bubble data ──
+  const bubbles=[];
+  [...allKeys].forEach(key=>{
     const geo=GEO_DATA[key]; if(!geo) return;
     const p=proj(geo.la,geo.lo); if(!p.vis) return;
     const isTgt=targetSet.has(key);
+    const clicks=(dataMap[key]?.clicks||0);
     const hasData=clicks>0;
     const flag=(dataMap[key]?.flag)||geo.flag||'';
     const pctVal=hasData?((clicks/tot)*100).toFixed(1):'0.0';
-
-    // Min bubble size: target=52, others=16
     const br=isTgt
       ? Math.max(52, 44+Math.sqrt(clicks/maxC)*58)
       : Math.max(16, 12+Math.sqrt(clicks/maxC)*22);
+    bubbles.push({key,geo,isTgt,hasData,flag,pctVal,br,
+                  x:p.x, y:p.y, ox:p.x, oy:p.y, clicks});
+  });
 
-    // Glow halo for target markets
-    if(isTgt){
-      const gl=ctx.createRadialGradient(p.x,p.y,br*.5,p.x,p.y,br*2.4);
-      gl.addColorStop(0,hasData?'rgba(178,35,51,0.32)':'rgba(178,35,51,0.15)');
-      gl.addColorStop(1,'rgba(178,35,51,0)');
-      ctx.beginPath(); ctx.arc(p.x,p.y,br*2.4,0,Math.PI*2); ctx.fillStyle=gl; ctx.fill();
+  // ── PASS 2: collision separation (iterative force) ──
+  const GAP = 6; // minimum gap between bubble edges
+  for(let iter=0;iter<120;iter++){
+    for(let i=0;i<bubbles.length;i++){
+      for(let j=i+1;j<bubbles.length;j++){
+        const a=bubbles[i], b=bubbles[j];
+        const dx=b.x-a.x, dy=b.y-a.y;
+        const dist=Math.sqrt(dx*dx+dy*dy)||0.001;
+        const minD=a.br+b.br+GAP;
+        if(dist<minD){
+          const overlap=(minD-dist)/2;
+          const nx=dx/dist, ny=dy/dist;
+          // Heavier (larger) bubble moves less
+          const wa=b.br/(a.br+b.br), wb=a.br/(a.br+b.br);
+          a.x -= nx*overlap*wa;
+          a.y -= ny*overlap*wa;
+          b.x += nx*overlap*wb;
+          b.y += ny*overlap*wb;
+        }
+      }
+    }
+  }
+
+  // ── PASS 3: draw (smallest clicks first so big bubbles render on top) ──
+  bubbles.sort((a,b)=>a.clicks-b.clicks);
+
+  bubbles.forEach(({geo,isTgt,hasData,flag,pctVal,br,x,y,ox,oy})=>{
+    // Connector line from original projection to displaced bubble
+    const moved=Math.hypot(x-ox,y-oy)>br*.5;
+    if(moved && isTgt){
+      ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(x,y);
+      ctx.strokeStyle='rgba(255,180,180,0.3)'; ctx.lineWidth=1.5;
+      ctx.setLineDash([3,3]); ctx.stroke(); ctx.setLineDash([]);
     }
 
-    // Bubble body gradient
-    const bub=ctx.createRadialGradient(p.x-br*.3,p.y-br*.35,0,p.x,p.y,br);
+    // Glow halo
     if(isTgt){
-      bub.addColorStop(0, hasData?'#e8495a':'#c04055');
-      bub.addColorStop(1, hasData?'#8b1520':'#6a1020');
+      const gl=ctx.createRadialGradient(x,y,br*.5,x,y,br*2.2);
+      gl.addColorStop(0,hasData?'rgba(178,35,51,0.28)':'rgba(178,35,51,0.12)');
+      gl.addColorStop(1,'rgba(178,35,51,0)');
+      ctx.beginPath(); ctx.arc(x,y,br*2.2,0,Math.PI*2); ctx.fillStyle=gl; ctx.fill();
+    }
+
+    // Bubble body
+    const bub=ctx.createRadialGradient(x-br*.3,y-br*.35,0,x,y,br);
+    if(isTgt){
+      bub.addColorStop(0,hasData?'#e8495a':'#c04055');
+      bub.addColorStop(1,hasData?'#8b1520':'#6a1020');
     } else {
       bub.addColorStop(0,'#4a6fa5'); bub.addColorStop(1,'#1e3a6e');
     }
-    ctx.beginPath(); ctx.arc(p.x,p.y,br,0,Math.PI*2);
+    ctx.beginPath(); ctx.arc(x,y,br,0,Math.PI*2);
     ctx.fillStyle=bub; ctx.fill();
 
-    // Bubble stroke
+    // Stroke
     ctx.strokeStyle=isTgt?'rgba(255,180,180,0.65)':'rgba(120,170,255,0.4)';
     ctx.lineWidth=isTgt?2:1.5; ctx.stroke();
 
-    // Dashed border for zero-traffic target markets
     if(isTgt&&!hasData){
       ctx.setLineDash([4,3]);
       ctx.strokeStyle='rgba(255,200,200,0.5)'; ctx.lineWidth=1.5;
-      ctx.beginPath(); ctx.arc(p.x,p.y,br,0,Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(x,y,br,0,Math.PI*2); ctx.stroke();
       ctx.setLineDash([]);
     }
 
     // Inner sheen
-    const sh2=ctx.createRadialGradient(p.x-br*.3,p.y-br*.38,0,p.x,p.y,br);
+    const sh2=ctx.createRadialGradient(x-br*.3,y-br*.38,0,x,y,br);
     sh2.addColorStop(0,'rgba(255,255,255,0.25)'); sh2.addColorStop(.4,'rgba(255,255,255,0)');
-    ctx.beginPath(); ctx.arc(p.x,p.y,br,0,Math.PI*2); ctx.fillStyle=sh2; ctx.fill();
+    ctx.beginPath(); ctx.arc(x,y,br,0,Math.PI*2); ctx.fillStyle=sh2; ctx.fill();
 
     // ── TEXT ──
     ctx.textAlign='center'; ctx.textBaseline='middle';
 
     if(isTgt){
-      // Large target: flag + name + percentage stacked
-      const flagSz = Math.min(34, br * .58);
-      const nameSz = Math.max(13, Math.min(17, br * .30));
-      const pctSz  = Math.max(16, Math.min(22, br * .36));
+      const flagSz=Math.min(34,br*.58);
+      const nameSz=Math.max(13,Math.min(17,br*.30));
+      const pctSz =Math.max(16,Math.min(22,br*.36));
 
       ctx.font=`${flagSz}px system-ui`;
       ctx.fillStyle='#fff';
-      ctx.fillText(flag, p.x, p.y - br*.28);
+      ctx.fillText(flag,x,y-br*.28);
 
       ctx.font=`700 ${nameSz}px system-ui,-apple-system`;
       ctx.fillStyle='rgba(255,255,255,0.95)';
-      ctx.fillText(geo.name, p.x, p.y + br*.08);
+      ctx.fillText(geo.name,x,y+br*.08);
 
       ctx.font=`900 ${pctSz}px system-ui,-apple-system`;
       ctx.fillStyle=hasData?'#fff':'rgba(255,255,255,0.5)';
-      ctx.fillText(hasData?pctVal+'%':'No data', p.x, p.y + br*.42);
+      ctx.fillText(hasData?pctVal+'%':'No data',x,y+br*.42);
 
     } else if(br>16){
-      // Medium: flag + percentage
       ctx.font=`${Math.min(18,br*.65)}px system-ui`;
       ctx.fillStyle='#fff';
-      ctx.fillText(flag, p.x, p.y-br*.2);
+      ctx.fillText(flag,x,y-br*.2);
       ctx.font=`bold ${Math.max(10,br*.38)}px system-ui,-apple-system`;
       ctx.fillStyle='rgba(255,255,255,0.9)';
-      ctx.fillText(pctVal+'%', p.x, p.y+br*.32);
+      ctx.fillText(pctVal+'%',x,y+br*.32);
     } else {
-      // Small: flag only
       ctx.font=`${Math.max(10,br*.65)}px system-ui`;
       ctx.fillStyle='rgba(255,255,255,0.85)';
-      ctx.fillText(flag||pctVal+'%', p.x, p.y);
+      ctx.fillText(flag||pctVal+'%',x,y);
     }
   });
 }
