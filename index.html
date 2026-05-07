@@ -184,7 +184,7 @@ canvas{max-height:260px;max-width:100%}
 .globe-item{text-align:center;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 14px 14px}
 .globe-region-label{font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px}
 .globe-sub-label{font-size:12px;color:var(--muted);margin-bottom:10px}
-.globe-item canvas{display:block;margin:0 auto;border-radius:50%;box-shadow:0 6px 28px rgba(0,0,0,.28);max-width:100%;height:auto}
+.globe-item canvas{display:block;margin:0 auto;box-shadow:0 6px 28px rgba(0,0,0,.18);max-width:100%;height:auto}
 .globe-legend-bar{display:flex;justify-content:center;gap:18px;margin-top:10px;flex-wrap:wrap}
 .gl-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted)}
 .gl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
@@ -1041,11 +1041,11 @@ const GEO_DATA={
 
 function buildRegionGlobe(d, canvasId, targetSet, clat, clon) {
   const el = document.getElementById(canvasId); if(!el) return;
-  const SZ = 460;
+  const SZ = 520;
   el.width = SZ; el.height = SZ;
   el.style.maxWidth = '100%'; el.style.height = 'auto';
   const ctx = el.getContext('2d');
-  const cx = SZ/2, cy = SZ/2, R = SZ/2 - 14;
+  const cx = SZ/2, cy = SZ/2, R = SZ/2 - 80; // smaller globe = room for bubble overflow
 
   const CLa=clat*Math.PI/180, CLo=clon*Math.PI/180;
   function proj(lat,lon){
@@ -1115,10 +1115,10 @@ function buildRegionGlobe(d, canvasId, targetSet, clat, clon) {
     const flag=(dataMap[key]?.flag)||geo.flag||'';
     const pctVal=hasData?((clicks/tot)*100).toFixed(1):'0.0';
 
-    // Min bubble size: target=26, others=13
+    // Min bubble size: target=52, others=16
     const br=isTgt
-      ? Math.max(26, 22+Math.sqrt(clicks/maxC)*34)
-      : Math.max(12, 10+Math.sqrt(clicks/maxC)*18);
+      ? Math.max(52, 44+Math.sqrt(clicks/maxC)*58)
+      : Math.max(16, 12+Math.sqrt(clicks/maxC)*22);
 
     // Glow halo for target markets
     if(isTgt){
@@ -1161,34 +1161,34 @@ function buildRegionGlobe(d, canvasId, targetSet, clat, clon) {
 
     if(isTgt){
       // Large target: flag + name + percentage stacked
-      const flagSz=Math.min(22,br*.72);
-      const nameSz=Math.max(10,Math.min(13,br*.38));
-      const pctSz=Math.max(12,Math.min(16,br*.44));
+      const flagSz = Math.min(34, br * .58);
+      const nameSz = Math.max(13, Math.min(17, br * .30));
+      const pctSz  = Math.max(16, Math.min(22, br * .36));
 
       ctx.font=`${flagSz}px system-ui`;
       ctx.fillStyle='#fff';
-      ctx.fillText(flag, p.x, p.y - br*.32);
+      ctx.fillText(flag, p.x, p.y - br*.28);
 
       ctx.font=`700 ${nameSz}px system-ui,-apple-system`;
-      ctx.fillStyle='rgba(255,255,255,0.92)';
-      ctx.fillText(geo.name, p.x, p.y + br*.06);
+      ctx.fillStyle='rgba(255,255,255,0.95)';
+      ctx.fillText(geo.name, p.x, p.y + br*.08);
 
-      ctx.font=`800 ${pctSz}px system-ui,-apple-system`;
+      ctx.font=`900 ${pctSz}px system-ui,-apple-system`;
       ctx.fillStyle=hasData?'#fff':'rgba(255,255,255,0.5)';
-      ctx.fillText(hasData?pctVal+'%':'No data', p.x, p.y + br*.4);
+      ctx.fillText(hasData?pctVal+'%':'No data', p.x, p.y + br*.42);
 
     } else if(br>16){
       // Medium: flag + percentage
-      ctx.font=`${Math.min(14,br*.6)}px system-ui`;
+      ctx.font=`${Math.min(18,br*.65)}px system-ui`;
       ctx.fillStyle='#fff';
       ctx.fillText(flag, p.x, p.y-br*.2);
-      ctx.font=`bold ${Math.max(8,br*.35)}px system-ui,-apple-system`;
-      ctx.fillStyle='rgba(255,255,255,0.85)';
-      ctx.fillText(pctVal+'%', p.x, p.y+br*.3);
+      ctx.font=`bold ${Math.max(10,br*.38)}px system-ui,-apple-system`;
+      ctx.fillStyle='rgba(255,255,255,0.9)';
+      ctx.fillText(pctVal+'%', p.x, p.y+br*.32);
     } else {
       // Small: flag only
-      ctx.font=`${Math.max(8,br*.6)}px system-ui`;
-      ctx.fillStyle='rgba(255,255,255,0.8)';
+      ctx.font=`${Math.max(10,br*.65)}px system-ui`;
+      ctx.fillStyle='rgba(255,255,255,0.85)';
       ctx.fillText(flag||pctVal+'%', p.x, p.y);
     }
   });
