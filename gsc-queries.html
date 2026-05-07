@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSC SEO Gap Analysis</title>
+<style>
+:root {
+  --font-sans: system-ui, -apple-system, 'Inter', sans-serif;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f4f4f6;
+  --color-background-info: #eef2ff;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #666666;
+  --color-text-info: #3451b2;
+  --color-border-tertiary: #e0e0e5;
+  --color-accent: #b22333;
+  --border-radius-sm: 6px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background: #f0f1f4;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--color-background-primary);
+  border-bottom: 1px solid var(--color-border-tertiary);
+  padding: 0 28px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.topbar-brand {
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--color-accent);
+  letter-spacing: -.3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar-brand-sub {
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  padding-left: 10px;
+  border-left: 1px solid var(--color-border-tertiary);
+}
+.topbar-meta {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* ── PAGE ── */
+.page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 24px 24px 60px;
+}
+
+/* ── STAT ROW ── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.stat {
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 16px 20px;
+  border-top: 3px solid var(--color-border-tertiary);
+}
+.stat.easy  { border-top-color: #3B6D11; }
+.stat.hard  { border-top-color: #A32D2D; }
+.stat.total { border-top-color: var(--color-accent); }
+.stat.impr  { border-top-color: #185FA5; }
+.stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--color-text-secondary); margin-bottom: 6px; }
+.stat-val   { font-size: 28px; font-weight: 800; color: var(--color-text-primary); line-height: 1.1; }
+.stat.easy .stat-val  { color: #3B6D11; }
+.stat.hard .stat-val  { color: #A32D2D; }
+.stat.total .stat-val { color: var(--color-accent); }
+.stat.impr .stat-val  { color: #185FA5; }
+
+/* ── FILTERS ── */
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  align-items: center;
+}
+.filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  white-space: nowrap;
+}
+.filters select, .filters input {
+  font-size: 13px;
+  padding: 7px 12px;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-border-tertiary);
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  height: 34px;
+}
+.filters select:focus, .filters input:focus {
+  border-color: #7b93d4;
+  box-shadow: 0 0 0 3px rgba(100,130,220,.12);
+}
+.filters input { width: 200px; }
+.filters input::placeholder { color: #aaa; }
+
+/* ── TABLE ── */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-background-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead th {
+  background: var(--color-background-secondary);
+  color: var(--color-text-secondary);
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-tertiary);
+  white-space: nowrap;
+  position: sticky;
+  top: 52px;
+  z-index: 10;
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border-tertiary);
+  color: var(--color-text-primary);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: #f8f9fb; }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: .1px;
+}
+.b-easy   { background: #EAF3DE; color: #3B6D11; }
+.b-medium { background: #FEF3E2; color: #854F0B; }
+.b-hard   { background: #FCEAEA; color: #A32D2D; }
+.b-brand  { background: #E3EFFE; color: #185FA5; }
+
+/* ── CELLS ── */
+.rank-num   { font-weight: 600; color: var(--color-text-secondary); font-size: 12px; }
+.query-cell { min-width: 180px; max-width: 220px; }
+.query-text { font-weight: 600; color: var(--color-text-primary); word-break: break-word; font-size: 13px; line-height: 1.4; }
+.gap-cell   { min-width: 220px; max-width: 280px; font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; }
+.add-cell   { min-width: 200px; max-width: 260px; font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; font-style: italic; }
+
+.pos-pill {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--color-background-info);
+  color: var(--color-text-info);
+  white-space: nowrap;
+}
+.imp-val { font-weight: 600; color: var(--color-text-primary); }
+
+.detail-btn {
+  font-size: 11px;
+  color: var(--color-text-info);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 5px;
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+.detail-btn:hover { text-decoration: underline; }
+
+/* ── EXPANDED ROW ── */
+tr.expanded > td { background: #eef2ff !important; }
+.detail-row td {
+  background: #f4f7ff;
+  padding: 14px 18px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  border-top: none;
+}
+.detail-row td b { color: var(--color-text-primary); font-weight: 700; }
+.detail-row td .detail-section {
+  margin-bottom: 10px;
+}
+.detail-row td .detail-section:last-child { margin-bottom: 0; }
+.hint-box {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: #fff8e6;
+  border-left: 3px solid #e6a817;
+  border-radius: 0 6px 6px 0;
+  font-size: 12px;
+  color: #7a5200;
+  line-height: 1.6;
+}
+.hint-box b { color: #5a3c00; }
+
+/* ── EMPTY STATE ── */
+.empty {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+/* ── RESULT COUNT ── */
+.result-count {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-left: auto;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .page { padding: 16px 14px 48px; }
+  .stat-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-val { font-size: 22px; }
+  .filters { gap: 8px; }
+  .filters input { width: 140px; }
+  .topbar { padding: 0 16px; }
+  .topbar-brand-sub { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── TOP BAR ── -->
+<header class="topbar">
+  <div class="topbar-brand">
+    GSC SEO Gap Analysis
+    <span class="topbar-brand-sub">Query Prioritization Dashboard</span>
+  </div>
+  <div class="topbar-meta">Google Search Console · Web Search</div>
+</header>
+
+<!-- ── PAGE ── -->
+<div class="page">
+
+  <!-- STATS -->
+  <div class="stat-row" id="stats"></div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <span class="filter-label">Filter:</span>
+    <select id="diffFilter" onchange="render()">
+      <option value="">All difficulty</option>
+      <option value="Easy win">Easy win</option>
+      <option value="Medium effort">Medium effort</option>
+      <option value="Hard">Hard</option>
+      <option value="Brand">Brand term</option>
+    </select>
+    <select id="sortBy" onchange="render()">
+      <option value="priority">Priority rank</option>
+      <option value="impressions">Impressions</option>
+      <option value="position">Position (best)</option>
+    </select>
+    <input type="text" id="search" placeholder="Search queries…" oninput="render()">
+    <span class="result-count" id="resultCount"></span>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Query</th>
+          <th>Pos</th>
+          <th>Impr</th>
+          <th>Clicks</th>
+          <th>Difficulty</th>
+          <th>Content gap (likely missing)</th>
+          <th>Add to page</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+const DATA = [
+  {query:"what is a no deposit bonus",pos:7.09,impr:13757,clicks:0,priority:1,diff:"Easy win",gap:"Exact definition answered in first paragraph, regulatory context (ASIC/FCA rules on no-deposit offers), step-by-step claim process, terms & conditions explained (wagering, withdrawal limits), comparison table vs deposit bonus",add:"Add an H2 'What is a no deposit bonus?' with a 150-word plain-English definition, a bullet list of typical T&Cs (lot requirement, time limit, withdrawal cap), and a note on how Anzo's offer compares. Include an FAQ block with 'Is a no deposit bonus real money?' and 'How do I withdraw no deposit bonus profits?'",hint:"13.7k impressions, 0 clicks — massive CTR opportunity. You're ranking but not winning clicks. Content depth + title tag rewrite could push this to page 1 quickly."},
+  {query:"what is a deposit bonus",pos:7.98,impr:7187,clicks:1,priority:2,diff:"Easy win",gap:"Clear definition, how the bonus calculation works (e.g. 100% up to $500), eligible account types, wagering/volume requirements, expiry rules, comparison with no-deposit bonuses",add:"Add a dedicated H2 section defining deposit bonuses with a worked example ('Deposit $200, receive $200 bonus = $400 trading capital'). Include a small table comparing deposit vs no-deposit bonus. Add FAQ: 'When does my deposit bonus expire?' and 'Which accounts qualify?'",hint:"7.2k impressions, near-zero CTR. Strong informational intent — a well-structured definition page beats thin broker promo copy every time."},
+  {query:"withdrawable no deposit bonus",pos:6.68,impr:223,clicks:7,priority:3,diff:"Easy win",gap:"Explicit statement that the bonus IS withdrawable (many competitors bury this), exact withdrawal conditions, minimum lot volume, proof/example of a real withdrawal, comparison vs non-withdrawable offers",add:"Add a callout box or highlighted paragraph: 'Anzo's no deposit bonus is withdrawable once you complete X lots.' List the exact steps to withdraw. Add a FAQ: 'Can I withdraw my no deposit bonus?' answered with a direct 'Yes — here's how.'",hint:"Already getting clicks despite low impressions. Conversion-focused query. A clearer answer to 'is it actually withdrawable' would lift both ranking and conversion."},
+  {query:"comparing matched deposit vs no-deposit bonuses",pos:4.08,impr:118,clicks:0,priority:4,diff:"Easy win",gap:"Side-by-side comparison table, pros/cons of each, which is better for beginners vs experienced traders, risk considerations, real numbers",add:"Add a comparison table with columns: Feature | No-Deposit Bonus | Matched Deposit Bonus. Rows: Starting capital, Risk to trader, Withdrawal conditions, Best for. Add a 100-word summary paragraph recommending which to choose based on trader profile.",hint:"Position 4 already — one good table and this moves to top 3. Pure comparison intent, easy to satisfy."},
+  {query:"rebate vs cashback",pos:4.68,impr:149,clicks:0,priority:5,diff:"Easy win",gap:"Clear distinction between the two terms, how each is calculated in forex/CFD context, which is better for high-volume traders, Anzo's specific offering explained",add:"Add an H2 'Rebate vs cashback: what's the difference?' with a two-column explainer. Clarify that in forex, rebates are per-lot credits while cashback is % of spread. State explicitly which model Anzo uses and how traders can calculate their earnings.",hint:"Position 4.7 — almost there. The query is definitional, so a sharp 200-word section wins easily."},
+  {query:"difference between cpi and core cpi",pos:7.64,impr:431,clicks:0,priority:6,diff:"Easy win",gap:"Simple table showing what each index includes/excludes, why traders care about the difference, how each moves markets differently, a real example from a recent release",add:"Add a side-by-side table: CPI vs Core CPI — what's included, what's excluded, typical market reaction. Follow with a 3-sentence paragraph on why core CPI often moves forex more than headline CPI. Tie it to Anzo's economic calendar or relevant instruments (USD pairs, gold).",hint:"431 impressions, zero clicks. High-intent educational query. A clean table + trader angle beats generic finance-site answers."},
+  {query:"core cpi vs cpi",pos:9.19,impr:340,clicks:2,priority:7,diff:"Easy win",gap:"Same as above — likely same page, different phrasing. Ensure both keyword variants appear naturally in the content.",add:"Ensure the page targeting 'difference between CPI and core CPI' also includes the phrase 'core CPI vs CPI' in a subheading or the intro sentence. No separate page needed — just natural language variation.",hint:"Essentially the same query as above. One content update fixes both rankings simultaneously."},
+  {query:"cpi vs core cpi",pos:6.05,impr:130,clicks:0,priority:8,diff:"Easy win",gap:"Same content gap as CPI/core CPI queries above.",add:"Same fix as above — this is the third variant of the same query cluster. One well-optimised page targeting all three phrasings handles this efficiently.",hint:"Cluster all three CPI comparison queries into one authoritative page. Three fixes for the price of one."},
+  {query:"what is the difference between cpi and core cpi",pos:6.64,impr:72,clicks:0,priority:9,diff:"Easy win",gap:"Long-tail variant — add the full question as an FAQ entry.",add:"Add an FAQ entry with the exact question 'What is the difference between CPI and core CPI?' followed by a 50-word direct answer. This captures featured snippet territory.",hint:"FAQ schema + direct answer = featured snippet candidate. Very achievable."},
+  {query:"how cpi affects currencies",pos:9.97,impr:69,clicks:0,priority:10,diff:"Easy win",gap:"Mechanism explained (how surprise CPI prints move USD), which currency pairs react most, historical examples, trader takeaway",add:"Add a section 'How does CPI affect currency prices?' explaining that higher-than-expected CPI → rate hike expectations → stronger currency. Include a mini table of most CPI-sensitive pairs (EUR/USD, USD/JPY). Link to Anzo's economic calendar.",hint:"Position 10 — one spot from page 2. A focused 200-word section with a real example pushes this over."},
+  {query:"competitive trading",pos:5.54,impr:471,clicks:0,priority:11,diff:"Medium effort",gap:"Definition of competitive/prop-style trading, how it differs from retail, what makes a platform 'competitive' (spreads, execution speed, leverage), Anzo's competitive advantages stated explicitly",add:"Add an H2 'What makes trading conditions competitive?' listing tight spreads, fast execution, low latency, and deep liquidity. Contrast with retail-only platforms. This gives the page semantic relevance for 'competitive trading' intent.",hint:"471 impressions, zero clicks suggests a title/meta mismatch. Review whether the landing page actually addresses this query or if a dedicated page is needed."},
+  {query:"mt4 vs mt5 which is better 2025 2026",pos:7.46,impr:220,clicks:0,priority:12,diff:"Medium effort",gap:"Year-specific comparison (2025/2026 context), updated feature list for MT5 vs MT4, which is better for different asset classes, Anzo's recommendation, download links for both",add:"Update or create a comparison page with a table: MT4 vs MT5 — features, asset coverage, mobile app quality, algo trading support. Add a 'Which should I use in 2025/2026?' section with Anzo's recommendation based on trader type. Include the year in the H1 or a prominent subheading.",hint:"Time-stamped query — competitors with '2025' or '2026' in their title tag will outrank you. Update your title tag immediately."},
+  {query:"forex trading vietnam",pos:8.07,impr:309,clicks:0,priority:13,diff:"Medium effort",gap:"Is forex legal in Vietnam? Which brokers accept Vietnamese traders? Local payment methods (e.g. bank transfer, e-wallets), Vietnamese language support, regulatory context",add:"Create or expand a Vietnam-specific landing page with: forex legality in Vietnam, how to open an account from Vietnam, supported payment methods, language support. Include a localised FAQ. Add hreflang if Vietnamese content exists.",hint:"309 impressions suggests real demand. A geo-targeted page (Vietnam + forex) is the clearest path to page 1."},
+  {query:"standard stp account",pos:4.66,impr:74,clicks:0,priority:14,diff:"Medium effort",gap:"Definition of STP execution, how it differs from market maker, specific spread/commission for Anzo's STP account, minimum deposit, who it's best for",add:"Add a dedicated section on the account page: 'What is an STP account?' — explain straight-through processing in plain English, list Anzo's STP account specs (spreads, commission, leverage), and add a 'STP vs ECN' comparison if applicable.",hint:"Position 4.7 — close. Thin account descriptions are the usual culprit. Beef up the STP page with a proper explainer."},
+  {query:"how to set alerts on mt5 mobile",pos:4.23,impr:70,clicks:1,priority:15,diff:"Medium effort",gap:"Step-by-step screenshots or numbered instructions for iOS and Android, types of alerts (price, indicator), how to enable push notifications from Anzo's MT5, troubleshooting",add:"Add a tutorial: 'How to set price alerts on MT5 mobile (iOS & Android)' with numbered steps. Cover: open chart → long press → add alert → set conditions → enable push notifications. Include a note specific to Anzo's server settings.",hint:"Position 4 — already close. A structured how-to article with numbered steps wins this against generic MT5 help pages."},
+  {query:"metatrader 5 notification push téléphone configuration",pos:9.62,impr:218,clicks:0,priority:16,diff:"Medium effort",gap:"French-language content (this is a French query). MT5 push notification setup specific to mobile, server ID configuration, troubleshooting steps",add:"Add French-language content (or a French-language FAQ entry) covering MT5 push notification configuration. Key steps: go to Tools → Options → Notifications, enter MetaQuotes ID, enable notifications on mobile. An Anzo-specific server ID note would differentiate this from generic answers.",hint:"French-language query with 218 impressions — your competitors are likely English-only. A short French how-to section could own this niche quickly."},
+  {query:"trade energy cfds vietnam",pos:7.57,impr:94,clicks:0,priority:17,diff:"Medium effort",gap:"Which energy CFDs are available (oil, gas, etc.), how to trade them from Vietnam, leverage available, margin requirements, local regulations",add:"Expand or create Vietnam energy CFD content: list available instruments (WTI, Brent, Natural Gas), specify leverage for Vietnamese clients, explain how to open positions from Vietnam, and link to the trading platform download.",hint:"Niche geo+product query. Relatively low competition — a dedicated section on a Vietnam page handles this."},
+  {query:"anzo capital review",pos:9.58,impr:211,clicks:4,priority:18,diff:"Medium effort",gap:"Third-party-style review content: regulation details, spreads, platform comparison, pros and cons, real user experience signals, trust indicators (awards, licences)",add:"Create or expand a self-review or 'About Anzo Capital' page that proactively answers review-style questions: regulation (which licences?), spreads (typical EUR/USD spread), platforms, deposit/withdrawal methods, customer support. Add structured data (Organization schema). Consider a dedicated /review page.",hint:"People searching your brand + 'review' are close to converting. Position 9.58 means you're losing these to third-party review sites. A strong /review or /about page can reclaim this."},
+  {query:"anzo app",pos:4.55,impr:117,clicks:4,priority:19,diff:"Easy win",gap:"Direct app download links (App Store + Google Play), screenshots, key features, version/update info, minimum OS requirements",add:"Ensure your app landing page has prominent App Store and Google Play download buttons above the fold, app screenshots, a feature list, and a clear CTA. Add app name and version in the page title. Submit app schema markup.",hint:"Brand + product query at position 4.5 — you should own this. Check that your app page is indexed, crawlable, and linked from the main nav."},
+  {query:"anzo",pos:4.87,impr:6965,clicks:684,priority:20,diff:"Brand",gap:"Homepage likely competes with other 'Anzo' entities. Ensure brand entity disambiguation, strong E-E-A-T signals, homepage title tag includes 'Anzo Capital | Forex & CFD Broker'",add:"Review the homepage title tag — does it clearly state 'Anzo Capital' to disambiguate from other Anzo brands? Ensure Google Knowledge Panel is claimed. Add Organization schema with official name, logo, sameAs links (LinkedIn, social profiles).",hint:"6.9k impressions at position 4.9 for your own brand name is a red flag. Check for competing Anzo entities (software, other companies). Knowledge Panel + schema = fastest fix."},
+  {query:"industrial demand impacts silver prices more sharply than gold prices",pos:5.21,impr:456,clicks:3,priority:21,diff:"Hard",gap:"Data-backed article: silver's industrial use % vs gold's, historical price correlation analysis, specific industries driving demand (solar, electronics), chart showing silver vs gold price divergence during industrial booms",add:"Expand the silver/gold analysis article with: (1) a chart or table of silver's industrial demand breakdown by sector, (2) a comparison of price volatility during manufacturing cycles, (3) a trader takeaway on positioning silver vs gold in a portfolio. Cite actual data sources.",hint:"456 impressions with 3 clicks suggests good content exists but it's not comprehensive enough. Top-ranking pages on this topic are data-heavy research pieces — hard to compete without similar depth."},
+  {query:"nyse trading hours daylight saving time 2026",pos:7.44,impr:195,clicks:0,priority:22,diff:"Hard",gap:"Exact 2026 DST dates for NYSE, how DST affects SGT/AEST/other Asia-Pacific time zones, a clear time conversion table, which instruments are affected",add:"Update your trading hours page with a 2026 DST section: exact dates clocks change, a time zone conversion table (EST → SGT, HKT, JST), and a note on how this affects your clients specifically. Update this every year — freshness matters here.",hint:"Date-specific query — whoever updates their page first with 2026 data wins. Update now and you could move quickly. But competition resets annually."},
+  {query:"ofw remittances role in philippine real estate demand 2024",pos:4.38,impr:180,clicks:0,priority:23,diff:"Hard",gap:"BSP remittance data cited directly, correlation analysis with property price indices, regional breakdown (Metro Manila vs provinces), 2024-specific figures, expert commentary",add:"Add a data section to your Philippines/OFW article: cite BSP's 2024 remittance figures ($38.34B), show correlation with real estate demand data, include a chart if possible, and connect it to forex trading opportunities (USD/PHP, property-linked instruments).",hint:"Very specific query with official data in it — searchers want the BSP report, not a broker article. Hard to outrank without being the primary source or citing it directly."},
+  {query:"hschkd",pos:5.93,impr:94,clicks:3,priority:24,diff:"Hard",gap:"What HSCHKD means (Hang Seng Index priced in HKD), how to trade it, margin requirements, trading hours, tick size — very specific instrument page needed",add:"Create a dedicated instrument page for HSCHKD: full name, what it tracks, how to trade it on Anzo's platform, contract specs (lot size, margin, trading hours), and a brief intro to the Hang Seng Index for context.",hint:"Highly specific instrument ticker query — likely navigational. A dedicated instrument page is the right fix but requires product/content team effort."},
+  {query:"enzo broker",pos:4.39,impr:105,clicks:1,priority:25,diff:"Hard",gap:"Brand confusion — 'Enzo' vs 'Anzo'. Likely a misspelling or competitor confusion. Hard to target directly without brand risk.",add:"No content change recommended. Consider a Google Ads bid on 'enzo broker' as an alternative. Organically, ensure your brand name 'Anzo Capital' is clearly stated in meta title, H1, and first paragraph to capture misspell traffic passively.",hint:"Probably misspelled brand query. Organic content changes won't help much — monitor but deprioritise."},
+  {query:"ofw contribution to philippine economy",pos:4.63,impr:86,clicks:1,priority:26,diff:"Hard",gap:"Comprehensive data: % of GDP from remittances, employment stats, sectoral contributions, comparison with other countries, 2024 updated figures",add:"Expand your OFW article with a data table: remittances as % of Philippine GDP (2020–2024), key sectors OFWs work in, impact on consumer spending. Add BSP and PSA citations. This content competes with academic and government sources — hard without strong data.",hint:"Competing with government/academic sources on this query. Difficult to rank top 3 without authoritative data and strong backlinks to the page."},
+  {query:"how does ofw contribute to the philippine economy",pos:4.55,impr:75,clicks:0,priority:27,diff:"Hard",gap:"Same as above — long-form question variant.",add:"Ensure your OFW page answers this exact question in an FAQ or intro paragraph. The phrasing 'how does OFW contribute' should appear verbatim in an H2 or FAQ entry to capture this variant.",hint:"Same cluster as above. Fix both with one page update targeting both phrasings."},
+  {query:"forex trading hours april 3 2026",pos:7.80,impr:81,clicks:0,priority:28,diff:"Hard",gap:"Exact trading hours for forex, metals, indices on April 3 2026 (Good Friday) — date-specific, ephemeral content",add:"Keep a standing 'Forex trading hours holiday schedule' page that gets updated for each major holiday. For Good Friday 2026, add a specific note with open/close times per instrument. Freshness is the ranking factor here.",hint:"Ephemeral date-specific queries are hard to sustain. A holiday hours hub page that's updated regularly is the right infrastructure investment."},
+  {query:"xauusd trading hours april 3 2026",pos:5.10,impr:126,clicks:0,priority:29,diff:"Hard",gap:"Specific XAU/USD hours on Good Friday April 3 2026, which sessions are open/closed, impact on liquidity and spreads",add:"Add XAUUSD-specific hours to the holiday schedule page. Note that gold trading hours differ from forex — specify CME and OTC session impacts on Good Friday. Already at position 5 — a precise answer with the date in the heading could move this quickly.",hint:"Position 5 already — specific date content updated promptly could push this to top 3 before April 3."},
+  {query:"indonesian nickel policy volatility 2026",pos:6.41,impr:135,clicks:0,priority:30,diff:"Hard",gap:"2026-specific policy developments, impact on nickel futures and CFD prices, how to trade nickel volatility, relevant Indonesian government decisions",add:"Add a section to your commodities content: 'How Indonesian nickel export policy affects nickel prices' with 2026-specific updates. Connect to tradeable instruments on Anzo's platform. Cite mining ministry announcements.",hint:"Niche macro-commodity query. Relevant to your audience but requires current research and regular updates to stay competitive."}
+];
+
+const diffOrder = { "Easy win":1, "Medium effort":2, "Hard":3, "Brand":4 };
+let expanded = new Set();
+
+function badgeClass(d) {
+  if (d === "Easy win")     return "b-easy";
+  if (d === "Medium effort") return "b-medium";
+  if (d === "Hard")         return "b-hard";
+  return "b-brand";
+}
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function render() {
+  const diff   = document.getElementById('diffFilter').value;
+  const sort   = document.getElementById('sortBy').value;
+  const search = document.getElementById('search').value.toLowerCase().trim();
+
+  let rows = DATA.filter(r => {
+    if (diff && r.diff !== diff) return false;
+    if (search && !r.query.toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  if (sort === 'impressions') rows.sort((a, b) => b.impr - a.impr);
+  else if (sort === 'position') rows.sort((a, b) => a.pos - b.pos);
+  else rows.sort((a, b) => a.priority - b.priority);
+
+  // Stats
+  const easy  = DATA.filter(r => r.diff === "Easy win").length;
+  const hard  = DATA.filter(r => r.diff === "Hard").length;
+  const totalImpr = DATA.reduce((s, r) => s + r.impr, 0);
+
+  document.getElementById('stats').innerHTML = `
+    <div class="stat total">
+      <div class="stat-label">Total queries (pos 4–10)</div>
+      <div class="stat-val">${DATA.length}</div>
+    </div>
+    <div class="stat impr">
+      <div class="stat-label">Total impressions</div>
+      <div class="stat-val">${totalImpr.toLocaleString()}</div>
+    </div>
+    <div class="stat easy">
+      <div class="stat-label">Easy wins</div>
+      <div class="stat-val">${easy}</div>
+    </div>
+    <div class="stat hard">
+      <div class="stat-label">Hard / long-term</div>
+      <div class="stat-val">${hard}</div>
+    </div>
+  `;
+
+  // Result count
+  document.getElementById('resultCount').textContent =
+    rows.length === DATA.length
+      ? `${DATA.length} queries`
+      : `${rows.length} of ${DATA.length} queries`;
+
+  if (!rows.length) {
+    document.getElementById('tbody').innerHTML =
+      `<tr><td colspan="8" class="empty">No queries match your filters.</td></tr>`;
+    return;
+  }
+
+  let html = '';
+  rows.forEach(r => {
+    const isExp = expanded.has(r.query);
+    const qKey  = esc(r.query);
+    const gapShort = r.gap.length > 95  ? r.gap.substring(0, 95)  + '…' : r.gap;
+    const addShort = r.add.length > 85  ? r.add.substring(0, 85)  + '…' : r.add;
+
+    html += `<tr class="${isExp ? 'expanded' : ''}" style="cursor:pointer" onclick="toggle(${r.priority})">
+      <td><span class="rank-num">${r.priority}</span></td>
+      <td class="query-cell">
+        <div class="query-text">${esc(r.query)}</div>
+        <button class="detail-btn">${isExp ? '▲ hide detail' : '▼ show detail'}</button>
+      </td>
+      <td><span class="pos-pill">${r.pos.toFixed(1)}</span></td>
+      <td><span class="imp-val">${r.impr.toLocaleString()}</span></td>
+      <td>${r.clicks}</td>
+      <td><span class="badge ${badgeClass(r.diff)}">${r.diff}</span></td>
+      <td class="gap-cell">${esc(gapShort)}</td>
+      <td class="add-cell">${esc(addShort)}</td>
+    </tr>`;
+
+    if (isExp) {
+      html += `<tr class="detail-row"><td colspan="8">
+        <div class="detail-section"><b>Content gap (full):</b><br>${esc(r.gap)}</div>
+        <div class="detail-section"><b>What to add / change:</b><br>${esc(r.add)}</div>
+        <div class="hint-box"><b>📊 Ranking note:</b> ${esc(r.hint)}</div>
+      </td></tr>`;
+    }
+  });
+
+  document.getElementById('tbody').innerHTML = html;
+}
+
+function toggle(priority) {
+  const r = DATA.find(d => d.priority === priority);
+  if (!r) return;
+  if (expanded.has(r.query)) expanded.delete(r.query);
+  else expanded.add(r.query);
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
