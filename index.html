@@ -291,7 +291,7 @@ const isBranded = q => BRANDED_TERMS.some(t => q.toLowerCase().includes(t));
 // ─── BOOT ─────────────────────────────────────────────────────────
 async function boot() {
   try {
-    const res = await fetch('reports/manifest.json');
+    const res = await fetch('reports/manifest.json', {cache:'no-cache'});
     manifest = await res.json();
   } catch(e) {
     document.getElementById('report-picker').innerHTML =
@@ -367,7 +367,7 @@ async function loadReport(id) {
   const entry = manifest.reports.find(r=>r.id===id);
   if (!entry) return;
   let data;
-  try { const res = await fetch(entry.file); data = await res.json(); }
+  try { const res = await fetch(entry.file, {cache:'no-cache'}); data = await res.json(); }
   catch(e) { alert('Could not load: '+entry.file); return; }
   currentReport = data;
   history.replaceState(null,'','#'+id);
