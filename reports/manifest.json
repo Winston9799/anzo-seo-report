@@ -11,6 +11,18 @@
       "comparePeriod": "March 2026",
       "file": "reports/2026-04-monthly.json",
       "generatedAt": "2026-05-05"
+    },
+    {
+      "id": "2026-W20-weekly",
+      "type": "weekly",
+      "label": "W20 2026  (2026-05-08 - 2026-05-14)",
+      "year": 2026,
+      "week": 20,
+      "dateStart": "2026-05-08",
+      "dateEnd": "2026-05-14",
+      "comparePeriod": "W19 2026",
+      "file": "reports/2026-W20-weekly.json",
+      "generatedAt": "2026-05-20"
     }
   ]
 }
