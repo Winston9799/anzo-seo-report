@@ -1,0 +1,1096 @@
+{
+  "meta": {
+    "id": "2026-06-monthly",
+    "type": "monthly",
+    "period": "June 2026",
+    "dateStart": "2026-06-01",
+    "dateEnd": "2026-06-30",
+    "comparePeriod": "May 2026",
+    "property": "anzocapital.com",
+    "generatedAt": "2026-07-06",
+    "searchType": "Web"
+  },
+  "kpis": {
+    "clicks": {
+      "current": 1686,
+      "previous": 1688
+    },
+    "impressions": {
+      "current": 53898,
+      "previous": 104973
+    },
+    "ctr": {
+      "current": 3.13,
+      "previous": 1.61
+    },
+    "position": {
+      "current": 15.9,
+      "previous": 10.2
+    }
+  },
+  "branded": {
+    "clicks": {
+      "current": 1149,
+      "previous": 1045
+    },
+    "impressions": {
+      "current": 4122,
+      "previous": 4122
+    },
+    "ctr": 27.87,
+    "shareOfClicks": 68.1
+  },
+  "nonBranded": {
+    "clicks": {
+      "current": 537,
+      "previous": 643
+    },
+    "impressions": {
+      "current": 49776,
+      "previous": 100851
+    },
+    "ctr": 1.08,
+    "shareOfClicks": 31.9
+  },
+  "wins": [
+    "Branded momentum accelerating — top branded queries up +10% (1,149 vs 1,045 captured clicks), with 'anzo capital' query alone up +34% (427 vs 319).",
+    "Homepage traffic surged +20% — 952 clicks vs 790 in May, strongest month for the main landing page.",
+    "my.anzocapital.com login portal recovered — 306 vs 301 clicks (+2%), erasing the −45% drop seen in April.",
+    "Malaysia growing strongly — 160 vs 120 clicks (+33%); emerging as key SEA target-market performer.",
+    "Kenya growing — 154 vs 126 clicks (+22%); consistent upward trend for Africa expansion.",
+    "CTR doubled to 3.1% vs 1.6% — traffic that does arrive is more targeted and higher intent."
+  ],
+  "concerns": [
+    "Impressions collapsed −49% — from 105K to 53.9K; the site lost half its organic visibility in one month.",
+    "Average position worsened from 10.2 to 15.9 — a 5.7-position drop signals broad ranking losses across key pages.",
+    "Non-branded visibility in steep decline — captured non-branded clicks fell from 101 to 58 (−43%); content pages losing ground.",
+    "Desktop impressions dropped −54% (40K vs 88K) — largest single contributor to the visibility collapse; requires urgent audit.",
+    "Nigeria declining slightly — 566 vs 584 clicks (−3%); flagship market showing early signs of softening.",
+    "Tablet engagement plummeting — 17 vs 31 clicks (−45%); not a priority segment but indicative of wider mobile/UX issues."
+  ],
+  "queries": [
+    {
+      "query": "anzo capital",
+      "clicks": 427,
+      "clicksPrev": 319,
+      "impressions": 934,
+      "ctr": 45.72,
+      "position": 1.31,
+      "positionPrev": 1.75
+    },
+    {
+      "query": "anzo capital limited",
+      "clicks": 257,
+      "clicksPrev": 199,
+      "impressions": 335,
+      "ctr": 76.72,
+      "position": 1.0,
+      "positionPrev": 1.0
+    },
+    {
+      "query": "anzo",
+      "clicks": 195,
+      "clicksPrev": 195,
+      "impressions": 2087,
+      "ctr": 9.34,
+      "position": 5.98,
+      "positionPrev": 6.27
+    },
+    {
+      "query": "anzo capital login",
+      "clicks": 178,
+      "clicksPrev": 222,
+      "impressions": 195,
+      "ctr": 91.28,
+      "position": 1.0,
+      "positionPrev": 1.0
+    },
+    {
+      "query": "anzocapital",
+      "clicks": 51,
+      "clicksPrev": 55,
+      "impressions": 94,
+      "ctr": 54.26,
+      "position": 1.0,
+      "positionPrev": 1.11
+    },
+    {
+      "query": "anzo capital global",
+      "clicks": 34,
+      "clicksPrev": 45,
+      "impressions": 145,
+      "ctr": 23.45,
+      "position": 1.05,
+      "positionPrev": 1.01
+    },
+    {
+      "query": "anzo app",
+      "clicks": 3,
+      "clicksPrev": 2,
+      "impressions": 48,
+      "ctr": 6.25,
+      "position": 4.81,
+      "positionPrev": 6.33
+    },
+    {
+      "query": "anzo capital review",
+      "clicks": 2,
+      "clicksPrev": 1,
+      "impressions": 67,
+      "ctr": 2.99,
+      "position": 14.01,
+      "positionPrev": 13.6
+    },
+    {
+      "query": "anzo.",
+      "clicks": 1,
+      "clicksPrev": 0,
+      "impressions": 6,
+      "ctr": 16.67,
+      "position": 6.83,
+      "positionPrev": 1.25
+    },
+    {
+      "query": "is anzo capital legit",
+      "clicks": 1,
+      "clicksPrev": 0,
+      "impressions": 4,
+      "ctr": 25.0,
+      "position": 2.25,
+      "positionPrev": 0.0
+    },
+    {
+      "query": "site:anzocapital.com",
+      "clicks": 0,
+      "clicksPrev": 0,
+      "impressions": 45,
+      "ctr": 0.0,
+      "position": 41.0,
+      "positionPrev": 96.41
+    },
+    {
+      "query": "anzocapital review",
+      "clicks": 0,
+      "clicksPrev": 0,
+      "impressions": 35,
+      "ctr": 0.0,
+      "position": 16.97,
+      "positionPrev": 10.32
+    },
+    {
+      "query": "site:www.anzocapital.com",
+      "clicks": 0,
+      "clicksPrev": 0,
+      "impressions": 24,
+      "ctr": 0.0,
+      "position": 1.0,
+      "positionPrev": 0.0
+    },
+    {
+      "query": "anzo bank",
+      "clicks": 0,
+      "clicksPrev": 0,
+      "impressions": 20,
+      "ctr": 0.0,
+      "position": 4.35,
+      "positionPrev": 0.0
+    },
+    {
+      "query": "anzo group",
+      "clicks": 0,
+      "clicksPrev": 0,
+      "impressions": 18,
+      "ctr": 0.0,
+      "position": 22.78,
+      "positionPrev": 12.3
+    },
+    {
+      "query": "anzo official website",
+      "clicks": 0,
+      "clicksPrev": 1,
+      "impressions": 14,
+      "ctr": 0.0,
+      "position": 5.5,
+      "positionPrev": 3.33
+    },
+    {
+      "query": "anzo capital official website",
+      "clicks": 0,
+      "clicksPrev": 0,
+      "impressions": 11,
+      "ctr": 0.0,
+      "position": 1.09,
+      "positionPrev": 1.0
+    },
+    {
+      "query": "anzo company",
+      "clicks": 0,
+      "clicksPrev": 0,
+      "impressions": 11,
+      "ctr": 0.0,
+      "position": 8.36,
+      "positionPrev": 6.18
+    },
+    {
+      "query": "sun anzo",
+      "clicks": 0,
+      "clicksPrev": 0,
+      "impressions": 10,
+      "ctr": 0.0,
+      "position": 7.8,
+      "positionPrev": 5.12
+    },
+    {
+      "query": "anzo marketing",
+      "clicks": 0,
+      "clicksPrev": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 15.0,
+      "positionPrev": 24.0
+    },
+    {
+      "query": "昂首资本",
+      "clicks": 14,
+      "clicksPrev": 17,
+      "impressions": 28,
+      "ctr": 50.0,
+      "position": 1.11,
+      "positionPrev": 1.0
+    },
+    {
+      "query": "set price alert on mt5 mobile",
+      "clicks": 10,
+      "clicksPrev": 8,
+      "impressions": 144,
+      "ctr": 6.94,
+      "position": 3.49,
+      "positionPrev": 3.71
+    },
+    {
+      "query": "enzo capital",
+      "clicks": 4,
+      "clicksPrev": 2,
+      "impressions": 48,
+      "ctr": 8.33,
+      "position": 4.04,
+      "positionPrev": 3.1
+    },
+    {
+      "query": "how to set price alert on mt5 mobile",
+      "clicks": 3,
+      "clicksPrev": 4,
+      "impressions": 69,
+      "ctr": 4.35,
+      "position": 3.51,
+      "positionPrev": 3.73
+    },
+    {
+      "query": "how to set alert on mt5 mobile",
+      "clicks": 3,
+      "clicksPrev": 1,
+      "impressions": 69,
+      "ctr": 4.35,
+      "position": 5.39,
+      "positionPrev": 5.81
+    },
+    {
+      "query": "how to set alerts in mt5 mobile",
+      "clicks": 3,
+      "clicksPrev": 1,
+      "impressions": 65,
+      "ctr": 4.62,
+      "position": 4.94,
+      "positionPrev": 5.48
+    },
+    {
+      "query": "how to set alerts on mt5 mobile",
+      "clicks": 3,
+      "clicksPrev": 0,
+      "impressions": 47,
+      "ctr": 6.38,
+      "position": 5.06,
+      "positionPrev": 6.14
+    },
+    {
+      "query": "how to set alert in mt5 mobile",
+      "clicks": 2,
+      "clicksPrev": 2,
+      "impressions": 51,
+      "ctr": 3.92,
+      "position": 5.67,
+      "positionPrev": 5.4
+    },
+    {
+      "query": "how to set alerts on mt5 iphone",
+      "clicks": 1,
+      "clicksPrev": 2,
+      "impressions": 99,
+      "ctr": 1.01,
+      "position": 5.98,
+      "positionPrev": 5.65
+    },
+    {
+      "query": "how to set alerts on mt5 android",
+      "clicks": 1,
+      "clicksPrev": 0,
+      "impressions": 64,
+      "ctr": 1.56,
+      "position": 4.48,
+      "positionPrev": 6.05
+    },
+    {
+      "query": "core cpi vs cpi",
+      "clicks": 1,
+      "clicksPrev": 0,
+      "impressions": 51,
+      "ctr": 1.96,
+      "position": 13.31,
+      "positionPrev": 14.94
+    },
+    {
+      "query": "how to set price alerts on mt5 mobile",
+      "clicks": 1,
+      "clicksPrev": 2,
+      "impressions": 50,
+      "ctr": 2.0,
+      "position": 4.24,
+      "positionPrev": 4.29
+    },
+    {
+      "query": "how to set alert in metatrader 5 mobile",
+      "clicks": 1,
+      "clicksPrev": 1,
+      "impressions": 35,
+      "ctr": 2.86,
+      "position": 6.63,
+      "positionPrev": 6.92
+    },
+    {
+      "query": "xauusd vs xagusd",
+      "clicks": 1,
+      "clicksPrev": 1,
+      "impressions": 34,
+      "ctr": 2.94,
+      "position": 9.15,
+      "positionPrev": 7.42
+    },
+    {
+      "query": "how to add alert on mt5 mobile",
+      "clicks": 1,
+      "clicksPrev": 0,
+      "impressions": 17,
+      "ctr": 5.88,
+      "position": 4.82,
+      "positionPrev": 4.5
+    }
+  ],
+  "pages": [
+    {
+      "page": "https://www.anzocapital.com/",
+      "clicks": 952,
+      "clicksPrev": 790,
+      "impressions": 5937,
+      "ctr": 16.04,
+      "position": 4.5
+    },
+    {
+      "page": "https://my.anzocapital.com/",
+      "clicks": 306,
+      "clicksPrev": 301,
+      "impressions": 3229,
+      "ctr": 9.48,
+      "position": 2.91
+    },
+    {
+      "page": "https://www.anzocapital.com/en/blog/how-to-set-price-alerts-on-mt5-mobile",
+      "clicks": 115,
+      "clicksPrev": 106,
+      "impressions": 9929,
+      "ctr": 1.16,
+      "position": 6.53
+    },
+    {
+      "page": "https://www.anzocapital.com/zh-Hant",
+      "clicks": 77,
+      "clicksPrev": 99,
+      "impressions": 299,
+      "ctr": 25.75,
+      "position": 1.95
+    },
+    {
+      "page": "https://www.anzocapital.com/zh-Hans",
+      "clicks": 56,
+      "clicksPrev": 67,
+      "impressions": 342,
+      "ctr": 16.37,
+      "position": 3.07
+    },
+    {
+      "page": "https://www.anzocapital.com/en/anzo-app",
+      "clicks": 15,
+      "clicksPrev": 11,
+      "impressions": 1555,
+      "ctr": 0.96,
+      "position": 4.39
+    },
+    {
+      "page": "https://www.anzocapital.com/en/contact-us",
+      "clicks": 12,
+      "clicksPrev": 7,
+      "impressions": 1410,
+      "ctr": 0.85,
+      "position": 2.3
+    },
+    {
+      "page": "https://www.anzocapital.com/en/accounts-overview",
+      "clicks": 10,
+      "clicksPrev": 14,
+      "impressions": 1948,
+      "ctr": 0.51,
+      "position": 2.59
+    },
+    {
+      "page": "https://www.anzocapital.com/en/anzo-suns-sponsorship",
+      "clicks": 8,
+      "clicksPrev": 0,
+      "impressions": 153,
+      "ctr": 5.23,
+      "position": 14.95
+    },
+    {
+      "page": "https://www.anzocapital.com/en/blog/best-mt4-mt5-indicators",
+      "clicks": 7,
+      "clicksPrev": 0,
+      "impressions": 299,
+      "ctr": 2.34,
+      "position": 31.56
+    },
+    {
+      "page": "https://www.anzocapital.com/zh-Hant/forex",
+      "clicks": 7,
+      "clicksPrev": 3,
+      "impressions": 225,
+      "ctr": 3.11,
+      "position": 2.41
+    },
+    {
+      "page": "https://www.anzocapital.com/en/indices",
+      "clicks": 7,
+      "clicksPrev": 3,
+      "impressions": 213,
+      "ctr": 3.29,
+      "position": 6.09
+    },
+    {
+      "page": "https://www.anzocapital.com/en/anzo-ai",
+      "clicks": 7,
+      "clicksPrev": 3,
+      "impressions": 53,
+      "ctr": 13.21,
+      "position": 8.26
+    },
+    {
+      "page": "http://www.anzocapital.com/",
+      "clicks": 6,
+      "clicksPrev": 4,
+      "impressions": 1216,
+      "ctr": 0.49,
+      "position": 5.83
+    },
+    {
+      "page": "https://my.anzocapital.com/login?language=zh-Hans",
+      "clicks": 6,
+      "clicksPrev": 4,
+      "impressions": 636,
+      "ctr": 0.94,
+      "position": 1.44
+    },
+    {
+      "page": "https://www.anzocapital.com/en/blog/mt4-mt5-alerts-automation-guide",
+      "clicks": 6,
+      "clicksPrev": 4,
+      "impressions": 476,
+      "ctr": 1.26,
+      "position": 15.24
+    },
+    {
+      "page": "https://www.anzocapital.com/zh-Hans/about-anzo",
+      "clicks": 6,
+      "clicksPrev": 4,
+      "impressions": 158,
+      "ctr": 3.8,
+      "position": 3.63
+    },
+    {
+      "page": "https://www.anzocapital.com/en/blog/xauusd-vs-xagusd",
+      "clicks": 5,
+      "clicksPrev": 2,
+      "impressions": 1799,
+      "ctr": 0.28,
+      "position": 11.48
+    },
+    {
+      "page": "https://www.anzocapital.com/en/about-anzo",
+      "clicks": 5,
+      "clicksPrev": 3,
+      "impressions": 998,
+      "ctr": 0.5,
+      "position": 2.82
+    },
+    {
+      "page": "https://my.anzocapital.com/register",
+      "clicks": 5,
+      "clicksPrev": 9,
+      "impressions": 975,
+      "ctr": 0.51,
+      "position": 2.06
+    }
+  ],
+  "countries": [
+    {
+      "country": "Nigeria",
+      "flag": "🇳🇬",
+      "clicks": 566,
+      "clicksPrev": 584,
+      "ctr": 21.09,
+      "position": 9.03
+    },
+    {
+      "country": "Malaysia",
+      "flag": "🇲🇾",
+      "clicks": 160,
+      "clicksPrev": 120,
+      "ctr": 10.47,
+      "position": 18.18
+    },
+    {
+      "country": "Kenya",
+      "flag": "🇰🇪",
+      "clicks": 154,
+      "clicksPrev": 126,
+      "ctr": 20.84,
+      "position": 5.08
+    },
+    {
+      "country": "Taiwan",
+      "flag": "🇹🇼",
+      "clicks": 126,
+      "clicksPrev": 121,
+      "ctr": 13.52,
+      "position": 18.53
+    },
+    {
+      "country": "United States",
+      "flag": "🇺🇸",
+      "clicks": 106,
+      "clicksPrev": 93,
+      "ctr": 0.68,
+      "position": 16.85
+    },
+    {
+      "country": "Philippines",
+      "flag": "🇵🇭",
+      "clicks": 69,
+      "clicksPrev": 59,
+      "ctr": 2.91,
+      "position": 16.33
+    },
+    {
+      "country": "Pakistan",
+      "flag": "🇵🇰",
+      "clicks": 55,
+      "clicksPrev": 14,
+      "ctr": 7.28,
+      "position": 13.52
+    },
+    {
+      "country": "Singapore",
+      "flag": "🇸🇬",
+      "clicks": 47,
+      "clicksPrev": 52,
+      "ctr": 5.84,
+      "position": 12.11
+    },
+    {
+      "country": "Hong Kong",
+      "flag": "🇭🇰",
+      "clicks": 40,
+      "clicksPrev": 53,
+      "ctr": 5.19,
+      "position": 20.48
+    },
+    {
+      "country": "Indonesia",
+      "flag": "🇮🇩",
+      "clicks": 37,
+      "clicksPrev": 35,
+      "ctr": 2.06,
+      "position": 17.69
+    },
+    {
+      "country": "India",
+      "flag": "🇮🇳",
+      "clicks": 36,
+      "clicksPrev": 47,
+      "ctr": 1.61,
+      "position": 10.23
+    },
+    {
+      "country": "United Kingdom",
+      "flag": "🇬🇧",
+      "clicks": 30,
+      "clicksPrev": 45,
+      "ctr": 0.88,
+      "position": 21.6
+    },
+    {
+      "country": "Australia",
+      "flag": "🇦🇺",
+      "clicks": 18,
+      "clicksPrev": 29,
+      "ctr": 1.15,
+      "position": 17.46
+    },
+    {
+      "country": "Japan",
+      "flag": "🇯🇵",
+      "clicks": 16,
+      "clicksPrev": 23,
+      "ctr": 4.36,
+      "position": 6.89
+    },
+    {
+      "country": "Iran",
+      "flag": "🌍",
+      "clicks": 15,
+      "clicksPrev": 5,
+      "ctr": 11.28,
+      "position": 5.74
+    },
+    {
+      "country": "Thailand",
+      "flag": "🇹🇭",
+      "clicks": 7,
+      "clicksPrev": 13,
+      "ctr": 2.05,
+      "position": 12.7
+    },
+    {
+      "country": "Vietnam",
+      "flag": "🇻🇳",
+      "clicks": 6,
+      "clicksPrev": 6,
+      "ctr": 0.42,
+      "position": 17.98
+    }
+  ],
+  "devices": [
+    {
+      "device": "Mobile",
+      "icon": "📱",
+      "clicks": 1115,
+      "clicksPrev": 1091,
+      "impressions": 13153,
+      "ctr": 8.48,
+      "position": 9.45
+    },
+    {
+      "device": "Desktop",
+      "icon": "💻",
+      "clicks": 554,
+      "clicksPrev": 566,
+      "impressions": 40504,
+      "ctr": 1.37,
+      "position": 18.03
+    },
+    {
+      "device": "Tablet",
+      "icon": "📟",
+      "clicks": 17,
+      "clicksPrev": 31,
+      "impressions": 241,
+      "ctr": 7.05,
+      "position": 15.77
+    }
+  ],
+  "cwv": {
+    "mobile": {
+      "lcp": {
+        "status": "poor",
+        "label": ">4.0s",
+        "urls": 261,
+        "good": 0,
+        "needs": 0,
+        "poor": 100,
+        "target": "<2.5s"
+      },
+      "inp": {
+        "status": "needs",
+        "label": "200–500ms",
+        "urls": 261,
+        "good": 0,
+        "needs": 100,
+        "poor": 0,
+        "target": "<200ms"
+      },
+      "cls": {
+        "status": "poor",
+        "label": ">0.25",
+        "urls": 8,
+        "good": 97,
+        "needs": 0,
+        "poor": 3,
+        "target": "<0.1"
+      }
+    },
+    "desktop": {
+      "lcp": {
+        "status": "needs",
+        "label": "2.5–4.0s",
+        "urls": 261,
+        "good": 0,
+        "needs": 97,
+        "poor": 3,
+        "target": "<2.5s"
+      },
+      "inp": {
+        "status": "good",
+        "label": "No issues",
+        "urls": 0,
+        "good": 100,
+        "needs": 0,
+        "poor": 0,
+        "target": "<200ms"
+      },
+      "cls": {
+        "status": "needs",
+        "label": "0.1–0.25",
+        "urls": 8,
+        "good": 97,
+        "needs": 3,
+        "poor": 0,
+        "target": "<0.1"
+      }
+    }
+  },
+  "coverage": {
+    "issues": [
+      {
+        "reason": "Duplicate without user-selected canonical",
+        "source": "Website",
+        "current": 778,
+        "previous": 778
+      },
+      {
+        "reason": "Crawled — currently not indexed",
+        "source": "Google systems",
+        "current": 1323,
+        "previous": 1323
+      },
+      {
+        "reason": "Excluded by 'noindex' tag",
+        "source": "Website",
+        "current": 148,
+        "previous": 148
+      },
+      {
+        "reason": "Server error (5xx)",
+        "source": "Website",
+        "current": 83,
+        "previous": 83
+      },
+      {
+        "reason": "Page with redirect",
+        "source": "Website",
+        "current": 56,
+        "previous": 56
+      },
+      {
+        "reason": "Soft 404",
+        "source": "Website",
+        "current": 8,
+        "previous": 8
+      },
+      {
+        "reason": "Not found (404)",
+        "source": "Website",
+        "current": 4,
+        "previous": 4
+      }
+    ],
+    "notIndexedTrend": [
+      {
+        "date": "Feb 11",
+        "value": 6633
+      },
+      {
+        "date": "Feb 18",
+        "value": 6398
+      },
+      {
+        "date": "Feb 25",
+        "value": 5985
+      },
+      {
+        "date": "Mar 4",
+        "value": 5862
+      },
+      {
+        "date": "Mar 11",
+        "value": 5620
+      },
+      {
+        "date": "Mar 18",
+        "value": 5300
+      },
+      {
+        "date": "Mar 25",
+        "value": 4825
+      },
+      {
+        "date": "Apr 1",
+        "value": 4414
+      },
+      {
+        "date": "Apr 8",
+        "value": 3560
+      },
+      {
+        "date": "Apr 15",
+        "value": 2977
+      },
+      {
+        "date": "Apr 22",
+        "value": 2552
+      }
+    ],
+    "richResults": [
+      {
+        "type": "FAQ Schema",
+        "validCurrent": 30,
+        "validPrevious": 30,
+        "issues": "None",
+        "status": "good"
+      },
+      {
+        "type": "Breadcrumbs",
+        "validCurrent": 31,
+        "validPrevious": 31,
+        "issues": "None",
+        "status": "good"
+      }
+    ],
+    "richResultsTrend": {
+      "labels": [
+        "Feb 4",
+        "Feb 11",
+        "Feb 18",
+        "Feb 25",
+        "Mar 4",
+        "Mar 11",
+        "Mar 18",
+        "Mar 25",
+        "Apr 1",
+        "Apr 8",
+        "Apr 15",
+        "Apr 22",
+        "Apr 29"
+      ],
+      "faq": [
+        1,
+        2,
+        2,
+        2,
+        5,
+        5,
+        5,
+        5,
+        4,
+        16,
+        26,
+        26,
+        25
+      ],
+      "breadcrumbs": [
+        1,
+        2,
+        2,
+        2,
+        5,
+        5,
+        5,
+        5,
+        4,
+        16,
+        27,
+        27,
+        26
+      ]
+    }
+  },
+  "opportunities": [
+    {
+      "page": "/en/blog/how-to-set-price-alerts-on-mt5-mobile",
+      "impressions": 9929,
+      "clicks": 115,
+      "ctr": 1.16,
+      "position": 6.53,
+      "opportunity": "Position 6.5 with 9.9K impressions — highest non-branded opportunity. Add How-To schema, optimise title for 'MT5 price alert' variations, embed video tutorial."
+    },
+    {
+      "page": "/en/blog/cfd-trading-strategies",
+      "impressions": 2883,
+      "clicks": 0,
+      "ctr": 0.0,
+      "position": 25.03,
+      "opportunity": "Zero clicks from 2.9K impressions at position 25 — content depth insufficient. Rewrite with structured sections, comparison tables, FAQ schema to move into top 10."
+    },
+    {
+      "page": "/en/blog/best-time-to-trade-gold-silver",
+      "impressions": 2817,
+      "clicks": 4,
+      "ctr": 0.14,
+      "position": 17.85,
+      "opportunity": "Position dropped from 5 to 18 vs April — content freshness issue. Refresh with 2026 gold market data, re-target 'best time to trade XAU' keyword variants."
+    },
+    {
+      "page": "/en/blog/bonus-vs-rebate-vs-cashback",
+      "impressions": 2121,
+      "clicks": 2,
+      "ctr": 0.09,
+      "position": 9.69,
+      "opportunity": "Position 9.7 with 2.1K impressions and near-zero CTR. Title tag needs rewrite with clear benefit hook; add comparison table and FAQ schema."
+    },
+    {
+      "page": "/en/accounts-overview",
+      "impressions": 1948,
+      "clicks": 10,
+      "ctr": 0.51,
+      "position": 2.59,
+      "opportunity": "Position 2.6 — very high but only 10 clicks from 1.9K impressions. Likely brand-name searchers finding wrong result. Improve meta description to drive higher CTR."
+    },
+    {
+      "page": "/en/blog/xauusd-vs-xagusd",
+      "impressions": 1799,
+      "clicks": 5,
+      "ctr": 0.28,
+      "position": 11.48,
+      "opportunity": "Commodities comparison page at position 11.5 with 1.8K impressions. Needs live spread data, chart embed, and internal links from homepage to move into top 5."
+    },
+    {
+      "page": "/en/anzo-app",
+      "impressions": 1555,
+      "clicks": 15,
+      "ctr": 0.96,
+      "position": 4.39,
+      "opportunity": "App page at position 4.4 with 1.6K impressions — CTR at 0.96% is low for near-top ranking. Rewrite title to highlight 'free download' and 'MT5 mobile'; add App schema."
+    },
+    {
+      "page": "/zh-Hans/market-analysis",
+      "impressions": 1477,
+      "clicks": 0,
+      "ctr": 0.0,
+      "position": 16.18,
+      "opportunity": "Chinese simplified market analysis page getting 1.5K impressions but zero clicks at position 16. Add fresh market commentary; optimise for Mandarin keyword variants."
+    },
+    {
+      "page": "/en/contact-us",
+      "impressions": 1410,
+      "clicks": 12,
+      "ctr": 0.85,
+      "position": 2.3,
+      "opportunity": "Contact page ranking in top 2.3 positions getting 1.4K impressions but low CTR — likely non-commercial intent traffic. Consider adding schema to clarify intent."
+    },
+    {
+      "page": "/en/blog/forex-trading-in-vietnam-beginners-guide",
+      "impressions": 1318,
+      "clicks": 1,
+      "ctr": 0.08,
+      "position": 9.46,
+      "opportunity": "Vietnam localisation opportunity: 1.3K impressions, only 1 click at position 9.5. Translate to Vietnamese (/vi/), add local broker regulations section."
+    }
+  ],
+  "actions": [
+    {
+      "priority": "urgent",
+      "action": "Investigate Impressions Collapse",
+      "detail": "Impressions fell −49% MoM (105K→54K). Check Google Search Console for manual actions, algorithm update impact (May 2026 core update), and which page groups lost visibility.",
+      "effort": "Medium",
+      "impact": "Identify root cause of visibility loss; recovery could restore 50K+ monthly impressions.",
+      "owner": "SEO"
+    },
+    {
+      "priority": "urgent",
+      "action": "Audit Desktop Ranking Losses",
+      "detail": "Desktop impressions fell −54%. Run site:anzocapital.com queries on desktop, compare ranking positions for top 20 pages vs April. Check for mobile-first indexing conflicts.",
+      "effort": "Medium",
+      "impact": "Desktop accounts for 33% of clicks — recovering desktop visibility is highest-leverage lever.",
+      "owner": "SEO/Dev"
+    },
+    {
+      "priority": "urgent",
+      "action": "Fix Mobile LCP (still critical)",
+      "detail": "261 URLs with poor LCP (>4s). Optimise hero/banner images (WebP, preload), defer non-critical CSS/JS. Still unresolved from April action plan.",
+      "effort": "High",
+      "impact": "CWV pass → ranking boost on mobile. 66% of clicks are mobile (1,115 of 1,686).",
+      "owner": "Dev/Perf"
+    },
+    {
+      "priority": "high",
+      "action": "Improve Non-Branded Content Rankings",
+      "detail": "Non-branded clicks down −43% from captured queries. Refresh /en/blog/best-time-to-trade-gold-silver (fell from pos 5→18); add FAQ schema to CFD strategies and bonus pages.",
+      "effort": "Medium",
+      "impact": "Non-branded is only 31.8% of clicks — closing gap to April's 39.8% = ~135 additional clicks/mo.",
+      "owner": "SEO/Content"
+    },
+    {
+      "priority": "high",
+      "action": "Resolve Duplicate Canonical Issues",
+      "detail": "778 pages still lack canonical tags (unchanged from April). Set self-referencing canonicals; audit hreflang vs canonical conflicts.",
+      "effort": "Medium",
+      "impact": "Reduce canonical confusion contributing to impression losses; improve crawl efficiency.",
+      "owner": "Dev/SEO"
+    },
+    {
+      "priority": "high",
+      "action": "Optimise MT5 Price Alerts Page",
+      "detail": "/en/blog/how-to-set-price-alerts-on-mt5-mobile has 9.9K impressions at pos 6.5. Add How-To schema, improve title for 'MT5 alert' variations, embed short video.",
+      "effort": "Low",
+      "impact": "+0.5pp CTR on 9.9K impressions = ~50 additional clicks/month from one page.",
+      "owner": "SEO/Content"
+    },
+    {
+      "priority": "medium",
+      "action": "Expand Malaysia & Kenya Content",
+      "detail": "Both markets growing (+33% and +22%). Create country-specific landing pages targeting local forex keywords (MY: 'broker malaysia'; KE: 'forex kenya regulated').",
+      "effort": "Medium",
+      "impact": "Accelerate growth in two fastest-growing target markets; reduce Nigeria over-concentration.",
+      "owner": "Content"
+    },
+    {
+      "priority": "medium",
+      "action": "Fix CFD Trading Strategies Page",
+      "detail": "/en/blog/cfd-trading-strategies: zero clicks from 2.9K impressions at position 25. Needs full rewrite, structured sections, comparison table, FAQ schema.",
+      "effort": "Medium",
+      "impact": "Position 25→top 10 is realistic with content depth; could generate 30–50 clicks/month.",
+      "owner": "Content"
+    },
+    {
+      "priority": "medium",
+      "action": "Address 1,323 Crawled-Not-Indexed Pages",
+      "detail": "Unchanged from April. Add noindex to truly thin/duplicate pages; improve internal linking for indexable content.",
+      "effort": "High",
+      "impact": "Recover crawl budget; increase indexed page count for non-branded keyword coverage.",
+      "owner": "SEO"
+    },
+    {
+      "priority": "low",
+      "action": "Localise Vietnam Content",
+      "detail": "Vietnam blog getting 1.3K impressions but only 1 click at pos 9.5 — dropped from April. Translate to /vi/; target local forex regulations search intent.",
+      "effort": "Medium",
+      "impact": "Vietnam has 76 clicks/month potential (April data) — currently underserved.",
+      "owner": "Content"
+    }
+  ]
+}
