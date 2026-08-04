@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "id": "2026-07-monthly",
+      "type": "monthly",
+      "label": "July 2026",
+      "year": 2026,
+      "month": 7,
+      "dateStart": "2026-07-01",
+      "dateEnd": "2026-07-31",
+      "comparePeriod": "June 2026",
+      "file": "reports/2026-07-monthly.json",
+      "generatedAt": "2026-08-04"
+    },
+    {
       "id": "2026-06-monthly",
       "type": "monthly",
       "label": "June 2026",
