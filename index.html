@@ -253,7 +253,7 @@ canvas{max-height:260px;max-width:100%}
 
 <!-- ─── NAV ─────────────────────────────────────────────────────── -->
 <nav>
-  <div class="nav-brand">SEO Reports</div>
+  <div class="nav-brand" onclick="showPicker()" style="cursor:pointer">SEO Reports</div>
   <div class="nav-links">
     <a href="#exec"          class="nav-link">Summary</a>
     <a href="#performance"   class="nav-link">Performance</a>
@@ -299,6 +299,13 @@ canvas{max-height:260px;max-width:100%}
 </div>
 
 <script>
+// ─── NAVIGATION ───────────────────────────────────────────────────
+function showPicker() {
+  document.getElementById('report-view').style.display = 'none';
+  document.getElementById('report-picker').style.display = '';
+  history.pushState(null, '', location.pathname);
+}
+
 // ─── BROKER ───────────────────────────────────────────────────────
 function setBroker(broker) {
   document.documentElement.setAttribute('data-broker', broker);
@@ -505,7 +512,6 @@ function renderHeader(d) {
         <span class="badge-pill" style="background:var(--alt);color:var(--muted)">Generated ${m.generatedAt}</span>
       </div>
     </div>
-    <div class="rh-logo">ANZO<span>.</span></div>
   </div>`;
 }
 
