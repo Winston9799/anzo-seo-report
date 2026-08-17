@@ -52,6 +52,14 @@
     "ctr": 1.22,
     "shareOfClicks": 30.0
   },
+  "nonBrandedShareHistory": [
+    {"period": "Feb 2026", "share": 42.0},
+    {"period": "Mar 2026", "share": 40.0},
+    {"period": "Apr 2026", "share": 39.8},
+    {"period": "May 2026", "share": 36.0},
+    {"period": "Jun 2026", "share": 31.5},
+    {"period": "Jul 2026", "share": 30.0}
+  ],
   "wins": [
     "Total clicks grew +3.8% — 1,750 vs 1,686 in June; first month of growth after flat May/June.",
     "Average position improved — 15.0 vs 15.9 (+0.9 positions); early signs of recovery from June's broad ranking drop.",

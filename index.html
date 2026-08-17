@@ -243,6 +243,62 @@ canvas{max-height:260px;max-width:100%}
   .card-value{font-size:28px}
 }
 
+/* ── SPLIT BAR ── */
+.split-section{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:14px}
+.split-lbl-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.split-lbl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.split-alert{font-size:11px;font-weight:700;background:var(--amber-light);color:var(--amber);padding:3px 10px;border-radius:20px;white-space:nowrap}
+.split-bar-wrap{height:26px;border-radius:13px;overflow:hidden;display:flex}
+.split-bar-b{background:var(--primary);display:flex;align-items:center;justify-content:flex-end;padding-right:10px}
+.split-bar-nb{background:var(--amber);display:flex;align-items:center;padding-left:10px}
+.split-bar-label{font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
+.split-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.split-col{padding:12px 16px;border-radius:10px}
+.split-col.branded{background:var(--primary-light);border-left:3px solid var(--primary)}
+.split-col.nonbranded{background:var(--amber-light);border-left:3px solid var(--amber)}
+.sc-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.sc-head.b{color:var(--primary)} .sc-head.nb{color:var(--amber)}
+.sc-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
+.sc-val{font-weight:700}
+.trend-arrow{font-size:11px;font-weight:600;margin-left:3px}
+
+/* ── QUERY HEALTH ── */
+.health-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
+.h-good{background:var(--green)} .h-warn{background:var(--amber)} .h-bad{background:var(--red)}
+.q-tag{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:5px}
+.tag-new{background:var(--green-light);color:var(--green)} .tag-drop{background:var(--red-light);color:var(--red)}
+.pos-up{color:var(--green);font-weight:600;font-size:12px} .pos-dn{color:var(--red);font-weight:600;font-size:12px}
+.health-badge{font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap}
+.hb-good{background:var(--green-light);color:var(--green)}
+.hb-warn{background:var(--amber-light);color:var(--amber)}
+.hb-bad{background:var(--red-light);color:var(--red)}
+.hb-new{background:#EBF0FF;color:#2255CC}
+
+/* ── REVIEW + OPPORTUNITY ── */
+.two-col{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.review-box{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;border-top:3px solid var(--red)}
+.review-header{padding:14px 18px 10px;border-bottom:1px solid var(--border)}
+.review-title{font-size:14px;font-weight:800;color:var(--red)}
+.review-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.opp-box{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.opp-title{font-size:14px;font-weight:800;margin-bottom:2px}
+.opp-metric{background:var(--bg);border-radius:10px;padding:12px 14px}
+.opp-big{font-size:22px;font-weight:800;color:var(--amber)}
+.opp-desc{font-size:12px;color:var(--muted);margin-top:2px}
+.opp-goal{font-size:12px;color:var(--green);font-weight:600;margin-top:4px}
+
+/* ── CONTENT TOPICS ── */
+.topic-row{display:flex;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);gap:12px}
+.topic-row:last-child{border-bottom:none}
+.topic-name{font-size:13px;font-weight:600;min-width:190px}
+.topic-bar-wrap{flex:1;height:8px;background:var(--alt);border-radius:4px;overflow:hidden}
+.topic-bar{height:8px;border-radius:4px;background:var(--amber)}
+.topic-stat{font-size:13px;font-weight:700;min-width:60px;text-align:right}
+.topic-impr-num{font-size:12px;color:var(--muted);min-width:80px;text-align:right}
+.topic-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.t-drop{background:var(--red-light);color:var(--red)} .t-stable{background:var(--green-light);color:var(--green)} .t-new{background:#EBF0FF;color:#2255CC}
+@media(max-width:640px){.split-cols{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.topic-name{min-width:120px}}
+
 /* ── BROKER SWITCHER ── */
 .broker-btn{padding:5px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:.15s;font-family:inherit;letter-spacing:.3px}
 .broker-btn:hover{border-color:var(--primary);color:var(--primary)}
@@ -519,26 +575,93 @@ function renderHeader(d) {
 function renderExec(d) {
   const k=d.kpis, b=d.branded, nb=d.nonBranded;
 
-  // Split queries into branded / non-branded
+  // Split queries
   const bQueries  = d.queries.filter(q=>isBranded(q.query)).sort((a,b)=>b.clicks-a.clicks).slice(0,8);
   const nbQueries = d.queries.filter(q=>!isBranded(q.query)).sort((a,b)=>b.impressions-a.impressions).slice(0,8);
+  const allNbQ    = d.queries.filter(q=>!isBranded(q.query));
+  const reviewQ   = d.queries.filter(q=>isBranded(q.query) && /review|legit|scam|uy tín|terpercaya|trusted/i.test(q.query)).sort((a,b)=>b.impressions-a.impressions);
 
-  const bRows = bQueries.map(q=>`<tr>
-    <td>${q.query} ${trendTag(q.clicks,q.clicksPrev)}</td>
-    <td class="r">${fmt(q.clicks)}</td>
-    <td class="r">${delta(q.clicks,q.clicksPrev)}</td>
-    <td class="r">${pct(q.ctr)}</td>
-    <td class="r">${pos(q.position)}</td>
-  </tr>`).join('');
+  // Health badge for branded queries
+  function bHealth(q) {
+    if (q.clicks===0 && q.impressions>10) return {label:'⚠ Investigate',cls:'hb-bad',dot:'h-bad'};
+    if (q.clicksPrev===0 && q.clicks>0)   return {label:'Emerging',cls:'hb-new',dot:'h-good'};
+    if (q.clicksPrev>0) {
+      const drop=(q.clicks-q.clicksPrev)/q.clicksPrev;
+      if (drop<-0.30) return {label:'⚠ Investigate',cls:'hb-bad',dot:'h-bad'};
+      if (drop<-0.15) return {label:'Watch',cls:'hb-warn',dot:'h-warn'};
+    }
+    return {label:'Stable',cls:'hb-good',dot:'h-good'};
+  }
 
+  // Position delta HTML
+  function posDelta(q) {
+    if (!q.positionPrev || q.positionPrev<=0) return '<span style="color:var(--muted)">New</span>';
+    const d=(q.positionPrev-q.position).toFixed(1);
+    if (parseFloat(d)>0.05)  return `<span class="pos-up">▲ ${d}</span>`;
+    if (parseFloat(d)<-0.05) return `<span class="pos-dn">▼ ${Math.abs(parseFloat(d).toFixed(1))}</span>`;
+    return '<span style="color:var(--muted)">—</span>';
+  }
+
+  // Branded table rows
+  const bRows = bQueries.map(q=>{
+    const h=bHealth(q);
+    const rowBg=h.cls==='hb-bad'?'background:#FFF8F8':'';
+    const dropTag=q.clicksPrev>0&&(q.clicks-q.clicksPrev)/q.clicksPrev<-0.25
+      ?`<span class="q-tag tag-drop">${Math.round((q.clicks-q.clicksPrev)/q.clicksPrev*100)}%</span>`:'';
+    const newTag=q.clicksPrev===0&&q.clicks>0?`<span class="q-tag tag-new">New</span>`:'';
+    return `<tr style="${rowBg}">
+      <td><span class="health-dot ${h.dot}"></span>${q.query}${dropTag}${newTag}</td>
+      <td class="r">${fmt(q.clicks)}</td>
+      <td class="r">${delta(q.clicks,q.clicksPrev)}</td>
+      <td class="r">${pct(q.ctr)}</td>
+      <td class="r">${pos(q.position)}</td>
+      <td class="r">${posDelta(q)}</td>
+      <td class="r"><span class="health-badge ${h.cls}">${h.label}</span></td>
+    </tr>`;
+  }).join('');
+
+  // Non-branded table rows
   const nbRows = nbQueries.map(q=>`<tr>
-    <td>${q.query} ${trendTag(q.impressions, null)}</td>
+    <td>${q.query}</td>
     <td class="r">${fmt(q.impressions)}</td>
     <td class="r">${fmt(q.clicks)}</td>
     <td class="r">${delta(q.clicks,q.clicksPrev)}</td>
     <td class="r">${pct(q.ctr)}</td>
     <td class="r">${pos(q.position)}</td>
+    <td class="r">${posDelta(q)}</td>
   </tr>`).join('');
+
+  // Review query rows
+  const reviewRows = reviewQ.length
+    ? reviewQ.map(q=>{
+        const gap=(q.position-5).toFixed(1);
+        const gapCls=parseFloat(gap)>0?'td-dn':'td-up';
+        return `<tr>
+          <td>${q.query}</td>
+          <td class="r">${fmt(q.impressions)}</td>
+          <td class="r">${fmt(q.clicks)}</td>
+          <td class="r">${pos(q.position)}</td>
+          <td class="r"><span class="${gapCls}">${parseFloat(gap)>0?'+'+gap:gap} spots</span></td>
+        </tr>`;
+      }).join('')
+    : `<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px 0">No review queries this period</td></tr>`;
+
+  // Content topic clusters
+  const mt5Q=allNbQ.filter(q=>/mt5|metatrader|price.?alert/i.test(q.query));
+  const eduQ=allNbQ.filter(q=>/cpi|rebate|bonus|spread/i.test(q.query));
+  const mt5C=mt5Q.reduce((s,q)=>s+q.clicks,0), mt5I=mt5Q.reduce((s,q)=>s+q.impressions,0);
+  const eduC=eduQ.reduce((s,q)=>s+q.clicks,0),  eduI=eduQ.reduce((s,q)=>s+q.impressions,0);
+  const maxI=Math.max(mt5I,eduI)||1;
+
+  // Recoverable clicks
+  const recoverableClicks=Math.max(0,Math.round(nb.impressions.current*0.03-nb.clicks.current));
+  const nbNonClickRate=(100-nb.ctr).toFixed(1);
+
+  // Share alert from history
+  const hist=d.nonBrandedShareHistory||[];
+  const shareAlert=hist.length>=2
+    ?`<span class="split-alert">⚠ Non-branded down ${(hist[0].share-hist[hist.length-1].share).toFixed(1)} pts since ${hist[0].period}</span>`
+    :'';
 
   return `
   <div class="sec" id="exec">
@@ -575,76 +698,120 @@ function renderExec(d) {
       </div>
     </div>
 
-    <div class="dual-grid">
-      <div class="dual-card branded">
-        <h3>Branded Traffic</h3>
-        <div class="dual-row"><span>Clicks</span><span class="dual-val">${fmt(b.clicks.current)}</span></div>
-        <div class="dual-row"><span>vs Prior Period</span><span class="dual-val">${fmt(b.clicks.previous)}</span></div>
-        <div class="dual-row"><span>Impressions</span><span class="dual-val">${fmt(b.impressions.current)}</span></div>
-        <div class="dual-row"><span>CTR</span><span class="dual-val">${pct(b.ctr)}</span></div>
-        <div class="dual-row"><span>Share of Clicks</span><span class="dual-val">${pct(b.shareOfClicks)}</span></div>
+    <!-- Split bar -->
+    <div class="split-section">
+      <div class="split-lbl-row">
+        <span class="split-lbl">Branded vs Non-Branded Click Share · ${d.meta.period}</span>
+        ${shareAlert}
       </div>
-      <div class="dual-card nonbranded">
-        <h3>Non-Branded Traffic</h3>
-        <div class="dual-row"><span>Clicks</span><span class="dual-val">${fmt(nb.clicks.current)}</span></div>
-        <div class="dual-row"><span>vs Prior Period</span><span class="dual-val">${fmt(nb.clicks.previous)}</span></div>
-        <div class="dual-row"><span>Impressions</span><span class="dual-val">${fmt(nb.impressions.current)}</span></div>
-        <div class="dual-row"><span>CTR</span><span class="dual-val">${pct(nb.ctr)}</span></div>
-        <div class="dual-row"><span>Share of Clicks</span><span class="dual-val">${pct(nb.shareOfClicks)}</span></div>
-      </div>
-    </div>
-
-    <div class="sub-hd">Branded vs Non-Branded Keyword Trends</div>
-    <div class="sub-sub">Keyword-level movement vs prior period — branded queries sorted by clicks, non-branded by impressions</div>
-
-    <div class="kw-pills-wrap">
-      <div class="kw-pill-row">
-        ${bQueries.slice(0,5).map(q=>`<span class="kw-pill kw-pill-red">${q.query}</span>`).join('')}
-      </div>
-      <div class="kw-pill-row">
-        ${nbQueries.slice(0,5).map(q=>`<span class="kw-pill kw-pill-amber">${q.query}</span>`).join('')}
-      </div>
-    </div>
-
-    <div class="trend-grid">
-      <div class="trend-card">
-        <div class="trend-card-header branded-hdr">
-          <h4>🔴 Branded Keywords</h4>
-          <p>Queries containing "anzo", brand variants · sorted by clicks</p>
+      <div class="split-bar-wrap">
+        <div class="split-bar-b" style="width:${b.shareOfClicks}%">
+          <span class="split-bar-label">Branded ${b.shareOfClicks}% · ${fmt(b.clicks.current)} clicks · CTR ${pct(b.ctr)}</span>
         </div>
-        <div class="tbl-scroll" style="border:none;border-radius:0">
-          <table>
-            <thead><tr><th>Keyword</th><th class="r">Clicks</th><th class="r">Δ Clicks</th><th class="r">CTR</th><th class="r">Position</th></tr></thead>
-            <tbody>${bRows||'<tr><td colspan="5" style="text-align:center;color:var(--muted)">No branded queries</td></tr>'}</tbody>
-          </table>
+        <div class="split-bar-nb" style="width:${nb.shareOfClicks}%">
+          <span class="split-bar-label">Non-Branded ${nb.shareOfClicks}% · ${fmt(nb.clicks.current)} clicks · CTR ${pct(nb.ctr)}</span>
         </div>
       </div>
-      <div class="trend-card">
-        <div class="trend-card-header nonbranded-hdr">
-          <h4>🟠 Non-Branded Keywords</h4>
-          <p>Generic / topic queries · sorted by impressions</p>
+      <div class="split-cols">
+        <div class="split-col branded">
+          <div class="sc-head b">Branded Traffic</div>
+          <div class="sc-row"><span>Clicks</span><span class="sc-val">${fmt(b.clicks.current)} <span class="trend-arrow ${b.clicks.current>=b.clicks.previous?'up':'down'}">${b.clicks.current>=b.clicks.previous?'▲':'▼'} ${Math.abs(Math.round((b.clicks.current-b.clicks.previous)/b.clicks.previous*100))}%</span></span></div>
+          <div class="sc-row"><span>Impressions</span><span class="sc-val">${fmt(b.impressions.current)}</span></div>
+          <div class="sc-row"><span>CTR</span><span class="sc-val">${pct(b.ctr)}</span></div>
+          <div class="sc-row"><span>Share of Clicks</span><span class="sc-val">${pct(b.shareOfClicks)}</span></div>
         </div>
-        <div class="tbl-scroll" style="border:none;border-radius:0">
-          <table>
-            <thead><tr><th>Keyword</th><th class="r">Impr</th><th class="r">Clicks</th><th class="r">Δ Clicks</th><th class="r">CTR</th><th class="r">Pos</th></tr></thead>
-            <tbody>${nbRows||'<tr><td colspan="6" style="text-align:center;color:var(--muted)">No non-branded queries</td></tr>'}</tbody>
-          </table>
+        <div class="split-col nonbranded">
+          <div class="sc-head nb">Non-Branded Traffic</div>
+          <div class="sc-row"><span>Clicks</span><span class="sc-val">${fmt(nb.clicks.current)} <span class="trend-arrow ${nb.clicks.current>=nb.clicks.previous?'up':'down'}">${nb.clicks.current>=nb.clicks.previous?'▲':'▼'} ${Math.abs(Math.round((nb.clicks.current-nb.clicks.previous)/nb.clicks.previous*100))}%</span></span></div>
+          <div class="sc-row"><span>Impressions</span><span class="sc-val">${fmt(nb.impressions.current)}</span></div>
+          <div class="sc-row"><span>CTR</span><span class="sc-val">${pct(nb.ctr)}</span></div>
+          <div class="sc-row"><span>Share of Clicks</span><span class="sc-val">${pct(nb.shareOfClicks)}</span></div>
         </div>
       </div>
     </div>
 
+    <!-- 6-month trend chart -->
     <div class="chart-wrap">
-      <div class="chart-title">Branded vs Non-Branded Clicks — Current vs Prior Period</div>
+      <div class="chart-title">Non-Branded Click Share — ${hist.length ? hist.length+'-Month' : ''} Trend</div>
+      <div style="font-size:12px;color:var(--muted);margin:-10px 0 14px">Falling trend = growing brand dependency · target 40%</div>
       <canvas id="brandedTrendChart"></canvas>
-      <div class="branded-legend">
-        <span class="bl-item"><span class="bl-swatch" style="background:#B22333"></span>Branded Current</span>
-        <span class="bl-item"><span class="bl-swatch" style="background:rgba(178,35,51,.32)"></span>Branded Prior</span>
-        <span class="bl-item"><span class="bl-swatch" style="background:#B26D23"></span>Non-Branded Current</span>
-        <span class="bl-item"><span class="bl-swatch" style="background:rgba(178,109,35,.32)"></span>Non-Branded Prior</span>
+      <div class="branded-legend" style="margin-top:10px">
+        <span class="bl-item"><span class="bl-swatch" style="background:var(--amber)"></span>Non-branded share (%)</span>
+        <span class="bl-item"><span class="bl-swatch" style="background:var(--green);opacity:.6"></span>Target 40%</span>
       </div>
     </div>
 
-    <div class="wc-grid">
+    <!-- Branded keywords -->
+    <div class="sub-hd mt20">Branded Keywords</div>
+    <div class="sub-sub">Queries containing brand name · sorted by clicks · Δ Pos = position change vs prior period</div>
+    <div class="tbl-scroll mt14">
+      <table>
+        <thead><tr><th>Keyword</th><th class="r">Clicks</th><th class="r">Δ Clicks</th><th class="r">CTR</th><th class="r">Position</th><th class="r">Δ Pos</th><th class="r">Health</th></tr></thead>
+        <tbody>${bRows||'<tr><td colspan="7" style="text-align:center;color:var(--muted)">No branded queries</td></tr>'}</tbody>
+      </table>
+    </div>
+
+    <!-- Non-branded keywords -->
+    <div class="sub-hd mt20">Non-Branded Keywords</div>
+    <div class="sub-sub">Generic / topic queries · sorted by impressions · Δ Pos = position change vs prior period</div>
+    <div class="tbl-scroll mt14">
+      <table>
+        <thead><tr><th>Keyword</th><th class="r">Impr</th><th class="r">Clicks</th><th class="r">Δ Clicks</th><th class="r">CTR</th><th class="r">Position</th><th class="r">Δ Pos</th></tr></thead>
+        <tbody>${nbRows||'<tr><td colspan="7" style="text-align:center;color:var(--muted)">No non-branded queries</td></tr>'}</tbody>
+      </table>
+    </div>
+
+    <!-- Review queries + Opportunity -->
+    <div class="two-col mt20">
+      <div class="review-box">
+        <div class="review-header">
+          <div class="review-title">Review &amp; Trust Queries</div>
+          <div class="review-sub">High-intent pre-conversion searches · Target: position ≤ 5</div>
+        </div>
+        <div class="tbl-scroll" style="border:none;border-radius:0">
+          <table>
+            <thead><tr><th>Query</th><th class="r">Impr</th><th class="r">Clicks</th><th class="r">Position</th><th class="r">Gap to Target</th></tr></thead>
+            <tbody>${reviewRows}</tbody>
+          </table>
+        </div>
+      </div>
+      <div class="opp-box">
+        <div class="opp-title">Non-Branded Opportunity</div>
+        <div class="opp-metric">
+          <div class="opp-big">+${recoverableClicks.toLocaleString()} clicks/mo</div>
+          <div class="opp-desc">Recoverable if non-branded CTR improves from ${pct(nb.ctr)} → 3%</div>
+          <div class="opp-goal">▲ Based on ${nb.impressions.current.toLocaleString()} current impressions</div>
+        </div>
+        <div class="opp-metric">
+          <div class="opp-big" style="color:var(--primary);font-size:18px">${nbNonClickRate}% don't click</div>
+          <div class="opp-desc">${nb.impressions.current.toLocaleString()} impressions — only ${nb.clicks.current.toLocaleString()} clicks captured</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Non-branded content clusters -->
+    ${(mt5I+eduI)>0?`
+    <div class="sub-hd mt20">Non-Branded Content by Topic</div>
+    <div class="sub-sub">Click and impression volume by content cluster · diversification health check</div>
+    <div class="trend-card mt14">
+      ${mt5I>0?`<div class="topic-row">
+        <div class="topic-name">MT5 Platform Content</div>
+        <div class="topic-bar-wrap"><div class="topic-bar" style="width:${Math.round(mt5I/maxI*100)}%"></div></div>
+        <div class="topic-stat">${mt5C} clicks</div>
+        <div class="topic-impr-num">${mt5I.toLocaleString()} impr</div>
+        <span class="topic-badge t-drop">▼ Declining</span>
+      </div>`:''}
+      ${eduI>0?`<div class="topic-row">
+        <div class="topic-name">Market Education</div>
+        <div class="topic-bar-wrap"><div class="topic-bar" style="width:${Math.round(eduI/maxI*100)}%"></div></div>
+        <div class="topic-stat">${eduC} clicks</div>
+        <div class="topic-impr-num">${eduI.toLocaleString()} impr</div>
+        <span class="topic-badge t-new">Opportunity</span>
+      </div>`:''}
+    </div>`:''}
+
+    <!-- Wins / Concerns -->
+    <div class="wc-grid mt20">
       <div class="wc-box wins">
         <h3>✓ Wins This Period</h3>
         <ul>${d.wins.map(w=>`<li>${boldWC(w)}</li>`).join('')}</ul>
@@ -1015,24 +1182,55 @@ function buildDeviceChart(d) {
 
 function buildBrandedTrendChart(d) {
   const el = document.getElementById('brandedTrendChart'); if(!el) return;
-  const b=d.branded, nb=d.nonBranded;
-  charts.brandedTrend = new Chart(el, {
-    type:'bar',
-    data:{
-      labels:['Branded Clicks','Non-Branded Clicks'],
-      datasets:[
-        {label:'Current Period', data:[b.clicks.current, nb.clicks.current], backgroundColor:['#B22333','#B26D23'], borderRadius:5},
-        {label:'Prior Period',   data:[b.clicks.previous,nb.clicks.previous], backgroundColor:['rgba(178,35,51,.3)','rgba(178,109,35,.3)'], borderRadius:5}
-      ]
-    },
-    options:{
-      plugins:{legend:{display:false}},
-      scales:{
-        y:{beginAtZero:true,grid:{color:'#EEE'},ticks:{callback:v=>v.toLocaleString()}},
-        x:{grid:{display:false}}
+  const hist = d.nonBrandedShareHistory||[];
+  if (hist.length) {
+    charts.brandedTrend = new Chart(el, {
+      type:'line',
+      data:{
+        labels: hist.map(h=>h.period),
+        datasets:[
+          {
+            label:'Non-Branded Share (%)',
+            data: hist.map(h=>h.share),
+            borderColor:'#B26D23',
+            backgroundColor:'rgba(178,109,35,.08)',
+            fill:true, tension:0.3,
+            pointRadius:5, pointBackgroundColor:'#B26D23',
+            pointBorderColor:'#fff', pointBorderWidth:2
+          },
+          {
+            label:'Target 40%',
+            data: hist.map(()=>40),
+            borderColor:'#1E6E3E', borderDash:[5,4],
+            borderWidth:1.5, pointRadius:0, fill:false
+          }
+        ]
+      },
+      options:{
+        plugins:{
+          legend:{display:false},
+          tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}%`}}
+        },
+        scales:{
+          y:{min:20,max:50,grid:{color:'#EEE'},ticks:{callback:v=>v+'%'}},
+          x:{grid:{display:false}}
+        }
       }
-    }
-  });
+    });
+  } else {
+    const b=d.branded, nb=d.nonBranded;
+    charts.brandedTrend = new Chart(el, {
+      type:'bar',
+      data:{
+        labels:['Branded Clicks','Non-Branded Clicks'],
+        datasets:[
+          {label:'Current', data:[b.clicks.current,nb.clicks.current], backgroundColor:['rgba(190,26,44,1)','#B26D23'], borderRadius:5},
+          {label:'Prior',   data:[b.clicks.previous,nb.clicks.previous], backgroundColor:['rgba(190,26,44,.3)','rgba(178,109,35,.3)'], borderRadius:5}
+        ]
+      },
+      options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'#EEE'},ticks:{callback:v=>v.toLocaleString()}},x:{grid:{display:false}}}}
+    });
+  }
 }
 
 // Country short display names and fallback flags
