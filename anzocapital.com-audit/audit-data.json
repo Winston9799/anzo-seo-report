@@ -1,0 +1,413 @@
+{
+  "summary": {
+    "health_score": 54,
+    "business_type": "Financial Services — Forex/CFD Broker (YMYL, hybrid SaaS-product + Publisher content model)",
+    "top_findings": [
+      "100% client-side rendering sitewide: raw (non-JS) HTML contains only the <title> tag on every template tested (homepage, blog, market-analysis, regulation, legal-documents, help-center) — 0 <a href> links, 0 visible body text. Non-JS-executing AI crawlers (GPTBot, ClaudeBot, PerplexityBot) and any SEO tool that doesn't render JS very likely see blank pages regardless of content quality.",
+      "robots.txt disallows /fr/, /zh-Hans/, /zh-Hant/ while the sitemap lists full URL sets for all three (102 of 322 URLs, 31.7%) and every page emits HTTP Link-header hreflang pointing at those same disallowed URLs — Google cannot crawl the pages it's told via hreflang/sitemap are valid language alternates.",
+      "Sitewide soft-404: any invalid URL returns HTTP 200 with full \"Oops! You're Off the Map\" page content, no noindex, no canonical — creating unbounded duplicate/thin-content and crawl-budget risk.",
+      "The /en/regulation trust page names FCA/ASIC/IFSC but discloses zero license numbers or regulator-register verification links, while third-party review sites already publish more specific detail — inverting the expected trust hierarchy for a YMYL brand's own regulatory disclosure page.",
+      "Structured data and E-E-A-T quality (schema, authorship) are inconsistently applied across otherwise-identical templates: some blog/market-analysis/help-center articles have full BlogPosting/AnalysisNewsArticle/FAQPage schema and named-adjacent authorship, sibling articles on the same template ship zero schema — this pattern likely spans a large share of the 110+ article-type URLs."
+    ],
+    "quick_wins": [
+      "Change the root→/en redirect hop from 307 to 301 (5-min config change)",
+      "Add explicit Allow rules for GPTBot/OAI-SearchBot/ClaudeBot/PerplexityBot to robots.txt to make the currently-implicit AI-crawler access explicit",
+      "Fix the Organization schema PostalAddress (SVG) vs sameAs Google Maps (London) location mismatch",
+      "Remove the deprecated Host: directive and clarify/remove the vague Disallow: /block rule",
+      "Generate sitemap lastmod from actual CMS updated_at timestamps instead of stamping today's date on all 322 URLs",
+      "Add a compact regulator badge + established-date trust strip above the fold on homepage and conversion pages (currently footer-only)"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 58,
+      "weight": "22%",
+      "what_works": [
+        "Valid, well-formed XML sitemap (322 URLs, ~62KB, no dupes, no host inconsistencies)",
+        "HTTPS enforced with HSTS (max-age=31536000; includeSubDomains)",
+        "Clean, descriptive, locale-prefixed URL structure with no query-string/session-ID artifacts",
+        "Correct responsive viewport meta tag sitewide",
+        "Self-referencing canonical tags present on all /en/* pages checked",
+        "Fast TTFB (135-244ms) — Cloudflare edge/origin compute is healthy"
+      ],
+      "findings": [
+        {
+          "title": "Sitewide zero body content / zero links in raw HTML (CSR-only rendering)",
+          "severity": "Critical",
+          "description": "Stripping all tags/scripts from the raw HTTP response (no JS execution) across homepage, blog, market-analysis, regulation, and legal-documents pages leaves only the <title> element (47-59 chars) — no hero copy, no article body, no navigation, and 0 <a href> links found in raw homepage HTML. Content only materializes after Playwright/JS execution. No <noscript> fallback exists.",
+          "recommendation": "Migrate blog/market-analysis/regulation/legal/help-center templates to SSR or static generation (Next.js supports this natively) so real content and internal links exist in the initial HTML response, with client hydration layered on top."
+        },
+        {
+          "title": "robots.txt / sitemap / hreflang contradiction on non-English locales",
+          "severity": "Critical",
+          "description": "robots.txt disallows /fr/, /zh-Hans/, /zh-Hant/ while the sitemap lists 102 URLs (31.7%) under those same paths and every page emits HTTP Link-header hreflang pointing at them. Google will exclude these from indexing ('Excluded by robots.txt') and cannot crawl them to read any on-page directive.",
+          "recommendation": "Pick one: either remove the three Disallow lines and let the locales be crawled, or strip their URLs from the sitemap/hreflang set and add noindex as a safety net if those markets are intentionally not ready."
+        },
+        {
+          "title": "Sitewide soft-404: invalid URLs return HTTP 200",
+          "severity": "Critical",
+          "description": "A nonexistent URL (/en/this-page-definitely-does-not-exist-xyz123) returns HTTP 200 with a full rendered 'not found' page, no noindex, no canonical, no X-Robots-Tag. Classic Next.js catch-all route not calling notFound().",
+          "recommendation": "Ensure the catch-all/locale route calls Next.js notFound() so unmatched paths return a true 404/410, and add noindex as defense-in-depth."
+        },
+        {
+          "title": "Missing CSP, X-Frame-Options, X-Content-Type-Options headers on a money-handling YMYL site",
+          "severity": "High",
+          "description": "No Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, or Permissions-Policy headers found on any page tested. Login/account pages are exposed to clickjacking risk; MIME-sniffing is unmitigated.",
+          "recommendation": "Add CSP with frame-ancestors, X-Frame-Options: DENY/SAMEORIGIN, and X-Content-Type-Options: nosniff at the CDN/app layer. Also disable the x-powered-by: Next.js header."
+        },
+        {
+          "title": "Help-center template (60+ pages) has zero structured data",
+          "severity": "High",
+          "description": "/en/help-center/account-types and other article-level help-center pages ship 0 JSON-LD blocks, inconsistent with the blog template which implements BlogPosting/FAQPage.",
+          "recommendation": "Apply QAPage + BreadcrumbList schema to the help-center article template (see schema.md for generated JSON-LD)."
+        },
+        {
+          "title": "Homepage redirect chain uses a temporary 307 on the locale-establishing hop",
+          "severity": "Medium",
+          "description": "anzocapital.com/ -> 301 -> www.anzocapital.com/ -> 307 -> www.anzocapital.com/en. The second hop should be permanent since /en is consistently the canonical target.",
+          "recommendation": "Change the root -> /en redirect from 307 to 301."
+        },
+        {
+          "title": "Overly aggressive cache-control on static/evergreen HTML documents",
+          "severity": "Medium",
+          "description": "Cache-Control: private, no-cache, no-store, max-age=0, must-revalidate is applied identically to every page including static legal/evergreen content, and Cloudflare confirms it is NOT caching the HTML (cf-cache-status: DYNAMIC). Forces full re-fetch on every navigation.",
+          "recommendation": "Allow conditional GET/304 (drop no-store) for marketing/blog/legal/help-center pages, or serve with s-maxage so Cloudflare can edge-cache them."
+        },
+        {
+          "title": "zh-Hans locale page missing canonical tag; inconsistent x-default hreflang handling",
+          "severity": "Medium",
+          "description": "The zh-Hans locale root has no rel=canonical at all. x-default hreflang is present on the homepage (pointing at the root, which itself 307-redirects) but omitted on subpages.",
+          "recommendation": "Add a self-referencing canonical to all locale pages; standardize x-default presence/target across all templates."
+        },
+        {
+          "title": "sitemap.xml lastmod is fabricated (identical value on all 322 URLs)",
+          "severity": "High",
+          "description": "Every sitemap entry carries lastmod=2026-08-17 (today, at generation time), which trains Google to discount the field as a recrawl-priority signal.",
+          "recommendation": "Generate lastmod from the CMS's actual updated_at field per page."
+        },
+        {
+          "title": "No IndexNow implementation",
+          "severity": "Info",
+          "description": "No IndexNow key-verification file found; the site has an active publishing cadence (dated market-analysis posts) that would benefit from near-real-time Bing/Yandex notification.",
+          "recommendation": "Implement IndexNow given the existing sitemap and clear publish cadence."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 52,
+      "weight": "23%",
+      "what_works": [
+        "Genuine content depth where sampled (2,898-word margin-call guide, sourced macro statistics, comparison tables, FAQ blocks) — not a thin-content site in the traditional sense",
+        "Risk disclaimers are present and reasonably thorough on regulation and article pages",
+        "Strong H2/H3 scannable structure on best-example articles (gold-vs-silver, forex-risk-management)"
+      ],
+      "findings": [
+        {
+          "title": "No named, credentialed authorship anywhere on financial-advice content",
+          "severity": "Critical",
+          "description": "Blog posts credit the Organization 'Anzo Capital' as author; market-analysis posts credit a pseudonymous 'Anzo Capital - Senior Market Analyst' Person with no real name, bio, or credentials.",
+          "recommendation": "Add real named authors with bio/credentials and a linked author page for all blog and market-analysis content."
+        },
+        {
+          "title": "/en/regulation under-discloses regulatory detail versus public record",
+          "severity": "Critical",
+          "description": "States broker is licensed by FCA/ASIC/IFSC with zero license numbers or verification links, while third-party review sites already publish more specific detail (FCA #739550, ASIC AFSL #362215).",
+          "recommendation": "Rewrite with named regulator + license number + direct register-verification link per entity; disclose which entity onboards which region."
+        },
+        {
+          "title": "Bonus-focused blog post reframes a leverage-increasing bonus as a risk-safety mechanism",
+          "severity": "High",
+          "description": "/en/blog/margin-call-guide is titled 'Survival Guide: Using Your 50% Bonus as a Safety Net,' inverting the neutral risk-first framing used by every ranking competitor (SEC, FINRA, Fidelity, Vanguard) for this query.",
+          "recommendation": "Lead with neutral, action-first margin-call guidance before any bonus content; move promotional framing to a clearly separate section. Flag for compliance review outside SEO scope."
+        },
+        {
+          "title": "Bonus/Promo content cluster (11 posts) has severe near-duplicate/cannibalizing content",
+          "severity": "High",
+          "description": "Three posts (claim-activate-50-percent-deposit-bonus, 50-percent-deposit-bonus-margin-power, 50-percent-bonus-equity-multipliers) all target the identical '50% deposit bonus' query and compete against each other in live search.",
+          "recommendation": "Consolidate to ~5-6 differentiated posts; 301-redirect the rest (see cluster.md for exact groupings)."
+        },
+        {
+          "title": "Content-operations inconsistency: best-in-class templates not consistently applied",
+          "severity": "Medium",
+          "description": "The strongest articles (gold-vs-silver, forex-risk-management, eur-usd-nfp market-analysis) have full schema and structure; sibling articles on identical templates (margin-call-guide, gold-forecast-ahead-of-us-cpi) ship zero structured data.",
+          "recommendation": "Investigate the CMS field/toggle likely causing inconsistent schema injection and backfill across the article library."
+        },
+        {
+          "title": "MT4/MT5 alerts cluster (5 posts) is a smaller-scale duplicate-intent pattern",
+          "severity": "Medium",
+          "description": "Five posts overlap heavily on 'how to set up/fix MT4/MT5 alerts.'",
+          "recommendation": "Consolidate to 2-3 posts per cluster.md recommendations."
+        },
+        {
+          "title": "Homepage prose is thin relative to the commercial queries its title tag targets",
+          "severity": "Medium",
+          "description": "386 words of body copy, mostly UI-chrome stat callouts rather than prose, on a page whose title targets broad terms like 'forex broker'.",
+          "recommendation": "Expand homepage prose depth or accept that the page will only capture branded search (see sxo.md page-type mismatch finding)."
+        },
+        {
+          "title": "Risk disclaimers are present but consistently buried at the bottom of long articles",
+          "severity": "Medium",
+          "description": "Unlike regulator sources (SEC/FINRA) that lead with warning-first framing, Anzo's disclaimers appear only after promotional/educational content.",
+          "recommendation": "Move risk disclaimers earlier, or add a summary risk callout near the top of leveraged-trading content."
+        },
+        {
+          "title": "FAQPage schema present on multiple templates — no current Google SERP benefit",
+          "severity": "Info",
+          "description": "Google retired FAQ rich results for all sites on 2026-05-07. Existing FAQPage blocks are syntactically valid and pose no error risk.",
+          "recommendation": "Do not add new FAQPage; use QAPage for genuine single-question content going forward (e.g. help-center). No urgent removal needed."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 48,
+      "weight": "20%",
+      "what_works": [
+        "Clean, descriptive URL slugs across all page types",
+        "Correctly self-referencing canonical tags on /en/* pages",
+        "ECN/account pages carry detailed, accurate FinancialProduct spec data (commission, leverage, margin call level)"
+      ],
+      "findings": [
+        {
+          "title": "Homepage, account pages, and regulation page are page-type-mismatched against what Google rewards for their target queries",
+          "severity": "Critical",
+          "description": "SXO analysis found Google's SERPs for 'best forex broker', 'ECN account forex', and 'is Anzo Capital regulated' are dominated (75-100%) by independent third-party comparison/review content, not single-broker promotional pages. Anzo's own /regulation page does not appear in the sample of top results for its own core trust query.",
+          "recommendation": "For the regulation/trust query specifically, prioritize the E-E-A-T fixes above (license numbers, verification links) since self-published trust pages structurally cannot outrank independent verification sites — the goal is winning branded search and satisfying due-diligence visitors who do reach the page, not out-ranking third-party reviewers."
+        },
+        {
+          "title": "ECN/account pages lack competitive differentiation (no named liquidity providers, no comparison table)",
+          "severity": "High",
+          "description": "Anzo's ECN page states '0.0 pips' as a marketing headline rather than an average with methodology, and never names a liquidity-provider tier or data-center/latency claim, unlike IC Markets and Pepperstone's equivalent pages.",
+          "recommendation": "Add a 'how our ECN execution works' section naming liquidity providers/infrastructure, plus a spec-comparison table vs. 2-3 named competitors."
+        },
+        {
+          "title": "No above-the-fold regulatory trust badge on homepage or conversion pages",
+          "severity": "High",
+          "description": "Regulator/license badge only appears in the footer nav; the single most important trust signal for a forex broker requires scrolling to find.",
+          "recommendation": "Add a compact regulator badge/seal with license number into the homepage hero stat row and account/ECN page heroes."
+        },
+        {
+          "title": "sitemap has no content-hub/category segmentation for 115+ blog/help-center/market-analysis posts",
+          "severity": "Medium",
+          "description": "All content-type URLs are flat with identical priority/changefreq per section; no cornerstone-vs-routine differentiation.",
+          "recommendation": "Consider a sitemap index split by content type once volume grows; ensure accurate per-post lastmod for the fast-moving market-analysis section."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 60,
+      "weight": "10%",
+      "what_works": [
+        "100% JSON-LD (no Microdata/RDFa), correct https://schema.org context, absolute URLs throughout",
+        "Homepage Organization/WebSite schema is rich and mostly well-formed with 7 sameAs profiles",
+        "Blog posts (where present) and account pages carry detailed, correctly-typed FinancialProduct/BlogPosting/BreadcrumbList schema",
+        "No deprecated schema types (HowTo) used anywhere"
+      ],
+      "findings": [
+        {
+          "title": "Zero JSON-LD on multiple sampled blog, market-analysis, and help-center article pages",
+          "severity": "Critical",
+          "description": "margin-call-guide, gold-forecast-ahead-of-us-cpi-20260713, and help-center/account-types all ship 0 schema blocks despite sibling pages on identical templates having full schema. Confirmed with both --mode auto and --mode always. Sitemap shows 81 blog + 28 market-analysis + 57 help-center URLs, so this likely spans a large share of content.",
+          "recommendation": "Investigate the CMS field/toggle causing inconsistent injection; backfill missing schema using the working sibling templates as the standard (see schema.md for generated JSON-LD examples)."
+        },
+        {
+          "title": "Organization PostalAddress (St. Vincent) conflicts with its own sameAs Google Maps link (London)",
+          "severity": "High",
+          "description": "Same @id node declares two geographically conflicting locations for a regulated financial entity.",
+          "recommendation": "Either add the London office as an explicit second location/department, or remove the mismatched Maps link if it doesn't represent the legal entity."
+        },
+        {
+          "title": "Same Organization @id inconsistently typed (Organization vs Corporation) across pages",
+          "severity": "Medium",
+          "description": "Homepage uses Organization; regulation/about/help-center/account pages use Corporation for the same @id.",
+          "recommendation": "Standardize on Organization sitewide for entity consolidation."
+        },
+        {
+          "title": "feesAndCommissionsSpecification populated with free text instead of required URL type",
+          "severity": "Medium",
+          "description": "FinancialProduct blocks on ECN/STP pages use this property incorrectly.",
+          "recommendation": "Point to a URL with the fee schedule, or drop in favor of the existing text-safe PropertyValue field."
+        },
+        {
+          "title": "ContactPoint contactType uses non-standard value 'customer support'",
+          "severity": "Medium",
+          "description": "Google's recognized values include 'customer service', not 'customer support'.",
+          "recommendation": "Switch to 'customer service'."
+        },
+        {
+          "title": "Generic untyped Thing node in market-analysis JSON-LD",
+          "severity": "Medium",
+          "description": "Found alongside AnalysisNewsArticle on eur-usd-nfp post; may be suppressing a more specific rich-result type.",
+          "recommendation": "Investigate via Rich Results Test whether this should be a specific type (e.g. FinancialProduct/MonetaryAmount)."
+        },
+        {
+          "title": "FAQPage used on several templates — no current SERP benefit",
+          "severity": "Info",
+          "description": "Google retired FAQ rich results for all sites 2026-05-07. Markup is valid, no error risk.",
+          "recommendation": "Do not remove urgently; use QAPage for new Q&A content (help-center)."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 45,
+      "weight": "10%",
+      "what_works": [
+        "TTFB strong across all pages tested (135-244ms) — Cloudflare edge/origin compute is not a bottleneck",
+        "DOM size reasonable (~440 elements), not a CLS/INP risk factor in itself",
+        "No console errors or render diagnostics flagged"
+      ],
+      "findings": [
+        {
+          "title": "Zero server-rendered above-fold content (LCP gated behind full JS hydration)",
+          "severity": "Critical",
+          "description": "No PSI/CrUX field data available this run (no API key configured, rate-limited). Lab signals: raw HTML body is an empty hidden Suspense boundary on all pages tested — 0 <img>, 0 <h1> pre-hydration. Render-time proxy varied 1.9s-4.2s across repeated runs on the homepage, indicating an unstable, hydration-heavy critical path.",
+          "recommendation": "Ship server-rendered (or static) above-fold hero content so LCP doesn't wait on full client hydration. This is the single biggest lever for LCP on this site."
+        },
+        {
+          "title": "24 distinct third-party scripts firing post-load, including duplicated tracking tags",
+          "severity": "High",
+          "description": "2x Microsoft Clarity + Hotjar (3 session-recording tools), 2x LinkedIn Insight Tag, 5 ad-pixel platforms (Google Ads, Bing, Meta, Twitter, Reddit, AdRoll), plus an eagerly-loaded (non-deferred) crypto-js.min.js from a third-party CDN.",
+          "recommendation": "Deduplicate Clarity and LinkedIn Insight Tag instances; lazy-load crypto-js only where needed; consolidate ad-pixel loading through GTM triggers to reduce main-thread contention (INP risk on first interaction)."
+        },
+        {
+          "title": "16 first-party JS chunks required for the initial homepage route",
+          "severity": "Medium",
+          "description": "Review code-splitting boundaries so below-fold/modal UI isn't part of the initial chunk graph.",
+          "recommendation": "Audit chunk graph; defer non-critical component bundles."
+        },
+        {
+          "title": "No PSI/CrUX field data obtainable this run",
+          "severity": "Info",
+          "description": "No GOOGLE_API_KEY configured; local Lighthouse CLI unavailable. All CWV figures in this audit are directional lab estimates, not certified metrics.",
+          "recommendation": "Configure a Google API key or run Lighthouse CLI before treating any CWV number here as binding for reporting."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 55,
+      "weight": "10%",
+      "what_works": [
+        "robots.txt does not block AI crawlers today — /en/ is explicitly allowed under the wildcard User-agent: * rule",
+        "Content is genuinely strong for GEO once rendered: clear definitional Q&A, comparison tables, sourced statistics, SpeakableSpecification markup on some market-analysis posts",
+        "Organization schema has solid sameAs coverage including YouTube (the single strongest AI-citation-correlated platform signal)"
+      ],
+      "findings": [
+        {
+          "title": "100% client-side rendering with no fallback is a severe technical barrier for non-Google AI crawlers",
+          "severity": "Critical",
+          "description": "GPTBot, ClaudeBot, and PerplexityBot generally do not execute JavaScript at crawl scale; pre-JS HTML is title-only on every sampled page. This likely suppresses citation eligibility across the entire content library regardless of content quality — estimated platform readiness: ChatGPT/OAI-SearchBot 30/100, Perplexity 30/100, Bing Copilot 45/100, Google AI Overviews 55/100 (Google renders JS, largely mitigating the issue for Google specifically).",
+          "recommendation": "Same fix as the technical/performance SSR recommendation — this is the single highest-leverage fix for AI answer-engine citation eligibility."
+        },
+        {
+          "title": "/en/regulation lacks the specific, extractable regulatory detail AI systems need before citing financial claims",
+          "severity": "High",
+          "description": "Uses vague, unnamed language ('esteemed financial governing bodies') with no regulator name, license number, or verification link in extractable text; its FAQPage schema covers generic account-opening questions, not the regulatory question a cautious AI system would need answered.",
+          "recommendation": "Rewrite as direct Q&A naming each regulator, license number, and a verification reference/link."
+        },
+        {
+          "title": "llms.txt returns a soft-404 (SPA not-found shell, not real content)",
+          "severity": "Low",
+          "description": "HTTP 200 but not actual llms.txt-formatted content. Per policy this convention is optional and ignored by Google Search.",
+          "recommendation": "Optional: add a real static /llms.txt listing cornerstone educational/regulatory pages."
+        },
+        {
+          "title": "No explicit AI-crawler Allow/Disallow rules in robots.txt",
+          "severity": "Low",
+          "description": "Everything currently falls through to the wildcard rule (which does allow /en/), but there's no way to differentiate AI-search crawlers from AI-training crawlers if the business ever wants to.",
+          "recommendation": "Add explicit Allow rules for GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot to make the current implicit-allow posture explicit and future-proof."
+        },
+        {
+          "title": "No video content despite an active YouTube channel linked in sameAs",
+          "severity": "Medium",
+          "description": "YouTube mentions are the single strongest AI-citation-correlated signal identified, but no VideoObject schema or embedded video was found on sampled article pages.",
+          "recommendation": "Embed relevant YouTube content into educational articles with proper VideoObject schema."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 65,
+      "weight": "5%",
+      "what_works": [
+        "Images render correctly and scale properly across all breakpoints tested (no broken grids or overflow observed)",
+        "Logo/ImageObject present in Organization schema"
+      ],
+      "findings": [
+        {
+          "title": "Image SEO was not independently audited this run (no dedicated seo-images subagent spawned)",
+          "severity": "Info",
+          "description": "Alt-text coverage, file-size optimization, and WebP/AVIF adoption were not directly assessed. Score is an estimate based on visual-audit observations only (images render correctly, no broken/oversized images visually apparent).",
+          "recommendation": "Run /seo images against key templates (homepage, blog, market-analysis) for a full alt-text and file-optimization pass."
+        },
+        {
+          "title": "Homepage hero uses busy P&L-mockup collage imagery that may read as 'get-rich-quick' marketing",
+          "severity": "Low",
+          "description": "Aggressive P&L/leverage stats layered behind the H1 (e.g. '3216.52% return') is a brand-trust nuance for a YMYL site, independent of technical image SEO.",
+          "recommendation": "Consider toning down leverage-focused imagery in favor of more regulated-broker-appropriate visuals; flagged for brand/compliance awareness, not a technical fix."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical Fixes",
+        "timeframe": "Week 1",
+        "items": [
+          "Fix robots.txt: resolve the Disallow conflict on /fr/, /zh-Hans/, /zh-Hant/ vs sitemap + hreflang (pick crawl-and-index or strip-and-noindex)",
+          "Fix sitewide soft-404: ensure the catch-all route calls Next.js notFound() for unmatched paths",
+          "Rewrite /en/regulation with named regulator(s), license number(s), and direct verification links per entity",
+          "Add named, credentialed authorship to blog and market-analysis content (start with highest-traffic articles)",
+          "Re-frame margin-call-guide (and audit similarly-framed posts) to lead with neutral risk guidance before bonus content; flag for compliance review"
+        ]
+      },
+      {
+        "name": "Phase 2: High-Impact Improvements",
+        "timeframe": "Weeks 2-4",
+        "items": [
+          "Begin SSR/SSG migration for blog, market-analysis, regulation, legal-documents, and help-center templates (architectural — engineering-owned, likely multi-sprint)",
+          "Add CSP, X-Frame-Options, X-Content-Type-Options headers sitewide",
+          "Backfill missing BlogPosting/AnalysisNewsArticle/QAPage schema on article pages currently shipping zero structured data",
+          "Deduplicate third-party scripts (2x Clarity, 2x LinkedIn Insight Tag); lazy-load crypto-js.min.js; consolidate ad-pixel loading via GTM triggers",
+          "Add above-the-fold regulator badge + trust strip to homepage and account/ECN conversion pages",
+          "Fix Organization schema PostalAddress vs sameAs Google Maps location mismatch",
+          "Consolidate the 11-post Bonus/Promo content cluster to ~5-6 posts (301 the rest)"
+        ]
+      },
+      {
+        "name": "Phase 3: Content & Authority",
+        "timeframe": "Month 2",
+        "items": [
+          "Build hub/pillar pages for the top 4 content clusters (Gold/Metals, Macro/Central-Bank, MT4/MT5, Bonus/Promo) with mandatory spoke-pillar internal linking",
+          "Consolidate MT4/MT5 alerts cluster (5 posts) to 2-3 posts",
+          "Add ECN/account-page competitive differentiation: named liquidity providers, comparison table vs. 2-3 named competitors",
+          "Standardize Organization @type (Organization vs Corporation) across all pages",
+          "Generate sitemap lastmod from actual CMS updated_at values instead of build-time stamping",
+          "Embed existing YouTube content into educational articles with VideoObject schema",
+          "Add a Moz API key to unlock backlink DA/PA/spam-score/referring-domain analysis (free tier, 2,500 rows/month)",
+          "Run a dedicated /seo images pass for alt-text and file-optimization coverage"
+        ]
+      },
+      {
+        "name": "Phase 4: Monitoring & Iteration",
+        "timeframe": "Ongoing",
+        "items": [
+          "Configure a Google API key (PSI v5 + CrUX) or working Lighthouse CLI to replace lab-estimate CWV figures with certified field/lab data",
+          "Implement IndexNow given the active publishing cadence",
+          "Re-run this audit's SXO and GEO analyses after the SSR migration ships to confirm the fix resolved AI-crawler and CWV impact",
+          "Establish a content-ops check (CMS field/QA step) to prevent schema/authorship coverage from silently regressing on new articles",
+          "Capture a drift baseline (/seo drift baseline) now that this audit is complete, to track regressions on future deploys"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}
